@@ -219,6 +219,13 @@ void DefaultTrigger(trigger_t *trig,int x,int y)
 			trig->value=BLT_HAMMER;
 			trig->value2=0;
 			break;
+		case TRG_TIMER:
+			trig->value=0;
+			break;
+		case TRG_HURT:
+			trig->value=MONS_BOUAPHA;
+			trig->x=255;
+			break;
 	}
 }
 
@@ -356,6 +363,8 @@ void DefaultEffect(effect_t *eff,int x,int y,byte savetext)
 			eff->value2=BLT_HAMMER;
 			eff->x=255;
 			break;
+		case EFF_CHANGETIMER:
+			eff->value=0;
 		default:
 			break;
 	}
@@ -709,6 +718,18 @@ void EventOccur(byte type,int value,int x,int y,Guy *victim)
 	nextEvent++;
 }
 
+byte CheckTimer(int seconds,byte flags)
+{
+	if(player.timer==seconds)
+		return 1;
+	else if((flags&TF_LESS) && player.timer<seconds)
+		return 1;
+	else if((flags&TF_MORE) && player.timer>seconds)
+		return 1;
+	else
+		return 0;
+}
+
 byte CheckForItem(byte item,int count,byte flags)
 {
 	int amt;
@@ -747,6 +768,12 @@ byte CheckForItem(byte item,int count,byte flags)
 			break;
 		case IE_BKEY:	// blue keys
 			amt=player.keys[3];
+			break;
+		case IE_WKEY:	// white keys
+			amt=player.keys[4];
+			break;
+		case IE_BLKEY:	// black keys
+			amt=player.keys[5];
 			break;
 		case IE_LOONYKEY:
 			if(count<2 && (flags&(TF_LESS|TF_MORE))==0)
@@ -1353,6 +1380,12 @@ byte TriggerYes(special_t *me,trigger_t *t,Map *map)
 			else
 				answer=0;
 			break;
+		case TRG_TIMER:
+			answer=CheckTimer(t->value,t->flags);
+			break;
+		case TRG_HURT:
+			answer=CheckMonsterOuch(t->x,t->y,t->value,t->flags);
+			break;
 	}
 
 	if(t->flags&TF_NOT)
@@ -1445,6 +1478,9 @@ void SpecialEffect(special_t *me,Map *map)
 					else
 					{
 						SendMessageToGame(MSG_WINLEVEL,me->effect[i].value);
+						if(player.playAs==PLAY_LOONY||player.playAs==PLAY_LUNACHIK)
+						MakeNormalSound(SND_WINKM);
+						else
 						MakeNormalSound(SND_WINLEVEL);
 					}
 					if(me->effect[i].x==255)
@@ -1456,11 +1492,21 @@ void SpecialEffect(special_t *me,Map *map)
 					return;	// to avoid doing anything more or using up any uses
 				break;
 			case EFF_GOTOMAP:
-				MakeNormalSound(SND_GOTOMAP);
 				if(me->effect[i].x==255)
 					SetPlayerStart(-1,-1);
 				else
 					SetPlayerStart(me->effect[i].x,me->effect[i].y);
+				if(editing)
+				{
+					if (EditorGetWorld()->map[me->effect[i].value]->flags&MAP_SECRET)
+					MakeNormalSound(SND_SEKRIT);
+					else
+					MakeNormalSound(SND_GOTOMAP);
+				}
+				else
+				{
+					MakeNormalSound(SND_GOTOMAP);
+				}
 				SendMessageToGame(MSG_GOTOMAP,me->effect[i].value);
 				break;
 			case EFF_TELEPORT:
@@ -1752,6 +1798,9 @@ void SpecialEffect(special_t *me,Map *map)
 				break;
 			case EFF_CHANGEBULLET:
 				ChangeBullet(!(me->effect[i].flags&EF_NOFX),me->effect[i].x,me->effect[i].y,me->effect[i].value,me->effect[i].value2);
+				break;
+			case EFF_CHANGETIMER:
+				player.timer += me->effect[i].value;
 				break;
 		}
 	}
@@ -2153,6 +2202,8 @@ void AdjustSpecialEffectCoords(special_t *me,int dx,int dy)
 					me->effect[i].x+=dx;
 					me->effect[i].y+=dy;
 				}
+				break;
+			case EFF_CHANGETIMER:
 				break;
 		}
 	}

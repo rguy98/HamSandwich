@@ -22,9 +22,10 @@ char cheatName[NUM_CHEATS][16]={
 	"No-Skid Boots",
 	"Super Speed",
 	"Max. Rage",
+	"All Candles",
 };
 
-#define NUM_TYPE_CHEATS	2
+#define NUM_TYPE_CHEATS	3
 
 char cheatCode[NUM_TYPE_CHEATS][12]={
 #ifdef IGF
@@ -33,6 +34,7 @@ char cheatCode[NUM_TYPE_CHEATS][12]={
 #else
 	"scummypunk",	// get all cheats
 	"leartiste",	// get the editor
+	"fuck",	// get everything
 #endif
 };
 
@@ -109,6 +111,23 @@ void CheatKey(char c)
 					profile.progress.purchase[ShopItemNumber(SHOP_MAJOR,MAJOR_EDITOR)]&=(~SIF_AVAILABLE);
 					NewBigMessage("THE EDITOR IS YOURS!",60);
 					break;
+				case 2:	// ALL
+					for(j=0;j<256;j++)
+					{
+						profile.progress.purchase[j]|=SIF_BOUGHT;
+						profile.progress.purchase[j]&=(~SIF_AVAILABLE);
+					}
+					profile.progress.purchase[ShopItemNumber(SHOP_DONATION,0)]=7;
+					for(j=0;j<NUM_PROFILE_MONSTERS;j++)
+						profile.progress.scanned[j]=1;
+					for(j=0;j<100;j++)
+						profile.progress.goal[j]=1;
+					for(j=0;j<20;j++)
+						profile.progress.movie[j]=1;
+					NewBigMessage("IGF SUPREME!",60);
+					SetupShops(curMap);
+					SetupGalPix(curMap);
+					break;
 			}
 #endif
 
@@ -178,6 +197,8 @@ void DoCheat(byte w)
 			player.keys[1]=1;
 			player.keys[2]=1;
 			player.keys[3]=1;
+			player.keys[4]=1;
+			player.keys[5]=1;
 			MakeNormalSound(SND_GETKEY);
 			NewMessage("I am the keymaster!",30,0);
 			break;
@@ -216,6 +237,11 @@ void DoCheat(byte w)
 		case CHEAT_RAGE:
 			player.rage=127*256;
 			MakeNormalSound(SND_RAGE);
+			break;
+		case CHEAT_CANDLES:
+			player.candles=curMap->numCandles;
+			SetPlayerGlow(128);
+			MakeNormalSound(SND_ALLCANDLE);
 			break;
 	}
 }

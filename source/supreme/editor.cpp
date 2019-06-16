@@ -88,6 +88,12 @@ byte InitEditor(void)
 	strcpy(MonsterName(MONS_PATROLUD),"Patrol Mumble Vert.");
 	strcpy(MonsterName(MONS_DPATROLLR),"Death Patrol Horiz.");
 	strcpy(MonsterName(MONS_DPATROLUD),"Death Patrol Vert.");
+	strcpy(MonsterName(MONS_TURRETR),"Laser:Right");
+	strcpy(MonsterName(MONS_TURRETD),"Laser:Down");
+	strcpy(MonsterName(MONS_TURRETL),"Laser:Left");
+	strcpy(MonsterName(MONS_TURRETU),"Laser:Up");
+	strcpy(MonsterName(MONS_PEEPBOMB),"Peeping Bomb:Clockwise");
+	strcpy(MonsterName(MONS_PEEPBOMB2),"Peeping Bomb:CounterClockwise");
 
 	for(i=MONS_SUCKER1;i<=MONS_BLOWER4;i++)
 	{
@@ -148,6 +154,12 @@ void ExitEditor(void)
 	strcpy(MonsterName(MONS_PATROLUD),"Patrol Mumble");
 	strcpy(MonsterName(MONS_DPATROLLR),"Death Patrol");
 	strcpy(MonsterName(MONS_DPATROLUD),"Death Patrol");
+	strcpy(MonsterName(MONS_TURRETR),"Laser");
+	strcpy(MonsterName(MONS_TURRETD),"Laser");
+	strcpy(MonsterName(MONS_TURRETL),"Laser");
+	strcpy(MonsterName(MONS_TURRETU),"Laser");
+	strcpy(MonsterName(MONS_PEEPBOMB),"Peeping Bomb");
+	strcpy(MonsterName(MONS_PEEPBOMB2),"Peeping Bomb");
 
 	for(i=MONS_SUCKER1;i<=MONS_BLOWER4;i++)
 	{

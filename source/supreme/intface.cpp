@@ -13,20 +13,29 @@
 #define SPR_POWERUP		7
 #define SPR_OXYGAUGE	8
 #define SPR_ENEMYLIFE	11
-#define SPR_COINBOX		62
 #define SPR_WPNNAME		22
-#define SPR_LOONYKEY	50
-#define SPR_CANDLE		51
-#define SPR_KEYCH		52
-#define SPR_BRAIN		56
-#define SPR_VARBAR		64
+#define SPR_CANDLE		SPR_WPNNAME+MAX_WEAPONS-1+9
+#define SPR_LOONYKEY	SPR_CANDLE-1
+#define SPR_KEYCH		SPR_CANDLE+1
+#define SPR_BRAIN		SPR_KEYCH+4
+#define SPR_RAGE		SPR_BRAIN+1
+#define SPR_COINBOX		SPR_RAGE+5
+#define SPR_VARBAR		SPR_COINBOX+2
+
+#define SPR_KEYS		SPR_WPNNAME+MAX_WEAPONS-1
+#define SPR_HAMMER		SPR_KEYS+4
+#define SPR_KEYS2		SPR_VARBAR+1
+#define SPR_CANDLOMETER	SPR_KEYS2+2
+#define SPR_TIMER		SPR_CANDLOMETER+1
+#define SPR_BOSS		SPR_TIMER+2
+#define SPR_LIFE_EXT	SPR_BOSS+1
+#define SPR_VARNUM	SPR_LIFE_EXT+2
 
 #define SPR_IFHAMMER	1
 #define SPR_MINIGAUGE	2
 #define SPR_NUMBERS		12
 #define SPR_WEAPONS		13
 #define SPR_KEYRING		29
-#define SPR_RAGE		57
 
 #define KEYRINGX		40
 #define KEYRINGY		38
@@ -56,7 +65,10 @@ Guy *monster;
 #define INTF_HAMMERS 9
 #define INTF_ENEMY	10
 #define INTF_COINS	11
-#define NUM_INTF	12
+#define INTF_CANDLES 12
+#define INTF_TIMER 13
+#define INTF_VARNUM 14
+#define NUM_INTF	15
 
 #define IV_NONE		0
 #define IV_BIGMETER	1
@@ -150,6 +162,24 @@ intface_t defaultSetup[NUM_INTF]={
 	 SPR_COINBOX,
 	 IV_NUMBER,2,
 	 -18,-14,
+	 0,0,
+	 0},
+	{639,-102,639,25+4,	// candle
+	 SPR_CANDLOMETER,
+	 IV_VERTMETER,64,
+	 -16,4,
+	 0,50,
+	 0},
+	{320,500,320,463,	// timer
+	 SPR_TIMER,
+	 IV_NUMBER,3,
+	 -2,-14,
+	 0,0,
+	 0},
+	{320,517,320,480,	// var 0
+	 SPR_VARNUM,
+	 IV_NUMBER,4,
+	 -6,-14,
 	 0,0,
 	 0},
 };
@@ -524,33 +554,53 @@ void DrawPULightning(int x,int y,int height,byte color,MGLDraw *mgl)
 
 void DrawPowerupBar(int x,int y,MGLDraw *mgl)
 {
-	byte height[7],th;
-	byte color[7],tc;
+	byte height[11],th;
+	byte color[11],tc;
 	int i,swap;
 
 	height[0]=player.shield*64/240;
 	color[0]=32*3+16;	// blue for shield
-	height[1]=player.garlic*64/255;
-	color[1]=32*0+20;	// light grey for garlic
-	height[2]=player.speed*64/255;
-	color[2]=32*7+16;	// aqua for speed
-	height[3]=player.invisibility*64/255;
-	color[3]=32*6+16;	// purple for invis
-	height[4]=player.ammoCrate*64/255;
-	color[4]=32*4+16;	// red for ammo
+	height[1]=player.speed*64/255;
+	color[1]=32*7+20;	// light aqua for speed
+	height[2]=player.invisibility*64/255;
+	color[2]=32*6+16;	// purple for invis
+	height[3]=player.ammoCrate*64/255;
+	color[3]=32*(player.clock/16&7)+20;	// rainbow for ammo!
 	if(goodguy)
-		height[5]=goodguy->poison*64/255;
+		height[4]=goodguy->poison*64/255;
 	else
-		height[5]=0;
-	color[5]=32*1+16;	// green for poison
-	height[6]=player.cheesePower*64/255;
-	color[6]=32*5+16;	// yellow for cheese
+		height[4]=0;
+	color[4]=32*1+16;	// green for poison
+	height[5]=player.cheesePower*64/255;
+	color[5]=32*5+16;	// yellow for cheese
+	height[6]=player.garlic*64/255;
+	color[6]=32*0+20;	// light grey for garlic
+	if(goodguy)
+	{
+		height[7]=goodguy->ignited*64/255;
+		height[8]=goodguy->weak*64/255;
+		height[9]=goodguy->strong*64/255;
+		height[10]=goodguy->frozen*64/255;
+	}
+	else
+	{
+		height[7]=0;
+		height[8]=0;
+		height[9]=0;
+		height[10]=0;
+	}
+	color[7]=32*4+12;	// dark red for burning
+	color[8]=32*4+20;	// light red for weakness
+	color[9]=32*0+12;	// dark grey for steelskin
+	color[10]=32*7+16;	// aqua for frozen
+	//dark red for weakness (lower defense)
+	//dark grey for strength (higher defense)
 
 	swap=1;
 	while(swap)
 	{
 		swap=0;
-		for(i=0;i<6;i++)
+		for(i=0;i<10;i++)
 		{
 			if(height[i]<height[i+1])
 			{
@@ -565,7 +615,7 @@ void DrawPowerupBar(int x,int y,MGLDraw *mgl)
 		}
 	}
 
-	for(i=0;i<6;i++)
+	for(i=0;i<10;i++)
 	{
 		if(height[i]>0)
 		{
@@ -579,14 +629,18 @@ void DrawKeys(int x,int y,MGLDraw *mgl)
 	int i;
 
 	for(i=0;i<player.keys[0];i++)
-		intfaceSpr->GetSprite(42)->Draw(x+i*10,y,mgl);
+		intfaceSpr->GetSprite(SPR_KEYS)->Draw(x+i*10,y,mgl);
 
 	if(player.keys[1])
-		intfaceSpr->GetSprite(43)->Draw(x,y+6,mgl);
+		intfaceSpr->GetSprite(SPR_KEYS+1)->Draw(x,y+6,mgl);
 	if(player.keys[2])
-		intfaceSpr->GetSprite(45)->Draw(x+10,y+6,mgl);
+		intfaceSpr->GetSprite(SPR_KEYS+3)->Draw(x+10,y+6,mgl);
 	if(player.keys[3])
-		intfaceSpr->GetSprite(44)->Draw(x+20,y+6,mgl);
+		intfaceSpr->GetSprite(SPR_KEYS+2)->Draw(x+20,y+6,mgl);
+	if(player.keys[4])
+		intfaceSpr->GetSprite(SPR_KEYS2)->Draw(x+30,y,mgl);
+	if(player.keys[5])
+		intfaceSpr->GetSprite(SPR_KEYS2+1)->Draw(x+30,y+6,mgl);
 }
 
 void DrawHammers(int x,int y,MGLDraw *mgl)
@@ -594,16 +648,16 @@ void DrawHammers(int x,int y,MGLDraw *mgl)
 	int i,p;
 
 	for(i=0;i<player.hammers;i++)
-		intfaceSpr->GetSprite(46)->Draw(x,y+i*6,mgl);
+		intfaceSpr->GetSprite(SPR_HAMMER)->Draw(x,y+i*6,mgl);
 
-	p=(16-player.hamSpeed)/4;
+	p=(20-player.hamSpeed)/4;
 	for(i=0;i<p;i++)
-		intfaceSpr->GetSprite(47)->Draw(x,y+i*8,mgl);
+		intfaceSpr->GetSprite(SPR_HAMMER+1)->Draw(x,y+i*6,mgl);
 
 	if(player.hammerFlags&HMR_REFLECT)
-		intfaceSpr->GetSprite(48)->Draw(x,y,mgl);
+		intfaceSpr->GetSprite(SPR_HAMMER+2)->Draw(x,y,mgl);
 	if(player.hammerFlags&HMR_REVERSE)
-		intfaceSpr->GetSprite(49)->Draw(x,y,mgl);
+		intfaceSpr->GetSprite(SPR_HAMMER+3)->Draw(x,y,mgl);
 }
 
 void UpdateInterface(Map *map)
@@ -617,8 +671,7 @@ void UpdateInterface(Map *map)
 	if(player.comboClock && player.combo>1)
 		curCombo=player.combo;
 
-	if(player.shield || player.garlic || player.speed || player.invisibility || player.ammoCrate || (goodguy && goodguy->poison) ||
-		player.cheesePower)
+	if(player.shield || player.garlic || player.speed || player.invisibility || player.ammoCrate || (goodguy && goodguy->poison) || (goodguy && goodguy->ignited) || (goodguy && goodguy->weak) || (goodguy && goodguy->strong) || player.cheesePower || (goodguy && goodguy->frozen))
 	{
 		intf[INTF_POWERUP].tx=0;
 		intf[INTF_POWERUP].ty=50;
@@ -682,7 +735,7 @@ void UpdateInterface(Map *map)
 	intf[INTF_LIFE].tx=17;
 	intf[INTF_LIFE].ty=0;
 
-	if(player.hammers==0 && (player.hammerFlags&(HMR_REVERSE|HMR_REFLECT))==0 && player.hamSpeed==16)
+	if(player.hammers==0 && (player.hammerFlags&(HMR_REVERSE|HMR_REFLECT))==0 && player.hamSpeed==20)
 	{
 		// hammer display is unneeded, so shift life over to the left
 		intf[INTF_LIFE].tx-=17;
@@ -721,6 +774,35 @@ void UpdateInterface(Map *map)
 		intf[INTF_BRAINS].tx=639;
 		intf[INTF_BRAINS].ty=25;
 	}
+	// now do the same stuff for the other side of the screen
+	/*if (profile.candlometer)
+	{	
+		if(player.candles>=map->numCandles)
+		{
+			intf[INTF_CANDLES].tx=640+30;
+			intf[INTF_CANDLES].ty=35;
+		}
+		else
+		{
+			intf[INTF_CANDLES].tx=639;
+			intf[INTF_CANDLES].ty=35;
+		}
+	}
+	else
+	{
+		intf[INTF_CANDLES].tx=640+30;
+		intf[INTF_CANDLES].ty=35;
+	}*/
+	if(player.candles>=map->numCandles)
+	{
+		intf[INTF_CANDLES].tx=640+30;
+		intf[INTF_CANDLES].ty=35;
+	}
+	else
+	{
+		intf[INTF_CANDLES].tx=639;
+		intf[INTF_CANDLES].ty=35;
+	}
 	if(player.weapon)
 	{
 		intf[INTF_WEAPON].tx=639;
@@ -731,8 +813,8 @@ void UpdateInterface(Map *map)
 		intf[INTF_WEAPON].tx=639;
 		intf[INTF_WEAPON].ty=-10;
 		intf[INTF_BRAINS].ty-=10;
+		intf[INTF_CANDLES].ty-=10;
 	}
-
 	if(player.coins)
 	{
 		intf[INTF_COINS].tx=639;
@@ -743,7 +825,29 @@ void UpdateInterface(Map *map)
 		intf[INTF_COINS].tx=639;
 		intf[INTF_COINS].ty=480+20;
 	}
-
+	// timer time!
+	if(curMap && curMap->flags&MAP_TIMER&&player.timer>0)
+	{
+		intf[INTF_TIMER].tx=320;
+		intf[INTF_TIMER].ty=480;
+	}
+	else
+	{
+		intf[INTF_TIMER].tx=320;
+		intf[INTF_TIMER].ty=517;
+	}
+	if(curMap && curMap->flags&MAP_SHOWV0&&(player.var[0]>0))
+	{
+		intf[INTF_VARNUM].tx=320;
+		intf[INTF_VARNUM].ty=463;
+	}
+	else
+	{
+		intf[INTF_VARNUM].tx=320;
+		intf[INTF_VARNUM].ty=500;
+	}
+	
+	
 	intfFlip=1-intfFlip;
 	for(i=0;i<NUM_INTF;i++)
 	{
@@ -779,6 +883,19 @@ void UpdateInterface(Map *map)
 			case INTF_COINS:
 				intf[i].vDesired=player.coins;
 				break;
+			case INTF_TIMER: //ah its time for time
+				intf[i].vDesired=player.timer;
+				if(player.clock < 30)
+					if (player.clock % 30 == 0)
+					player.timer--;
+				else if(player.timer < 0)
+					player.timer = 0;
+				else if(player.timer > 999)
+					player.timer = 999;
+				break;
+			case INTF_VARNUM: //ah its time for SHOWING VARIABLE 0
+				intf[i].vDesired=player.var[0];
+				break;
 			case INTF_WEAPON:
 				if(player.weapon>0)
 					intf[i].vDesired=player.ammo*intf[i].valueLength/WeaponMaxAmmo(player.weapon);
@@ -793,6 +910,17 @@ void UpdateInterface(Map *map)
 					b=0;
 				if(map->numBrains>0)
 					intf[i].vDesired=b*intf[i].valueLength/map->numBrains;
+				else
+					intf[i].vDesired=0;
+				break;
+			case INTF_CANDLES:
+				int c;
+
+				c=map->numCandles-player.candles;
+				if(c<0)
+					c=0;
+				if(map->numCandles>0)
+					intf[i].vDesired=c*intf[i].valueLength/map->numCandles;
 				else
 					intf[i].vDesired=0;
 				break;

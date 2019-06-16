@@ -10,10 +10,11 @@ byte noKeyTime;
 byte scanStarted;
 byte *backgd;
 char groupTxt[128],nameTxt[64];
-char themeNames[][16]={"Goodguy","Badguy","Spooky","Zombie","Vampire","Spider","Pygmy",
-					   "Zoid","Boss","Mini-Boss","Wacky","Pumpkin","Thingy","Veggy","Arctic","Desert",
-					   "Vehicle","Generator","Trap","Alien","High-Tech","Animal","Human",
-					   "Urban","Aquatic","Undersea","Flying","Body Parts"};
+char themeNames[][16]={"Goodguy","Badguy","Forest","Desert","Icy","Caves","Space",
+					   "Mansion","Island","Urban","Aquatic","Asylum","Traps/Puzzles","Humanoid","Animals",
+					   "Veggies","Pumpkins","Zombies","Skeletons","Vampires","Zoids",
+					   "Aliens/Thingies","Generators","Vehicles","Flying","Aquatic", "Spiders",
+					   "Bits","Bosses","Minibosses","Remix Boss","Wacky!"};
 static int monsY=0;
 
 void InitScan(void)
@@ -197,6 +198,17 @@ void ScanGuy(Guy *g)
 			case MONS_PUFFYFISH2:
 				profile.progress.scanned[MONS_PUFFYFISH]=1;
 				profile.progress.scanned[MONS_PUFFYFISH2]=1;
+				break;
+			case MONS_MINIMATTIE:
+			case MONS_MINIMATBODY:
+			case MONS_MINIMATCLAW1:
+			case MONS_MINIMATCLAW2:
+			case MONS_MINIMATTAIL:
+				profile.progress.scanned[MONS_MINIMATTIE]=1;
+				profile.progress.scanned[MONS_MINIMATBODY]=1;
+				profile.progress.scanned[MONS_MINIMATCLAW1]=1;
+				profile.progress.scanned[MONS_MINIMATCLAW2]=1;
+				profile.progress.scanned[MONS_MINIMATTAIL]=1;
 				break;
 		}
 		scanQueue[scanQPos]=type;

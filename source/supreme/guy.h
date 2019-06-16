@@ -17,13 +17,14 @@ class Guy
 
 		void Update(Map *map,world_t *world);
 		void EditorUpdate(Map *map);
-		void Render(byte light);
+		void Render(dword light);
 		byte CanWalk(int xx,int yy,Map *map,world_t *world);
 		void NextFrame(void);
 		void SeqFinished(void);
 		void MonsterControl(Map *map,world_t *world);
 		byte CoconutBonk(int xx,int yy,Guy *him);
 		byte AttackCheck(byte size,int xx,int yy,Guy *him);
+		byte AttackCheck2(int xx,int yy,int xx2,int yy2,Guy *him);
 		void AttackThem(void);
 		void GetShot(int dx,int dy,byte damage,Map *map,world_t *world);
 		void CalculateRect(void);
@@ -40,6 +41,8 @@ class Guy
 		byte mind1;
 		byte mind2;
 		byte mind3;
+		byte mind4;
+		byte mind5;
 
 		byte reload;
 		byte poison;
@@ -62,6 +65,12 @@ class Guy
 		word ID;	// just a copy of the guy's number
 		byte item;	// what item you're carrying
 		byte frozen;
+		
+		//NEW STUFF
+		byte ignited; //burn damage (red)
+		byte weak; //weakness affliction (dark red)
+		byte strong; //steelskin defense (dark grey)
+		byte special; //for special situations
 
 		int aiType;
 		byte fromColor,toColor;
@@ -95,7 +104,10 @@ byte MonsterExists(int type);
 void HealGoodguy(byte amt);
 byte MossCheck(int x,int y);
 void KillKids(Guy *g);
+void RemoveKids(Guy *g); //NEW! The Silent Killer
+void KillBodyParts(Guy *g); //NEW! only kills body parts, used for imitater superboss
 byte RaftNearby(void);
+byte LogNearby(void); //NEW!
 void GuySwap(int sx,int sy,int width,int height,int dx,int dy);
 void ShiftGuys(char dx,char dy,Map *map);
 void AddPygmy(Map *map,world_t *world,byte friendly);
@@ -131,4 +143,19 @@ Guy *GetGuyOfAIType(int type);
 
 void FindMonsterBrain(int myx,int myy);
 void FindMonsterCandle(int myx,int myy);
+
+//new!
+byte PeepAtKid(int x,int y,Map *map,byte face);
+byte ArrangeBats(byte facing);
+byte SmashTrees(Guy *me,byte rad);
+byte EatHay(Guy *me,byte rad);
+void SuckInEvil(int x,int y);
+void SuckInGood(int x,int y);
+byte Walkable(Guy *me,int x,int y,Map *map,world_t *world);
+void SpreadCharge(Guy *me);
+void GetSpook(void);
+void PutSpook(void);
+void LaunchJunk(Map *map,Guy *me);
+void Sneeze(void);
+byte CheckMonsterOuch(int x,int y,int type,byte flags);
 #endif

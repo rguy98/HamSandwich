@@ -23,8 +23,9 @@
 #define CHEAT_NOSKID	13
 #define CHEAT_SPEED		14
 #define CHEAT_RAGE		15
+#define CHEAT_CANDLES	16
 
-#define NUM_CHEATS		16
+#define NUM_CHEATS		17
 
 void InitCheater(void);
 void CheatKey(char c);

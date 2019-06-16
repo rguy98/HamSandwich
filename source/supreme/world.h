@@ -4,7 +4,7 @@
 #include "map.h"
 #include "tile.h"
 
-#define MAX_MAPS	64
+#define MAX_MAPS	72
 
 // terrain flags
 #define TF_SOLID	1

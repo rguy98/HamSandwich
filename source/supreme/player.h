@@ -33,14 +33,25 @@
 #define WPN_MINISUB	  18
 #define WPN_FREEZE	  19
 #define WPN_STOPWATCH 20
+#define WPN_BOOMERANG 	21
+#define WPN_CACTUS 		22
+#define WPN_ROCKETS 	23
+#define WPN_WATERGUN 	24
+#define WPN_MEGAPHONE	25
+#define WPN_PUMPKIN 	26
+#define WPN_DEATHRAY 	27
+#define WPN_SPOREGUN 	28
+#define WPN_BLACKHOLE 	29
+#define WPN_MEDICKIT 	30
 
-#define MAX_WEAPONS	  21
+#define MAX_WEAPONS	  31
 
 // vehicles you could be on
 #define VE_NONE		0
 #define VE_MINECART 1
 #define VE_RAFT		2
 #define VE_YUGO		3
+#define VE_LOG		4
 
 typedef struct player_t
 {
@@ -64,6 +75,7 @@ typedef struct player_t
 	int brains;
 	int coins;
 	int candles;
+	int timer; //new!
 	byte pushPower;	// for pushing pushy blocks
 	byte hammerFlags;
 	byte vehicle;
@@ -84,6 +96,7 @@ typedef struct player_t
 	byte cheesePower;
 	byte gotRecords;
 	byte spotted;
+	byte timedout; //new!
 	int oxygen;
 	int comboClock;
 	int clock;
@@ -141,9 +154,15 @@ void KeyChainAllCheck(void);
 void PlayerGetBrain(int amt);
 void PlayerGetCandle(int amt);
 void PlayerGetCoin(int amt);
+void DoPlayerFacing(byte c,Guy *me);
+byte FakeGetControls(void);
 
 void SetPlayerStart(int x,int y);
 void PutPlayerAtStart(Guy *g);
+
+//new!
+void IgniteVictim(Guy *me,byte amt);
+void WeakenVictim(Guy *me,byte amt);
 
 byte ControlCheck(byte c);
 

@@ -1993,3 +1993,14 @@ mapTile_t *Map::GetTile(int x,int y)
 	else
 		return &map[x+y*width];
 }
+
+//Look!
+byte MapCheckCallback(int x,int y,int cx,int cy,int value,Map *map)
+{
+	return (x!=(value%1024) || y!=(value/1024));
+}
+
+byte Map::CheckLOS(int x,int y,int radius,int x2,int y2)
+{
+	return LOS(x,y,radius,x2+y2*1024,MapCheckCallback);
+}

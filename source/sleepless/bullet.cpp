@@ -876,7 +876,7 @@ void HitBadguys(bullet_t *me,Map *map,world_t *world)
 	switch(me->type)
 	{
 		case BLT_BLACKHOLE:
-			if(FindVictims2(me->x>>FIXSHIFT,me->y>>FIXSHIFT,32,0,0,1,map,world,me->friendly))
+			if(FindVictims2(me->x>>FIXSHIFT,me->y>>FIXSHIFT,24,0,0,1,map,world,me->friendly))
 			{
 
 			}
@@ -1478,7 +1478,10 @@ void UpdateBullet(bullet_t *me,Map *map,world_t *world)
 		case BLT_BLACKHOLE:
 			SuckParticle(me->x,me->y,FIXAMT*20);
 			map->BrightTorch(mapx,mapy,-10,2);
+			if (me->friendly==1)
 			SuckInEvil(me->x,me->y);
+			else
+			SuckInGood(me->x,me->y);
 			if(Random(2)==0)
 				HitBadguys(me,map,world);
 			break;

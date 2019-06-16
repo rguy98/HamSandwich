@@ -17,6 +17,14 @@ void AI_Bonehead(Guy *me,Map *map,world_t *world,Guy *goodguy)
 
 	if(me->action==ACTION_BUSY)
 	{
+		if(me->seq==ANIM_DIE && me->aiType==MONS_GLASSJAW && me->reload==0)
+		{
+			x=me->x>>FIXSHIFT;
+			y=me->y>>FIXSHIFT;
+			GlassShatter(x+me->rectx,y+me->recty,x+me->rectx2,y+me->recty2,me->z,100);
+			MakeSound(SND_GLASSBREAK,me->x,me->y,SND_CUTOFF,1200);
+			me->reload=13;
+		}
 		if(me->seq==ANIM_ATTACK && me->frm==3 && me->reload==0 && goodguy)
 		{
 			x=me->x+Cosine(me->facing*32)*16;
@@ -25,7 +33,7 @@ void AI_Bonehead(Guy *me,Map *map,world_t *world,Guy *goodguy)
 				goodguy->GetShot(Cosine(me->facing*32)*4,Sine(me->facing*32)*4,2,map,world);
 			me->reload=5;
 		}
-		if(me->seq==ANIM_A1 && me->frm==3 && me->reload==0 && goodguy)
+		if(me->seq==ANIM_A1 && me->frm==3 && me->aiType!=MONS_REDBONE && me->reload==0 && goodguy)
 		{
 			x=me->x+Cosine(me->facing*32)*16;
 			y=me->y+Sine(me->facing*32)*16;
@@ -35,9 +43,22 @@ void AI_Bonehead(Guy *me,Map *map,world_t *world,Guy *goodguy)
 				FireBullet(x,y,me->facing*32+12,BLT_BADGREEN,me->friendly);
 				FireBullet(x,y,me->facing*32,BLT_BADGREEN,me->friendly);
 			}
-			else
+			else if(me->type==MONS_GANGRENE)
+			{
+			}
+			else if(me->type==MONS_NUMBSKULL)
+			{
+			}
 				FireBullet(x,y,me->facing*32,BLT_ENERGY,me->friendly);
 			me->reload=5;
+			me->mind1=1;
+		}
+		if(me->seq==ANIM_A1 && me->frm > 2 && me->frm < 9 && me->reload==0 && me->aiType==MONS_REDBONE && goodguy)
+		{
+			x=me->x+Cosine(me->facing*32)*16;
+			y=me->y+Sine(me->facing*32)*16;
+			FireBullet(x,y,me->facing*32+Random(32)-16,BLT_ENERGY,me->friendly);
+			me->reload=2;
 			me->mind1=1;
 		}
 		if(me->seq==ANIM_DIE)

@@ -79,7 +79,7 @@ static byte previousMap;
 static byte helpRemember;
 static byte trgStart,effStart;
 
-static char trigName[][16]={
+static char trigName[][32]={
 	"Unused",
 	"Step On/Near",
 	"Step In Rect",
@@ -112,10 +112,12 @@ static char trigName[][16]={
 	"Monster Color",
 	"Equation",
 	"Var Equation",
-	"Bullet In Rect"
+	"Bullet In Rect",
+	"Check Timer",
+	"Check Monster Hurt",
 };
 
-static char effName[][16]={
+static char effName[][32]={
 	"Unused",
 	"Message",
 	"Sound",
@@ -153,7 +155,8 @@ static char effName[][16]={
 	"Item Sprites",
 	"Variable Bar",
 	"Summon Bullet",
-	"Change Bullet"
+	"Change Bullet",
+	"Change Timer"
 };
 
 static char lvlFlagName[][16]={
@@ -192,9 +195,19 @@ static char wpnName[][16]={
 	"Scanner",
 	"Mini-Sub",
 	"Freeze Ray",
-	"Stopwatch"};
+	"Stopwatch",
+	"Boomerang",
+	"Potted Cactus",
+	"Bionic Arm",
+	"Water Gun",
+	"Megaphone",
+	"Cucurbinator",
+	"Death Ray",
+	"Spore Gun",
+	"Abyssinator",
+	"Medic Kit"};
 
-static char bulletName[][20]={
+static char bulletName[][32]={
 	"Anything",
 	"Hammer",
 	"Bouncy Hammer",
@@ -251,9 +264,48 @@ static char bulletName[][20]={
 	"Cheese Hammer",
 	"Evil Freeze",
 	"Lunachick Ray",
-	"Bouncy Lunachick"
+	"Bouncy Lunachick",
+	"Floaty Flame",
+	"Sitting Flame",
+	"Evil Sitting Flame",
+	"Deadly Laser",
+	"Evil Green Bullet",
+	"Weather Orbiter",
+	"Good Water Shot",
+	"Orbit Poison",
+	"Wind Missile",
+	"Evil Face",
+	"Homing LunaBullet",
+	"Rainbow LunaBullet",
+	"Eye Guy Wave",
+	"Laser Beam",
+	"Laser Beam End",
+	"Slug Slime",
+	"Red Grenade",
+	"Red Grenade Boom",
+	"Big Yellow Bullet",
+	"Mega Explosion",
+	"Bouncy Energy Bullet",
+	"Rocket",
+	"Skull",
+	"Mystic Wand",
+	"Boomerang",
+	"Fart Cloud",
+	"PUMPKIN!",
+	"Hotfoot Flame",
+	"All-Directional Flame",
+	"Bouncy Mystic Wand",
+	"Black Hole Shot",
+	"Black Hole",
+	"Alien Egg",
+	"Flying Pie",
+	"Red Bullet (Wave)",
+	"Red Bullet (CW)",
+	"Red Bullet (CCW)",
+	"Red Bullet (CW2)",
+	"Red Bullet (CCW2)"
 };
-#define MAX_BULLETS (BLT_LUNA2 + 1)
+#define MAX_BULLETS MAX_BULTYPES
 
 static void SetupTriggerButtons(int t,int y);
 static void SetupEffectButtons(int t,int y);
@@ -737,7 +789,7 @@ static void PlayAsClick(int id)
 		curTrig=trgStart + id/100-1;
 
 		spcl.trigger[curTrig].value++;
-		if(spcl.trigger[curTrig].value>PLAY_MECHA)
+		if(spcl.trigger[curTrig].value>PLAY_LOONY)
 			spcl.trigger[curTrig].value=PLAY_BOUAPHA;
 
 		MakeNormalSound(SND_MENUCLICK);
@@ -749,7 +801,7 @@ static void PlayAsClick(int id)
 		MakeNormalSound(SND_MENUCLICK);
 
 		spcl.effect[curEff].value++;
-		if(spcl.effect[curEff].value>PLAY_MECHA)
+		if(spcl.effect[curEff].value>PLAY_LOONY)
 			spcl.effect[curEff].value=PLAY_BOUAPHA;
 
 		SetupEffectButtons(curEff-effStart,(curEff-effStart)*38+264);
@@ -1654,11 +1706,15 @@ static void SetupTriggerButtons(int t,int y)
 		case TRG_DIFFICULTY:
 			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+0+100*t,0,40,y+17,1,1,"If difficulty is",NULL);
 			if(trigger.value==0)
-				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,160,y+17,80,14,"Normal",DiffyClick);
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,160,y+17,80,14,"Wimpy",DiffyClick);
 			else if(trigger.value==1)
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,160,y+17,80,14,"Normal",DiffyClick);
+			else if(trigger.value==2)
 				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,160,y+17,80,14,"Hard",DiffyClick);
-			else
+			else if(trigger.value==3)
 				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,160,y+17,80,14,"Lunatic",DiffyClick);
+			else
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,160,y+17,80,14,"Jamulio",DiffyClick);
 			if(trigger.flags&TF_LESS)
 				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+4+100*t,0,243,y+17,80,14,"Or Less",LessMoreClick);
 			else if(trigger.flags&TF_MORE)
@@ -1702,6 +1758,14 @@ static void SetupTriggerButtons(int t,int y)
 				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,213,y+17,140,14,"Lunachick",PlayAsClick);
 			else if(trigger.value==PLAY_MECHA)
 				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,213,y+17,140,14,"Mechabouapha",PlayAsClick);
+			else if(trigger.value==PLAY_WOLF)
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,213,y+17,140,14,"Wolfman",PlayAsClick);
+			else if(trigger.value==PLAY_WIZ)
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,213,y+17,140,14,"Wild Wizard",PlayAsClick);
+			else if(trigger.value==PLAY_MYSTIC)
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,213,y+17,140,14,"Kid Mystic",PlayAsClick);
+			else if(trigger.value==PLAY_LOONY)
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,213,y+17,140,14,"Young Loony",PlayAsClick);
 			break;
 		case TRG_MONSCOLOR:
 			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+0+100*t,0,40,y+17,1,1,"If",NULL);
@@ -1753,6 +1817,29 @@ static void SetupTriggerButtons(int t,int y)
 			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+2+100*t,0,235,y+17,1,1,"are in the area: ",NULL);
 			sprintf(s,"(%d,%d)-(%d,%d)",trigger.x,trigger.y,((word)trigger.value2)%256,((word)trigger.value2)/256);
 			MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+3+100*t,0,370,y+17,150,14,s,RectClick);
+			break;
+		case TRG_TIMER:
+			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+0+100*t,0,40,y+17,1,1,"If the timer has",NULL);
+			sprintf(s,"%d",trigger.value);
+			MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,200-30,y+17,40,14,s,NumberClick);
+			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+2+100*t,0,244-30,y+17,1,1,"seconds left",NULL);
+			if(trigger.flags&TF_LESS)
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+4+100*t,0,294+24,y+17,80,14,"Or Less",LessMoreClick);
+			else if(trigger.flags&TF_MORE)
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+4+100*t,0,294+24,y+17,80,14,"Or More",LessMoreClick);
+			else
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+4+100*t,0,294+24,y+17,80,14,"Exactly",LessMoreClick);
+			break;
+		case TRG_HURT:
+			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+0+100*t,0,40,y+17,1,1,"If",NULL);
+			MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,60,y+17,140,14,MonsterName(trigger.value),MonsterClick);
+			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+2+100*t,0,204,y+17,1,1,"at",NULL);
+			if(trigger.x==255)
+				sprintf(s,"Anywhere");
+			else
+				sprintf(s,"%d, %d",trigger.x,trigger.y);
+			MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+3+100*t,0,230,y+17,70,14,s,XY3Click);
+			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+4+100*t,0,304,y+17,1,1,"is hurt",NULL);
 			break;
 	}
 }
@@ -2276,6 +2363,14 @@ static void SetupEffectButtons(int t,int y)
 				MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+1+100*t,0,213,y+17,140,14,"Lunachick",PlayAsClick);
 			else if(effect.value==PLAY_MECHA)
 				MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+1+100*t,0,213,y+17,140,14,"Mechabouapha",PlayAsClick);
+			else if(effect.value==PLAY_WOLF)
+				MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+1+100*t,0,213,y+17,140,14,"Wolfman",PlayAsClick);
+			else if(effect.value==PLAY_WIZ)
+				MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+1+100*t,0,213,y+17,140,14,"Wild Wizard",PlayAsClick);
+			else if(effect.value==PLAY_MYSTIC)
+				MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+1+100*t,0,213,y+17,140,14,"Kid Mystic",PlayAsClick);
+			else if(effect.value==PLAY_LOONY)
+				MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+1+100*t,0,213,y+17,140,14,"Young Loony",PlayAsClick);
 			break;
 		case EFF_MONSGRAPHICS:
 			MakeButton(BTN_STATIC,ID_EFF0+OFS_CUSTOM+0+100*t,0,40,y+17,1,1,"Change",NULL);
@@ -2349,6 +2444,11 @@ static void SetupEffectButtons(int t,int y)
 			else
 				MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+6+100*t,0,520,y+17,65,14,"Play FX",NoFXClick);
 			break;
+		case EFF_CHANGETIMER:
+			MakeButton(BTN_STATIC,ID_EFF0+OFS_CUSTOM+0+100*t,0,40,y+17,1,1,"Add",NULL);
+			sprintf(s,"%d",effect.value);
+			MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+5+100*t,0,80,y+17,40,14,s,NumberClick);
+			MakeButton(BTN_STATIC,ID_EFF0+OFS_CUSTOM+0+100*t,0,128,y+17,1,1,"second(s) to the timer",NULL);
 	}
 }
 

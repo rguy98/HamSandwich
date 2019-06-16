@@ -109,6 +109,10 @@ static itemEff_t itemEff[]={
 	{"Increment","Variable",0,15,IEBTN_VAR},
 	{"Decrement","Variable",0,15,IEBTN_VAR},
 	{"Move","Direction",0,3,IEBTN_DIR},
+	{"Give White Key","Give/Take",-1,1,IEBTN_GIVETAKE},
+	{"Give Black Key","Give/Take",-1,1,IEBTN_GIVETAKE},
+	{"Give W.Orbiters","Number",-50,50,IEBTN_NUM},
+	{"Give P.Orbiters","Number",-50,50,IEBTN_NUM},
 };
 
 static char pwrUpName[MAX_POWERUP][32]={
@@ -123,6 +127,10 @@ static char pwrUpName[MAX_POWERUP][32]={
 	"Reload Weapon",
 	"Hammer Enhance",
 	"Poison",
+	"Freeze",
+	"Combustion",
+	"Weakness",
+	"Strength",
 };
 
 static char wpnName[MAX_WEAPONS][32]={
@@ -147,6 +155,16 @@ static char wpnName[MAX_WEAPONS][32]={
 	"Mini-Sub",
 	"Freeze Ray",
 	"Stopwatch",
+	"Boomerang",
+	"Potted Cactus",
+	"Bionic Arm",
+	"Water Gun",
+	"Megaphone",
+	"Cucurbinator",
+	"Death Ray",
+	"Spore Gun",
+	"Abyssinator",
+	"Medic Pack",
 };
 
 static char colorName[8][16]={
@@ -160,11 +178,13 @@ static char colorName[8][16]={
 	"Aqua",
 };
 
-static char keyColorName[4][16]={
+static char keyColorName[6][16]={
 	"Yellow",
 	"Red",
 	"Green",
 	"Blue",
+	"White",
+	"Black",
 };
 
 static char keychainName[4][16]={
@@ -564,7 +584,7 @@ static void ItemEditSetupButtons(void)
 	else
 		MakeButton(BTN_NORMAL,ID_EXIT,0,480,460,158,14,"Exit Item Editor",ExitClick);
 
-	RadioOn(ID_PICKTHEME+curTheme,ID_PICKTHEME,ID_PICKTHEME+50);
+	RadioOn(ID_PICKTHEME+curTheme,ID_PICKTHEME,ID_PICKTHEME+100);
 }
 
 static void EffectClick(int id)

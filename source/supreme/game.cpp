@@ -92,7 +92,7 @@ byte VerifyLevel(Map *map)
 
 	chk=ChecksumMap(map);
 
-	f=fopen("worlds/levels.dat","rb");
+	f=fopen("worlds/levels.dat","rt");
 	if(!f)
 		return 0;
 
@@ -121,7 +121,8 @@ byte InitLevel(byte map)
 	// make a copy of the map to be played
 	curMap=new Map(curWorld.map[map]);
 
-	verified=VerifyLevel(curMap);
+	//verified=VerifyLevel(curMap);
+	verified=true;
 
 	PrintToLog(curMap->name,0);
 
@@ -456,7 +457,32 @@ byte LunaticRun(int *lastTime)
 		else if(msgFromOtherModules==MSG_RESET)
 		{
 			GoalTimeDist();
-			NewBigMessage("Try Again!",30);
+			if (!player.timedout)
+			{
+				if (profile.difficulty==0)
+				NewBigMessage("You Stink!",30);
+				else
+				switch(Random(5))
+				{
+					case 0:
+						NewBigMessage("Aw Shucks!",30);
+						break;
+					case 1:
+						NewBigMessage("Try Again!",30);
+						break;
+					case 2:
+						NewBigMessage("Uh Oh!",30);
+						break;
+					case 3:
+						NewBigMessage("Don't Give Up!",30);
+						break;
+					case 4:
+						NewBigMessage("Just A Flesh Wound!",30);
+						break;
+				}
+			}
+			else
+				NewBigMessage("Time's Up!",30);
 			windingDown=30;
 			windDownReason=LEVEL_RESET;
 			msgFromOtherModules=MSG_NONE;

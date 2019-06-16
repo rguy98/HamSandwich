@@ -2168,10 +2168,15 @@ void AI_BigPumpkin(Guy *me,Map *map,world_t *world,Guy *goodguy)
 	{
 		if(me->seq==ANIM_DIE && me->reload==0)
 		{
+			if(me->aiType==MONS_KABOOMKIN && me->frm==0)
+				FireBullet(me->x,me->y,0,BLT_BOOM,me->friendly);
 			ExplodeParticles(PART_HAMMER,me->x,me->y,me->z,16);
 			me->reload=2;
 			x=me->x-FIXAMT*32+Random(FIXAMT*64);
 			y=me->y-FIXAMT*24+Random(FIXAMT*48);
+			if(me->aiType==MONS_KABOOMKIN)
+			g=AddBaby(x,y,0,MONS_BOOMKIN,me);
+			else
 			g=AddBaby(x,y,0,MONS_PUMPKIN,me);
 			if(g && !g->CanWalk(g->x,g->y,map,world))
 				RemoveGuy(g);
@@ -2181,7 +2186,15 @@ void AI_BigPumpkin(Guy *me,Map *map,world_t *world,Guy *goodguy)
 
 	if(me->seq==ANIM_MOVE && me->frm==2 && goodguy)	// hits on this frame
 	{
+		if(me->aiType==MONS_PUMPKIN2)
 		FindVictim(me->x>>FIXSHIFT,me->y>>FIXSHIFT,36,Cosine(me->facing*32)*4,Sine(me->facing*32)*4,4,map,world,me->friendly);
+		if(me->aiType==MONS_KABOOMKIN)
+			if(FindVictim(me->x>>FIXSHIFT,me->y>>FIXSHIFT,32,0,0,0,map,world,me->friendly))
+			{
+				me->hp=1;
+				me->GetShot(0,0,1,map,world);
+				return;
+			}
 	}
 
 	if(me->mind==0)	// not currently aware of goodguy
@@ -2230,8 +2243,12 @@ void AI_BigPumpkin(Guy *me,Map *map,world_t *world,Guy *goodguy)
 				me->mind1=20;	// stay on trail a little longer
 			return;
 		}
-		me->dx=Cosine(me->facing*32);
-		me->dy=Sine(me->facing*32);
+		if(me->aiType==MONS_KABOOMKIN)
+		{me->dx=Cosine(me->facing*32)*2.5;
+		me->dy=Sine(me->facing*32)*2.5;}
+		else
+		{me->dx=Cosine(me->facing*32);
+		me->dy=Sine(me->facing*32);}
 		if(me->seq!=ANIM_MOVE)
 		{
 			me->seq=ANIM_MOVE;

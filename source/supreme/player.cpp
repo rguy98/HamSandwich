@@ -20,7 +20,7 @@ byte tportclock;
 int pStartX=-1,pStartY=-1;
 static byte oldControls,newControls,checkTheControls;
 
-int maxAmmo[MAX_WEAPONS]={1000,20,99,5,50,1000,15,40,20,30,8,3,1,40,10,3,50,5,1000,5,1};
+int maxAmmo[MAX_WEAPONS]={1000,20,99,5,50,1000,15,40,20,30,8,3,1,40,10,3,50,5,1000,5,1,15,99,8,30,10,8,1,10,3,100};
 
 void ShouldCheckControls(byte n)
 {
@@ -30,6 +30,11 @@ void ShouldCheckControls(byte n)
 	c=GetControls();
 	oldControls=newControls;
 	newControls=c;
+}
+
+byte FakeGetControls(void)
+{
+	return newControls;
 }
 
 byte ControlCheck(byte c)
@@ -55,7 +60,7 @@ void InitPlayer(byte level,char *fname)
 	player.levelNum=level;
 	player.levelProg=GetLevelProgress(player.worldName,player.levelNum);
 
-	for(i=0;i<4;i++)
+	for(i=0;i<6;i++)
 		player.keys[i]=0;
 
 	for(i=0;i<8;i++)
@@ -70,10 +75,12 @@ void InitPlayer(byte level,char *fname)
 	player.lavaTimer=15;
 	player.brains=0;
 	player.coins=0;
+	player.timer=5;
+	player.timedout=0; //time out?
 	player.candles=0;
 	player.boredom=0;
 	player.hammers=0;
-	player.hamSpeed=16;
+	player.hamSpeed=20;
 	player.weapon=WPN_NONE;
 	player.lastWeapon=WPN_NONE;
 	player.ammo=0;
@@ -149,7 +156,7 @@ void PoisonVictim(Guy *me,byte amt)
 {
 	if(me==goodguy && player.shield)
 		return;	// can't be poisoned when invulnerable
-	if(me==goodguy && profile.difficulty==0)
+	if(me==goodguy && profile.difficulty<3)
 	{
 		amt/=2;
 		if(amt==0)
@@ -159,6 +166,38 @@ void PoisonVictim(Guy *me,byte amt)
 		me->poison=255;
 	else
 		me->poison+=amt;
+}
+
+void IgniteVictim(Guy *me,byte amt)
+{
+	if(me==goodguy && player.shield)
+		return;	// can't be poisoned when invulnerable
+	if(me==goodguy && profile.difficulty<3)
+	{
+		amt/=2;
+		if(amt==0)
+			amt=1;
+	}
+	if(me->ignited+amt>255)
+		me->ignited=255;
+	else
+		me->ignited+=amt;
+}
+
+void WeakenVictim(Guy *me,byte amt)
+{
+	if(me==goodguy && player.shield)
+		return;	// can't be poisoned when invulnerable
+	if(me==goodguy && profile.difficulty<3)
+	{
+		amt/=2;
+		if(amt==0)
+			amt=1;
+	}
+	if(me->weak+amt>255)
+		me->weak=255;
+	else
+		me->weak+=amt;
 }
 
 void PlayerWinLevel(byte isSecret)
@@ -305,6 +344,30 @@ byte PlayerPowerup(char powerup)
 				else
 					goodguy->poison=255;
 				break;
+			case PU_FROZEN:
+				if(goodguy->frozen+128<255)
+					goodguy->frozen+=128;
+				else
+					goodguy->frozen=255;
+				break;
+			case PU_IGNITED:
+				if(goodguy->ignited+128<255)
+					goodguy->ignited+=128;
+				else
+					goodguy->ignited=255;
+				break;
+			case PU_WEAKNESS:
+				if(goodguy->weak+128<255)
+					goodguy->weak+=128;
+				else
+					goodguy->weak=255;
+				break;
+			case PU_STRENGTH:
+				if(goodguy->strong+128<255)
+					goodguy->strong+=128;
+				else
+					goodguy->strong=255;
+				break;
 		}
 	}
 	else
@@ -338,6 +401,18 @@ byte PlayerPowerup(char powerup)
 				break;
 			case PU_POISON:
 				goodguy->poison=0;
+				break;
+			case PU_FROZEN:
+				goodguy->frozen=0;
+				break;
+			case PU_IGNITED:
+				goodguy->ignited=0;
+				break;
+			case PU_WEAKNESS:
+				goodguy->weak=0;
+				break;
+			case PU_STRENGTH:
+				goodguy->strong=0;
 				break;
 		}
 	}
@@ -458,6 +533,14 @@ void PlayerGetBrain(int amt)
 			MakeNormalSound(SND_MUSHMAD);
 		else if(player.playAs==PLAY_LUNACHIK)
 			MakeNormalSound(SND_LUNABRAINS);
+		else if(player.playAs==PLAY_WOLF)
+			MakeNormalSound(SND_WOLFHOWL);
+		else if(player.playAs==PLAY_WIZ)
+			MakeNormalSound(SND_WIZHIT);
+		else if(player.playAs==PLAY_MYSTIC)
+			MakeNormalSound(SND_KOOLKATKM);
+		else if(player.playAs==PLAY_LOONY)
+			MakeNormalSound(SND_LOONYBRAINS);
 
 		playerGlow=127;
 	}
@@ -589,11 +672,11 @@ void PlayerThrowHammer(Guy *me)
 	if(player.hammerFlags&HMR_REVERSE)
 		ScoreEvent(SE_SHOOT,player.hammers);
 
-	if(player.playAs==PLAY_BOUAPHA || player.playAs==PLAY_MECHA || player.playAs==PLAY_LUNACHIK)
+	if(player.playAs==PLAY_BOUAPHA || player.playAs==PLAY_MECHA || player.playAs==PLAY_LUNACHIK || player.playAs==PLAY_WIZ)
 	{
 		HammerLaunch(me->x,me->y,me->facing,player.hammers,player.hammerFlags);
 	}
-	else if(player.playAs==PLAY_LUNATIC)
+	else if(player.playAs==PLAY_LUNATIC || player.playAs==PLAY_LOONY)
 	{
 		MakeSound(SND_BALLLIGHTNING,me->x,me->y,SND_CUTOFF,600);
 		FireBullet(me->x,me->y,me->facing,BLT_BALLLIGHTNING,1);
@@ -608,13 +691,24 @@ void PlayerThrowHammer(Guy *me)
 	{
 		ShroomSpew(me->x,me->y,me->facing,player.hammers,player.hammerFlags);
 	}
+	else if(player.playAs==PLAY_WOLF)
+	{
+		WolfSpew(me->x,me->y,me->facing,player.hammers,player.hammerFlags);
+	}
+	else if(player.playAs==PLAY_MYSTIC)
+	{
+		if(!player.cheesePower)
+		HammerLaunch(me->x,me->y,me->facing,player.hammers,player.hammerFlags);
+		else
+		SkullLaunch(me->x,me->y,me->facing,player.hammers,player.hammerFlags);
+	}
 
 	player.reload=player.hamSpeed+2;
 }
 
 void PlayerHeal(byte amt)
 {
-	if(profile.difficulty==0)
+	if(profile.difficulty<2)
 	{
 		if(amt>127)
 			amt=255;
@@ -961,6 +1055,155 @@ void PlayerFireWeapon(Guy *me)
 					profile.progress.shotsFired++;
 				player.wpnReload=20;
 				player.timeStop=30*3;
+			}
+			break;
+		case WPN_BOOMERANG:
+			if(player.ammo)
+			{
+				ScoreEvent(SE_SHOOT,1);
+				FireBullet(me->x,me->y,me->facing,BLT_BOOMERANG,1);
+				MakeSound(SND_BOMBTHROW,me->x,me->y,SND_CUTOFF,1200);
+				player.ammo--;
+				if(!editing && !player.cheated && verified)
+					profile.progress.shotsFired++;
+			}
+			player.wpnReload=8;
+			break;
+		case WPN_CACTUS:
+			if(player.ammo)
+			{
+				ScoreEvent(SE_SHOOT,1);
+				FireBullet(me->x,me->y,me->facing*32+Random(16)-8,BLT_SPINE,1);
+				player.ammo--;
+				MakeSound(SND_CACTONSHOOT,me->x,me->y,SND_CUTOFF,1);
+				if(!editing && !player.cheated && verified)
+					profile.progress.shotsFired++;
+			}
+			me->z+=FIXAMT*Random(4);
+			me->dx+=FIXAMT/2-Random(FIXAMT);
+			me->dy+=FIXAMT/2-Random(FIXAMT);
+			c=GetControls();
+			if(c&CONTROL_B2)	// fire is held
+			{
+				player.wpnReload=1;
+				me->frmTimer=0;
+			}
+			else
+			{
+				player.wpnReload=5;
+				flameFlip=0;
+			}
+			DoPlayerFacing(c,me);
+			break;
+		case WPN_ROCKETS:
+			if(player.ammo)
+			{
+				ScoreEvent(SE_SHOOT,1);
+				FireBullet(me->x,me->y,me->facing,BLT_ROCKET,1);
+				MakeSound(SND_BOMBTHROW,me->x,me->y,SND_CUTOFF,1200);
+				player.ammo--;
+				if(!editing && !player.cheated && verified)
+					profile.progress.shotsFired++;
+			}
+			player.wpnReload=15;
+			break;
+		case WPN_MEGAPHONE:
+			if (player.ammo)
+			{
+				int x, y, i;
+				MakeSound(SND_SDZLSPIT, me->x, me->y, SND_CUTOFF, 1200);
+				FireBullet(me->x - Cosine(me->facing * 32)*32, me->y - Sine(me->facing * 32)*32,
+						me->facing, BLT_SHOCKWAVE, 1);
+				for (i = 0; i < 16; i++)
+				{
+				x = me->x + Cosine(i*32)*8;
+				y = me->y + Sine(i*32)*8;
+				FireBullet(x, y, i*32, BLT_GREEN, 1);
+				}
+				player.ammo--;
+			}
+			player.wpnReload = 25;
+			break;
+		case WPN_PUMPKIN:
+			if (player.ammo)
+			{
+				FireBullet(me->x, me->y, me->facing, BLT_PUMPKIN, 1);
+				player.ammo--;
+				player.wpnReload = 20;
+			}
+			break;
+		case WPN_WATERGUN:
+			if (player.ammo)
+			{
+				FireBullet(me->x, me->y, me->facing*32-16, BLT_SHARKGOOD, 1);
+				FireBullet(me->x, me->y, me->facing*32, BLT_SHARKGOOD, 1);
+				FireBullet(me->x, me->y, me->facing*32+16, BLT_SHARKGOOD, 1);
+				player.ammo--;
+			}
+			c = GetControls();
+			if (c & CONTROL_B2) // fire is held
+			{
+				player.wpnReload = 3;
+				me->frmTimer = 0;
+			}
+			else
+				player.wpnReload = 5;
+			DoPlayerFacing(c, me);
+			break;
+		case WPN_DEATHRAY:
+			if(player.ammo)
+			{
+				ScoreEvent(SE_SHOOT,1);
+				MakeSound(SND_DEATHRAY,me->x,me->y,SND_CUTOFF,1200);
+				FireBullet(me->x,me->y, me->facing,BLT_LASER2,1);
+				player.ammo--;
+				player.wpnReload=15;
+				if(!editing && !player.cheated && verified)
+					profile.progress.shotsFired++;
+			}
+			break;
+		case WPN_SPOREGUN:
+			if (player.ammo)
+			{
+				int x, y, i;
+				x=me->x+Cosine(me->facing*32)*32;
+				y=me->y+Sine(me->facing*32)*32;
+				i=(me->facing*32-64)&255;
+				i=(me->facing*32-8+Random(17))&255;
+				FireExactBullet(x,y,FIXAMT*20,Cosine(i)*12,Sine(i)*12,0,0,16,i,BLT_SPORE,1);
+				MakeSound(SND_MUSHSPORES,me->x,me->y,SND_CUTOFF,600);
+				player.ammo--;
+			}
+			c = GetControls();
+			if (c & CONTROL_B2) // fire is held
+			{
+				player.wpnReload = 2;
+				me->frmTimer = 0;
+			}
+			else
+				player.wpnReload = 3;
+			DoPlayerFacing(c, me);
+			break;
+		case WPN_BLACKHOLE:
+			if(player.ammo)
+			{
+				ScoreEvent(SE_SHOOT,1);
+				MakeSound(SND_DEATHRAY,me->x,me->y,SND_CUTOFF,1200);
+				FireBullet(me->x,me->y,me->facing*32,BLT_HOLESHOT,1);
+				player.ammo--;
+				player.wpnReload=15;
+				if(!editing && !player.cheated && verified)
+					profile.progress.shotsFired++;
+			}
+			break;
+		case WPN_MEDICKIT:
+			if(player.ammo)
+			{
+			player.ammo--;
+			MakeSound(SND_LIGHTSON,me->x,me->y,SND_CUTOFF,1200);
+			c=FakeGetControls();
+			PlayerHeal(4);
+			player.wpnReload=1;
 			}
 			break;
 	}
@@ -1326,6 +1569,34 @@ void PlayerControlMe(Guy *me,mapTile_t *mapTile,world_t *world)
 				BlowUpGuy(x+me->rectx,y+me->recty,x+me->rectx2,y+me->recty2,me->z,1);
 			}
 		}
+		else if(player.playAs==PLAY_WOLF)
+		{
+			if(me->hp>0)
+				MakeSound(SND_LARRYOUCH,me->x,me->y,SND_CUTOFF|SND_ONE,2000);
+			else if(me->seq==ANIM_DIE)	// so it doesn't do this if you're drowning
+				MakeSound(SND_WOLFDIE,me->x,me->y,SND_CUTOFF|SND_ONE,2000);
+		}
+		else if(player.playAs==PLAY_WIZ)
+		{
+			if(me->hp>0)
+				MakeSound(SND_WIZOUCH,me->x,me->y,SND_CUTOFF|SND_ONE,2000);
+			else if(me->seq==ANIM_DIE)	// so it doesn't do this if you're drowning
+				MakeSound(SND_WIZDIE,me->x,me->y,SND_CUTOFF|SND_ONE,2000);
+		}
+		else if(player.playAs==PLAY_MYSTIC)
+		{
+			if(me->hp>0)
+				MakeSound(SND_KMOUCH,me->x,me->y,SND_CUTOFF|SND_ONE,2000);
+			else if(me->seq==ANIM_DIE)	// so it doesn't do this if you're drowning
+				MakeSound(SND_KMDIE,me->x,me->y,SND_CUTOFF|SND_ONE,2000);
+		}
+		else if(player.playAs==PLAY_LOONY)
+		{
+			if(me->hp>0)
+				MakeSound(SND_LOONYOUCH,me->x,me->y,SND_CUTOFF|SND_ONE,2000);
+			else if(me->seq==ANIM_DIE)	// so it doesn't do this if you're drowning
+				MakeSound(SND_LOONYDIE,me->x,me->y,SND_CUTOFF|SND_ONE,2000);
+		}
 	}
 
 	if(me->parent)	// being grabbed by a Super Zombie or something
@@ -1460,6 +1731,7 @@ void PlayerControlMe(Guy *me,mapTile_t *mapTile,world_t *world)
 		player.rageClock=15;
 		if(player.shield==0)
 			player.shield=30;
+		goodguy->strong+=255;
 		EnterRage();
 	}
 	if((c&CONTROL_B1) && player.reload==0)	// pushed hammer throw button
@@ -1472,12 +1744,12 @@ void PlayerControlMe(Guy *me,mapTile_t *mapTile,world_t *world)
 				me->frm=0;
 				me->frmTimer=0;
 				me->frmAdvance=255;
-				me->frm+=4-(player.hamSpeed>>2);
+				me->frm+=(4-(player.hamSpeed>>2))/1.2;
 			}
 			player.boredom=0;
 			if(player.hammers>0)
 				PlayerThrowHammer(me);
-			player.reload+=(10-(4-(player.hamSpeed>>2)));;
+			player.reload+=(8-(4-(player.hamSpeed>>2)));;
 		}
 		else
 		{
@@ -1486,7 +1758,7 @@ void PlayerControlMe(Guy *me,mapTile_t *mapTile,world_t *world)
 			me->frm=0;
 			me->frmTimer=0;
 			me->frmAdvance=255;
-			me->frm+=4-(player.hamSpeed>>2);
+				me->frm+=(4-(player.hamSpeed>>2))/1.2;
 			player.boredom=0;
 			return;
 		}
@@ -1601,6 +1873,8 @@ void PlayerControlMe(Guy *me,mapTile_t *mapTile,world_t *world)
 		{
 			if(player.playAs==PLAY_LUNACHIK)
 				MakeSound(SND_LUNABORED,me->x,me->y,SND_CUTOFF|SND_ONE,2000);
+			else if(player.playAs==PLAY_LOONY)
+				MakeSound(SND_LOONYBORED,me->x,me->y,SND_CUTOFF|SND_ONE,2000);
 			else
 				MakeSound(SND_BOUAPHABORED,me->x,me->y,SND_CUTOFF|SND_ONE,2000);
 			me->seq=ANIM_A2;

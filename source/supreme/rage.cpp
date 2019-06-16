@@ -56,6 +56,7 @@ void StartRaging(void)
 			player.rageClock=30;
 			break;
 		case WPN_BIGAXE:
+		case WPN_MEGAPHONE:
 			player.rageClock=50;
 			break;
 		case WPN_LIGHTNING:
@@ -65,6 +66,8 @@ void StartRaging(void)
 			player.rageClock=20;
 			break;
 		case WPN_MACHETE:
+		case WPN_MEDICKIT:
+		case WPN_DEATHRAY:
 			player.rageClock=10;
 			break;
 		case WPN_MINES:
@@ -89,6 +92,7 @@ void StartRaging(void)
 			player.rageClock=30;
 			break;
 		case WPN_SCANNER:
+		case WPN_BLACKHOLE:
 			player.rageClock=4;
 			break;
 		case WPN_STOPWATCH:
@@ -96,6 +100,9 @@ void StartRaging(void)
 			break;
 		case WPN_FREEZE:
 			player.rageClock=16;
+			break;
+		default:
+			player.rageClock=20;
 			break;
 	}
 }
@@ -120,6 +127,7 @@ void DoRage(Guy *me)
 					if(player.rageClock==(player.rageClock/4)*4)
 						HammerLaunch(me->x,me->y,me->facing,5,HMR_REVERSE|HMR_REFLECT);
 					break;
+				case PLAY_LOONY:
 				case PLAY_LUNATIC:
 					if(player.rageClock==(player.rageClock/4)*4)
 					{
@@ -138,6 +146,21 @@ void DoRage(Guy *me)
 				case PLAY_LUNACHIK:
 					FireExactBullet(me->x,me->y,FIXAMT*20,Cosine((player.rageClock*16))*12,Sine((player.rageClock*16))*12,0,0,50,0,BLT_LUNA2,1);
 					break;
+				case PLAY_WIZ:
+					if(player.rageClock==(player.rageClock/4)*4)
+					{
+						for(i=0;i<8;i++)
+						FireExactBullet(me->x,me->y,FIXAMT*20,Cosine((player.rageClock*16))*12,Sine((player.rageClock*16+(256/8*i)))*12,0,0,50,0,BLT_BIGSHELL,1);
+					}
+					break;
+				case PLAY_MYSTIC:
+					if(player.rageClock==(player.rageClock/4)*4)
+						HammerLaunch(me->x,me->y,me->facing,5,HMR_REVERSE|HMR_REFLECT);
+					break;
+				case PLAY_WOLF:
+					if(player.rageClock==(player.rageClock/4)*4)
+						WolfSpew(me->x,me->y,me->facing,5,HMR_REVERSE|HMR_REFLECT);
+					break;
 			}
 			break;
 		case WPN_MISSILES:
@@ -155,6 +178,11 @@ void DoRage(Guy *me)
 			FireBullet(me->x,me->y,(byte)Random(8),BLT_LASER,1);
 			FireBullet(me->x,me->y,(byte)Random(8),BLT_LASER,1);
 			FireBullet(me->x,me->y,(byte)Random(8),BLT_LASER,1);
+			break;
+		case WPN_WATERGUN:
+			FireBullet(me->x,me->y,(byte)Random(256),BLT_SHARKGOOD,1);
+			FireBullet(me->x,me->y,(byte)Random(256),BLT_SHARKGOOD,1);
+			FireBullet(me->x,me->y,(byte)Random(256),BLT_SHARKGOOD,1);
 			break;
 		case WPN_FLAME:
 		case WPN_TORCH:
@@ -244,5 +272,54 @@ void DoRage(Guy *me)
 				for(i=0;i<8;i++)
 					FireBullet(me->x,me->y,i,BLT_SCANNER,1);
 			break;
+		case WPN_BOOMERANG:
+			if(player.rageClock==(player.rageClock/5)*5)
+			{
+				for(i=0;i<8;i++)
+				FireBullet(me->x,me->y,i,BLT_BOOMERANG,1);
+				MakeSound(SND_BOMBTHROW,me->x,me->y,SND_CUTOFF,1200);
+			}
+			break;
+		case WPN_CACTUS:
+			if(player.rageClock&1)
+				for(i=0;i<8;i++)
+					FireBullet(me->x,me->y,i*32+Random(16)-8,BLT_SPINE,1);
+			MakeSound(SND_CACTONSHOOT,me->x,me->y,SND_CUTOFF,1);
+			break;
+		case WPN_ROCKETS:
+			FireBullet(me->x,me->y,(player.rageClock&7),BLT_ROCKET,1);
+			break;
+		case WPN_MEGAPHONE:
+			GetCamera(&cx,&cy);
+			cx-=320;
+			cy-=240;
+			FireBullet((cx+Random(640))<<FIXSHIFT,(cy+Random(480))<<FIXSHIFT,
+				(byte)Random(8),BLT_SHOCKWAVE,1);
+			MakeSound(SND_ELDEROUCH,me->x,me->y,SND_CUTOFF,1200);
+			break;
+		case WPN_PUMPKIN:
+			GetCamera(&cx,&cy);
+			cx-=320;
+			cy-=240;
+			FireExactBullet((cx+Random(640))<<FIXSHIFT,(cy+Random(480))<<FIXSHIFT,FIXAMT*1,Cosine(0)*0,Sine(0)*0,5*FIXAMT,0,50,64,BLT_PUMPKIN,1);
+			break;
+		case WPN_DEATHRAY:
+			FireBullet(me->x,me->y, (player.rageClock&7),BLT_LASER2,1);
+			FireBullet(me->x,me->y, (player.rageClock&7)+4,BLT_LASER2,1);
+			MakeSound(SND_DEATHRAY,me->x,me->y,SND_CUTOFF,1200);
+			break;
+		case WPN_SPOREGUN:
+			if(player.rageClock&1)
+				for(i=0;i<8;i++)
+					FireExactBullet(me->x,me->y,FIXAMT*20,Cosine(i*32)*12,Sine(i*32)*12,0,0,16,i*32,BLT_SPORE,1);
+			MakeSound(SND_MUSHSPORES,me->x,me->y,SND_CUTOFF,1);
+			break;
+		case WPN_BLACKHOLE:
+			if(player.rageClock&1)
+				for(i=0;i<8;i++)
+					FireBullet(me->x,me->y,i*32,BLT_HOLESHOT,1);
+			break;
+		case WPN_MEDICKIT:
+			PlayerHeal(4);
 	}
 }

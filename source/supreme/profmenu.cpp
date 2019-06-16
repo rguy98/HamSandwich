@@ -95,8 +95,8 @@ static char fileList[PRFNAME_LEN*MAX_PROFS];
 static int numFiles;
 static byte profChoice;
 
-static char diffName[][16]={"Normal","Hard","Lunatic"};
-static char charName[][16]={"Bouapha","Happy Stick Man","Dr. Lunatic","Shtupid Shroom","LunaChick","MechaBouapha"};
+static char diffName[][16]={"Wimpy","Normal","Hard","Lunatic","Jamulio"};
+static char charName[][16]={"Bouapha","Happy Stick Man","Dr. Lunatic","Shtupid Shroom","LunaChick","MechaBouapha","Wolfman","Wild Wizard","Kid Mystic","Young Loony"};
 
 static byte recordBook,candleRadar,brainRadar,moveNShoot;
 
@@ -259,12 +259,12 @@ byte UpdateProfMenu(int *lastTime,MGLDraw *mgl)
 								break;
 							case BTN_DIFFICULTY:
 								profile.difficulty++;
-								if(profile.difficulty>2)
+								if(profile.difficulty>4)
 									profile.difficulty=0;
 								break;
 							case BTN_CHARACTER:
 								profile.playAs++;
-								if(profile.playAs>5)
+								if(profile.playAs>PLAY_LOONY)
 									profile.playAs=0;
 								while(profile.playAs!=PLAY_BOUAPHA && !ItemPurchased(SHOP_PLAYABLE,profile.playAs))
 								{
@@ -611,7 +611,7 @@ void ProfMenu(MGLDraw *mgl)
 	int lastTime=1;
 
 	InitProfMenu(mgl);
-	PlaySongForce("003worldpicker.ogg");
+	PlaySongForce("SWC_02_worldpicker.ogg");
 
 	while(!done)
 	{

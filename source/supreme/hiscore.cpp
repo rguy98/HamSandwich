@@ -866,11 +866,15 @@ byte TryHighScore(void)
 		destructBonus=0.5f+((float)player.enemiesSlain/(float)player.totalEnemies);
 
 	if(profile.difficulty==0)
-		diffBonus=0.75f;
+		diffBonus=0.60f;
 	else if(profile.difficulty==1)
-		diffBonus=1.0f;
+		diffBonus=0.80f;
+	else if(profile.difficulty==2)
+		diffBonus=1.00f;
+	else if(profile.difficulty==3)
+		diffBonus=1.20f;
 	else
-		diffBonus=1.25f;
+		diffBonus=1.40f;
 
 	trueScore=player.score;
 	trueScore+=player.bestCombo*10;

@@ -84,27 +84,28 @@ static pauseItem_t gameCheatPause[]={
 static pauseItem_t cheatPause[]={
 	{PE_CHEAT,"Stop Cheating!"},
 	{PE_CHEATS+CHEAT_WINLEVEL,"Win Level"},
-	{PE_CHEATS+CHEAT_HAMMERUP,"UltraHammerUp"},
+	{PE_CHEATS+CHEAT_HAMMERUP,"Max. Firepower"},
 	{PE_CHEATS+CHEAT_LIFE,"Max Health"},
 	{PE_CHEATS+CHEAT_RAGE,"Max Rage"},
 	{PE_CHEATS+CHEAT_SHIELD,"Energy Barrier"},
 	{PE_CHEATS+CHEAT_BOOM,"KABLOOIE!"},
 	{PE_CHEATS+CHEAT_FREEZE,"Freeze Enemies"},
+	{PE_CHEATS+CHEAT_CANDLES,"All Candles"},
 	{PE_CHEATS+CHEAT_BRAINS,"All Brains"},
-	{PE_CHEATS+CHEAT_KEYS,"All Keys"},
 	{PE_MORECHEATS,"More Cheats"},
 	{PE_DONE,""},
 };
 
 static pauseItem_t cheatPause2[]={
 	{PE_PREVCHEATS,"Prev. Cheats"},
+	{PE_CHEATS+CHEAT_KEYS,"All Keys"},
+	{PE_CHEATS+CHEAT_WATER,"Walk On Water"},
+	{PE_CHEATS+CHEAT_LIGHT,"Lights On"},
+	{PE_CHEATS+CHEAT_SPEED,"Super Speed"},
 	{PE_CHEATS+CHEAT_SCANNER,"Free Scanner"},
 	{PE_CHEATS+CHEAT_AMMO,"Ammo Crate"},
-	{PE_CHEATS+CHEAT_LIGHT,"Lights On"},
-	{PE_CHEATS+CHEAT_WATER,"Walk On Water"},
 	{PE_CHEATS+CHEAT_OXYGEN,"Infinite Oxygen"},
 	{PE_CHEATS+CHEAT_NOSKID,"No-Skid Boots"},
-	{PE_CHEATS+CHEAT_SPEED,"Super Speed"},
 	{PE_CHEAT,"Stop Cheating!"},
 	{PE_DONE,""},
 };

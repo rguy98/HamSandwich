@@ -711,22 +711,88 @@ item_t baseItems[]={
 		IF_PICKUP,
 		IT_PICKUP|IT_WEAPON|IT_POWERUP,
 		ITR_GET,IE_POWERUP,PU_CHEESE,"Supreme Squeezy Cheese!",SND_WEAPON},
-	{"New Item",0,0,0,0,0,0,0,0,0,ITR_NONE,IE_NONE,0,"",0},	// unused2
-	{"New Item",0,0,0,0,0,0,0,0,0,ITR_NONE,IE_NONE,0,"",0},	// unused3
-	{"New Item",0,0,0,0,0,0,0,0,0,ITR_NONE,IE_NONE,0,"",0},	// unused4
-	{"New Item",0,0,0,0,0,0,0,0,0,ITR_NONE,IE_NONE,0,"",0},	// unused5
-	{"New Item",0,0,0,0,0,0,0,0,0,ITR_NONE,IE_NONE,0,"",0},	// unused6
-	{"New Item",0,0,0,0,0,0,0,0,0,ITR_NONE,IE_NONE,0,"",0},	// unused7
-	{"New Item",0,0,0,0,0,0,0,0,0,ITR_NONE,IE_NONE,0,"",0},	// unused8
-	{"New Item",0,0,0,0,0,0,0,0,0,ITR_NONE,IE_NONE,0,"",0},	// unused9
-	{"New Item",0,0,0,0,0,0,0,0,0,ITR_NONE,IE_NONE,0,"",0},	// unused10
-	{"New Item",0,0,0,0,0,0,0,0,0,ITR_NONE,IE_NONE,0,"",0},	// unused11
-	{"New Item",0,0,0,0,0,0,0,0,0,ITR_NONE,IE_NONE,0,"",0},	// unused12
-	{"New Item",0,0,0,0,0,0,0,0,0,ITR_NONE,IE_NONE,0,"",0},	// unused13
-	{"New Item",0,0,0,0,0,0,0,0,0,ITR_NONE,IE_NONE,0,"",0},	// unused14
-	{"New Item",0,0,0,0,0,0,0,0,0,ITR_NONE,IE_NONE,0,"",0},	// unused15
-	{"New Item",0,0,0,0,0,0,0,0,0,ITR_NONE,IE_NONE,0,"",0},	// unused16
-	{"New Item",0,0,0,0,0,0,0,0,0,ITR_NONE,IE_NONE,0,"",0},	// unused17
+	{"White Key",-4,-3,143,0,0,0,
+		0,
+		IF_PICKUP,
+		IT_PICKUP|IT_KEY,
+		ITR_GET,IE_WKEY,1,
+		"",SND_GETKEY},
+	{"Black Key",-4,-3,142,0,0,0,
+		0,
+		IF_PICKUP,
+		IT_PICKUP|IT_KEY,
+		ITR_GET,IE_BLKEY,1,
+		"",SND_GETKEY},
+	{"White Door",-15,9,145,0,0,0,
+		0,
+		IF_SOLID|IF_BULLETPROOF,
+		IT_BULLETPROOF|IT_DOOR,
+		ITR_PLAYERBUMP,IE_DOOR,4,"",SND_DOOROPEN},
+	{"Black Door",-15,9,144,0,0,0,
+		0,
+		IF_SOLID|IF_BULLETPROOF,
+		IT_BULLETPROOF|IT_DOOR,
+		ITR_PLAYERBUMP,IE_DOOR,5,"",SND_DOOROPEN},
+	{"Hay Bale",0,0,160,0,0,0,
+		0,
+		IF_SOLID,
+		IT_OBSTACLE,
+		ITR_NONE,IE_NONE,0,"",0},
+	{"Wooden Barrel",0,0,158,0,0,0,
+		0,
+		IF_SOLID|IF_SHADOW,
+		IT_OBSTACLE|IT_CRATE,
+		ITR_NONE,IE_NONE,0,"",0},
+	{"Boomerang",0,-3,148,0,0,0,
+		30,
+		IF_PICKUP,
+		IT_PICKUP|IT_WEAPON,
+		ITR_GET,IE_WEAPON,WPN_BOOMERANG,"Boomerang!",SND_WEAPON},
+	{"Potted Cactus",0,-3,149,0,0,0,
+		30,
+		IF_PICKUP,
+		IT_PICKUP|IT_WEAPON,
+		ITR_GET,IE_WEAPON,WPN_CACTUS,"Potted Cactus!",SND_WEAPON},
+	{"Bionic Arm",0,-3,150,0,0,0,
+		30,
+		IF_PICKUP,
+		IT_PICKUP|IT_WEAPON,
+		ITR_GET,IE_WEAPON,WPN_ROCKETS,"Bionic Arm!",SND_WEAPON},
+	{"Super Soaker",0,-3,153,0,0,0,
+		30,
+		IF_PICKUP,
+		IT_PICKUP|IT_WEAPON,
+		ITR_GET,IE_WEAPON,WPN_WATERGUN,"Super Soaker!",SND_WEAPON},
+	{"Megaphone",0,-3,151,0,0,0,
+		30,
+		IF_PICKUP,
+		IT_PICKUP|IT_WEAPON,
+		ITR_GET,IE_WEAPON,WPN_MEGAPHONE,"Megaphone!",SND_WEAPON},
+	{"Cucurbinator",0,-3,152,0,0,0,
+		30,
+		IF_PICKUP,
+		IT_PICKUP|IT_WEAPON,
+		ITR_GET,IE_WEAPON,WPN_PUMPKIN,"Cucurbinator!",SND_WEAPON},
+	{"Death Ray",0,-3,154,0,0,0,
+		0,
+		IF_PICKUP,
+		IT_PICKUP|IT_WEAPON,
+		ITR_GET,IE_WEAPON,WPN_DEATHRAY,"Death Ray!",SND_WEAPON},
+	{"Spore Cannon",0,-3,155,0,0,0,
+		30,
+		IF_PICKUP,
+		IT_PICKUP|IT_WEAPON,
+		ITR_GET,IE_WEAPON,WPN_SPOREGUN,"Spore Cannon!",SND_WEAPON},
+	{"Abyssinator",0,-3,156,0,0,0,
+		0,
+		IF_PICKUP,
+		IT_PICKUP|IT_WEAPON,
+		ITR_GET,IE_WEAPON,WPN_BLACKHOLE,"Abyssinator!",SND_WEAPON},
+	{"Medic Kit",0,-3,157,0,0,0,
+		30,
+		IF_PICKUP,
+		IT_PICKUP|IT_WEAPON,
+		ITR_GET,IE_WEAPON,WPN_MEDICKIT,"Medic Kit!",SND_WEAPON},
 };
 
 static item_t emptyItem=
@@ -1285,8 +1351,8 @@ byte TriggerItem(Guy *me,mapTile_t *m,int x,int y)
 		case IE_PANTS:
 			if(player.hamSpeed-items[m->item].effectAmt*4<0)
 				player.hamSpeed=0;
-			else if(player.hamSpeed-items[m->item].effectAmt*4>16)
-				player.hamSpeed=16;
+			else if(player.hamSpeed-items[m->item].effectAmt*4>20)
+				player.hamSpeed=20;
 			else
 				player.hamSpeed-=items[m->item].effectAmt*4;
 			return 1;
@@ -1415,6 +1481,62 @@ byte TriggerItem(Guy *me,mapTile_t *m,int x,int y)
 				}
 			}
 			break;
+		case IE_WKEY:
+			if(items[m->item].effectAmt>0)
+			{
+				if(player.keys[4])
+					return 0;
+				else
+				{
+					if(!editing && !player.cheated && verified)
+					{
+						profile.progress.keysFound++;
+						if(profile.progress.keysFound>=100)
+							CompleteGoal(73);
+					}
+					player.keys[4]=1;
+					return 1;
+				}
+			}
+			else
+			{
+				if(!player.keys[4])
+					return 0;
+				else
+				{
+					player.keys[4]=0;
+					return 1;
+				}
+			}
+			break;
+		case IE_BLKEY:
+			if(items[m->item].effectAmt>0)
+			{
+				if(player.keys[5])
+					return 0;
+				else
+				{
+					if(!editing && !player.cheated && verified)
+					{
+						profile.progress.keysFound++;
+						if(profile.progress.keysFound>=100)
+							CompleteGoal(73);
+					}
+					player.keys[5]=1;
+					return 1;
+				}
+			}
+			else
+			{
+				if(!player.keys[5])
+					return 0;
+				else
+				{
+					player.keys[5]=0;
+					return 1;
+				}
+			}
+			break;
 		case IE_LOONYKEY:
 			if(items[m->item].effectAmt>0)
 			{
@@ -1504,7 +1626,7 @@ byte TriggerItem(Guy *me,mapTile_t *m,int x,int y)
 			return 1;
 			break;
 		case IE_DOOR:
-			if(!me || me->aiType!=MONS_BOUAPHA)
+			if(!me || (me->aiType!=MONS_BOUAPHA&&me->aiType!=MONS_GOODBONE))
 				return 0;	// won't go away for non-Bouaphas
 			else if(player.keys[items[m->item].effectAmt])
 			{
@@ -1540,6 +1662,26 @@ byte TriggerItem(Guy *me,mapTile_t *m,int x,int y)
 			{
 				for(i=0;i<items[m->item].effectAmt;i++)
 					FireBullet(goodguy->x,goodguy->y,Random(8),BLT_ORBITER2,1);
+			}
+			return 1;
+			break;
+		case IE_ORBITER3:
+			if(items[m->item].effectAmt<0)
+				RemoveOrbiters(-items[m->item].effectAmt,1,BLT_ORBITER3);
+			else
+			{
+				for(i=0;i<items[m->item].effectAmt;i++)
+					FireBullet(goodguy->x,goodguy->y,Random(8),BLT_ORBITER3,1);
+			}
+			return 1;
+			break;
+		case IE_ORBITER4:
+			if(items[m->item].effectAmt<0)
+				RemoveOrbiters(-items[m->item].effectAmt,1,BLT_ORBITER4);
+			else
+			{
+				for(i=0;i<items[m->item].effectAmt;i++)
+					FireBullet(goodguy->x,goodguy->y,Random(8),BLT_ORBITER4,1);
 			}
 			return 1;
 			break;
@@ -1695,7 +1837,7 @@ byte InteractWithItem(Guy *me,mapTile_t *m,int x,int y)
 		result=1;	// no item can contain a ghost!
 
 	// pickup-able item
-	if(me->aiType==MONS_BOUAPHA && (items[type].flags&IF_PICKUP) && me->hp>0)
+	if((me->aiType==MONS_BOUAPHA||me->aiType==MONS_GOODBONE) && (items[type].flags&IF_PICKUP) && me->hp>0)
 	{
 		result=1;
 		if(items[type].trigger&ITR_GET)
@@ -1722,7 +1864,7 @@ byte InteractWithItem(Guy *me,mapTile_t *m,int x,int y)
 		}
 	}
 
-	if((me->aiType==MONS_BOUAPHA && (items[type].trigger&(ITR_PLAYERBUMP|ITR_FRIENDBUMP))) ||
+	if(((me->aiType==MONS_BOUAPHA||me->aiType==MONS_GOODBONE) && (items[type].trigger&(ITR_PLAYERBUMP|ITR_FRIENDBUMP))) ||
 	   (me->friendly && (items[type].trigger&ITR_FRIENDBUMP)) ||
 	   (!me->friendly && (items[type].trigger&ITR_ENEMYBUMP)))
 	{

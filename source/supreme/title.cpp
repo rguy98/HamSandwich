@@ -208,7 +208,7 @@ static int titleRuns;
 static int msx,msy,oldmsx,oldmsy;
 static byte cursor;
 static byte sliceOut[8];
-char menuTxt[][16]={"Play","Profile","Tutorial","Instructions","Exit","Internet","Shop","Editor"};
+char menuTxt[][16]={"Play","Profile","Tutorial","Instructions","Exit","Sekrit!","Shop","Editor"};
 int igfX,igfY,igfDX,igfDY;
 
 void MainMenuDisplay(MGLDraw *mgl)
@@ -474,7 +474,7 @@ byte MainMenu(MGLDraw *mgl)
 	oldc=CONTROL_B1|CONTROL_B2;
 	planetSpr=new sprite_set_t("graphics/pizza.jsp");
 
-	PlaySongForce("002title.ogg");
+	PlaySongForce("SWC_01_title.ogg");
 
 	igfX=Random(500)+100;
 	igfY=Random(300)+100;

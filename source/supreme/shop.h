@@ -54,6 +54,10 @@
 #define PLAY_SHROOM		3
 #define PLAY_LUNACHIK	4
 #define PLAY_MECHA		5
+#define PLAY_WOLF		6
+#define PLAY_WIZ		7
+#define PLAY_MYSTIC		8
+#define PLAY_LOONY		9
 
 // shop item flags (used in the player progress file)
 #define SIF_AVAILABLE	1

@@ -10,7 +10,7 @@ static old_world_t *oldWorld;
 static char songTab[23][32]={
 		"",	// 1=no song
 		"002title.ogg",
-		"003worldpicker.ogg",
+		"SWC_02_workdpicker.ogg",
 		"004CavernHub.ogg",
 		"005CavernLevel.ogg",
 		"006CavernBoss.ogg",

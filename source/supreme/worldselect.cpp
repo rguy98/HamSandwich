@@ -58,7 +58,7 @@ static int mouseZ;
 #ifdef WTG
 static byte showFilenames = 1;
 #elif defined(_DEBUG)
-static byte showFilenames = 0;
+static byte showFilenames = 1;
 #endif
 
 #ifdef LEVELLIST
@@ -241,7 +241,7 @@ void ScanWorlds(void)
 
 #ifdef LEVELLIST
 	levelF=fopen("levellist.txt","wt");
-	level2F=fopen("worlds/levels.dat","wb");
+	level2F=fopen("worlds/levels.dat","wt");
 	authorF=fopen("authorlist.txt","wt");
 	totalLCount=0;
 #endif
@@ -409,6 +409,8 @@ void MoveToNewWorld(void)
 void InitWorldSelect(MGLDraw *mgl)
 {
 	int i;
+	char s[512];
+	char dyk[][512]={"1","2","3","4","5","6","7","8","9","10","11","12","13","14",};
 
 	mgl->LoadBMP("graphics/profmenu.bmp");
 	backgd=(byte *)malloc(640*480);
@@ -417,6 +419,9 @@ void InitWorldSelect(MGLDraw *mgl)
 		memcpy(&backgd[i*640],&mgl->GetScreen()[i*mgl->GetWidth()],640);
 
 	PrintGlow(20,20,"Loading...",0,2);
+	PrintGlow(20,360,"Did You Know?",0,2);
+	sprintf(s,dyk[Random(14)]);
+	PrintGlow(20,380,s,0,1);
 	mgl->Flip();
 
 	sortType=0;
@@ -435,7 +440,7 @@ void InitWorldSelect(MGLDraw *mgl)
 	wsSpr=new sprite_set_t("graphics/pause.jsp");
 	msBright=0;
 	msDBright=1;
-	PlaySongForce("003worldpicker.ogg");
+	PlaySongForce("SWC_02_worldpicker.ogg");
 	mouseZ=mgl->mouse_z;
 }
 
