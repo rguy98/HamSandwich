@@ -183,7 +183,7 @@ void RenderUnpaused(void)
 		RenderPauseMenu();
 }
 
-void PrintPauseVal(char *txt,int v,int max,int x,int y)
+void PrintPauseVal(const char *txt,int v,int max,int x,int y)
 {
 	char s[32];
 	int len;
@@ -656,7 +656,7 @@ byte UpdatePauseMenu(MGLDraw *mgl)
 			case PE_MUSVOL:
 				MakeNormalSound(SND_MENUSELECT);
 				profile.music=PrevVolumeSpot(profile.music);
-				JamulSoundMusicVolume(profile.music);
+				SetMusicVolume(profile.music);
 				break;
 			case PE_SONG:
 				PlayPrevSong();
@@ -691,7 +691,7 @@ byte UpdatePauseMenu(MGLDraw *mgl)
 			case PE_MUSVOL:
 				MakeNormalSound(SND_MENUSELECT);
 				profile.music=NextVolumeSpot(profile.music);
-				JamulSoundMusicVolume(profile.music);
+				SetMusicVolume(profile.music);
 				break;
 			case PE_SONG:
 				PlayNextSong();
@@ -768,7 +768,7 @@ byte UpdatePauseMenu(MGLDraw *mgl)
 					break;
 				case PE_MUSVOL:
 					profile.music=NextVolumeSpot(profile.music);
-					JamulSoundMusicVolume(profile.music);
+					SetMusicVolume(profile.music);
 					break;
 				case PE_EXIT:
 					pauseY=480;

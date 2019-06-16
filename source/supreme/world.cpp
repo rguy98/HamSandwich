@@ -3,6 +3,7 @@
 #include "repair.h"
 #include "items.h"
 #include "worldstitch.h"
+#include "log.h"
 
 byte keyChainInLevel[MAX_MAPS];
 
@@ -37,7 +38,7 @@ byte Ham_GetWorldName(const char *fname, char *buffer, char *authbuffer);
 byte Ham_LoadWorld(world_t *world, const char *fname);
 byte Ham_SaveWorld(world_t *world, const char *fname);
 
-byte LoadWorld(world_t *world,char *fname)
+byte LoadWorld(world_t *world,const char *fname)
 {
 	FILE *f;
 	int i;
@@ -49,7 +50,6 @@ byte LoadWorld(world_t *world,char *fname)
 
 	fread(code,sizeof(char),8,f);
 	code[8]='\0';
-	printf("LoadWorld(%s): %s\n", fname, code);
 
 	if(!strcmp(code, "HAMSWCH!"))
 	{
@@ -94,7 +94,7 @@ byte LoadWorld(world_t *world,char *fname)
 	return 1;
 }
 
-byte BeginAppendWorld(world_t *world,char *fname)
+byte BeginAppendWorld(world_t *world,const char *fname)
 {
 	FILE *f;
 	int i;
@@ -215,7 +215,7 @@ byte SaveWorld(world_t *world, const char *fname)
 	return 1;
 }
 
-byte GetWorldName(char *fname,char *buffer,char *authbuffer)
+byte GetWorldName(const char *fname,char *buffer,char *authbuffer)
 {
 	FILE *f;
 	char code[9];

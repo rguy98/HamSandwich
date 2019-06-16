@@ -1,5 +1,7 @@
 #include "jamulspr.h"
 #include "mgldraw.h"
+#include "appdata.h"
+#include "log.h"
 
 // the sprites are 12 bytes, not including the data itself
 #define SPRITE_INFO_SIZE 16
@@ -99,7 +101,7 @@ sprite_t::~sprite_t(void)
 }
 
 // REGULAR MEMBER FUNCTIONS
-bool sprite_t::LoadData(FILE *f)
+bool sprite_t::LoadData(SDL_RWops *f)
 {
 	if(size==0)
 		return true;
@@ -108,7 +110,7 @@ bool sprite_t::LoadData(FILE *f)
 	if(!data)
 		return false;
 
-	if(fread(data,1,size,f)!=size)
+	if(SDL_RWread(f,data,1,size)!=size)
 	{
 		return false;
 	}
@@ -934,23 +936,24 @@ sprite_set_t::~sprite_set_t(void)
 // REGULAR MEMBER FUNCTIONS
 bool sprite_set_t::Load(const char *fname)
 {
-	FILE *f;
 	int i;
 	byte *buffer;
 
 	if(spr)
 		Free();
 
-	f=fopen(fname,"rb");
-	if(!f)
+	SDL_RWops *f=AssetOpen_SDL(fname,"rb");
+	if(!f) {
+		LogError("%s: %s", fname, SDL_GetError());
 		return false;
+	}
 	// read the count
-	fread(&count,2,1,f);
+	SDL_RWread(f, &count, 2, 1);
 
 	spr=(sprite_t **)malloc(sizeof(sprite_t *)*count);
 	if(!spr)
 	{
-		fclose(f);
+		SDL_RWclose(f);
 		return false;
 	}
 
@@ -958,16 +961,16 @@ bool sprite_set_t::Load(const char *fname)
 	buffer=(byte *)malloc(SPRITE_INFO_SIZE*count);
 	if(!buffer)
 	{
-		fclose(f);
+		SDL_RWclose(f);
 		free(spr);
 		spr=NULL;
 		return false;
 	}
 
 	// read in the sprite headers
-	if(fread(buffer,SPRITE_INFO_SIZE,count,f)!=count)
+	if(SDL_RWread(f,buffer,SPRITE_INFO_SIZE,count)!=count)
 	{
-		fclose(f);
+		SDL_RWclose(f);
 		free(spr);
 		free(buffer);
 		spr=NULL;
@@ -980,18 +983,18 @@ bool sprite_set_t::Load(const char *fname)
 		spr[i]=new sprite_t(&buffer[i*SPRITE_INFO_SIZE]);
 		if(!spr[i])
 		{
-			fclose(f);
+			SDL_RWclose(f);
 			return false;
 		}
 		if(!spr[i]->LoadData(f))
 		{
-			fclose(f);
+			SDL_RWclose(f);
 			spr[i]=NULL;
 			return false;
 		}
 	}
 	free(buffer);
-	fclose(f);
+	SDL_RWclose(f);
 	return true;
 }
 
@@ -1001,7 +1004,7 @@ bool sprite_set_t::Save(const char *fname)
 	int i;
 	byte *buffer;
 
-	f=fopen(fname,"wb");
+	f=AssetOpen(fname,"wb");
 	if(!f)
 		return false;
 	// write the count

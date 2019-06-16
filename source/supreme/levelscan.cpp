@@ -5,6 +5,7 @@
 #include "vars.h"
 #include "shop.h"
 #include "control.h"
+#include <algorithm>
 
 static FILE *scanF;
 

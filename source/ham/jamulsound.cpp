@@ -1,10 +1,21 @@
 #include "jamulsound.h"
-#include "mgldraw.h"
-#include "sound.h"
-#include "options.h"
-#include "config.h"
-#include <SDL2/SDL_mixer.h>
+#include "hammusic.h"
+#include "log.h"
 #include <stdio.h>
+
+#ifdef SDL_UNPREFIXED
+	#include <SDL.h>
+	#include <SDL_mixer.h>
+#else  // SDL_UNPREFIXED
+	#include <SDL2/SDL.h>
+	#include <SDL2/SDL_mixer.h>
+#endif  // SDL_UNPREFIXED
+
+// Game-provided
+extern bool ConfigSoundEnabled();
+extern int ConfigNumSounds();
+extern SDL_RWops* SoundLoadOverride(int num);
+
 
 typedef struct soundList_t
 {
@@ -20,7 +31,7 @@ typedef struct schannel_t
 
 static int sndVolume;
 
-const int NUM_SOUNDS = 32;
+static int NUM_SOUNDS = 0;
 
 static byte soundIsOn=0;
 static int bufferCount;
@@ -31,17 +42,20 @@ bool JamulSoundInit(int numBuffers)
 {
 	int i;
 
-	if (!config.sound)
+	if (!ConfigSoundEnabled()) {
+		LogDebug("sound disabled in config");
 		return false;
+	}
 	if (SDL_Init(SDL_INIT_AUDIO) != 0) {
-		printf("init audio failed: %s\n", SDL_GetError());
+		LogError("SDL_Init(AUDIO): %s", SDL_GetError());
 		return false;
 	}
-	Mix_Init(MIX_INIT_OGG);
+	Mix_Init(MIX_INIT_OGG);  // not logged, because it lies
 	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024) != 0) {
-		printf("Mix_OpenAudio: %s\n", Mix_GetError());
+		LogError("Mix_OpenAudio: %s", Mix_GetError());
 		return false;
 	}
+	NUM_SOUNDS = ConfigNumSounds();
 	Mix_AllocateChannels(NUM_SOUNDS + 1);
 
 	soundIsOn=1;
@@ -66,7 +80,7 @@ void JamulSoundExit(void)
 	{
 		soundIsOn = false;
 		JamulSoundPurge();
-		KillSong();
+		StopSong();
 		Mix_CloseAudio();
 		delete[] schannel;
 		delete[] soundList;
@@ -94,7 +108,7 @@ void JamulSoundUpdate(void)
 	}
 }
 
-bool JamulSoundPlay(int which,long pan,long vol,byte playFlags,int priority)
+bool JamulSoundPlay(int which,long pan,long vol,int playFlags,int priority)
 {
 	char s[32];
 	int i,chosen,lowpriority;
@@ -109,13 +123,25 @@ bool JamulSoundPlay(int which,long pan,long vol,byte playFlags,int priority)
 
 	if(soundList[which].sample==NULL)
 	{
-		sprintf(s,"sound/snd%03d.wav",which);
-		SDL_RWops* rw = SDL_RWFromFile(s, "rb");
-		if(!rw)
-			return 0;
+		// See if sound loading is overridden for this sound...
+		SDL_RWops* rw = SoundLoadOverride(which);
+		if (!rw)
+		{
+			// If not, try to load it from a file instead
+			sprintf(s,"sound/snd%03d.wav",which);
+			rw = SDL_RWFromFile(s, "rb");
+			if(!rw) {
+				LogError("Open(%s): %s", s, SDL_GetError());
+				return 0;
+			}
+		}
+
+		// Now try to load it
 		soundList[which].sample = Mix_LoadWAV_RW(rw, 1);
-		if(soundList[which].sample==NULL)
+		if(soundList[which].sample==NULL) {
+			LogError("LoadWAV(%d): %s", which, Mix_GetError());
 			return 0;
+		}
 	}
 
 	if(playFlags&SND_ONE)
@@ -123,6 +149,7 @@ bool JamulSoundPlay(int which,long pan,long vol,byte playFlags,int priority)
 		for(i=0;i<NUM_SOUNDS;i++)
 			if(schannel[i].soundNum==which)
 			{
+				// TODO: only cut this sound off if it is not playing or SND_CUTOFF is set
 				Mix_HaltChannel(schannel[i].voice);
 				schannel[i].soundNum=-1;
 				schannel[i].priority=0;
@@ -130,12 +157,15 @@ bool JamulSoundPlay(int which,long pan,long vol,byte playFlags,int priority)
 			}
 	}
 
+	if(playFlags & SND_MAXPRIORITY)
+		priority = MAX_SNDPRIORITY;
+
 	chosen=-1;
 	lowpriority=priority;
 	// see if there are any spots of lower priority,
 	for(i=0;i<NUM_SOUNDS;i++)
 	{
-		if(schannel[i].priority<=lowpriority)
+		if(schannel[i].priority<=lowpriority || ((playFlags & SND_CUTOFF) && schannel[i].soundNum == which))
 		{
 			chosen=i;
 			lowpriority=schannel[i].priority;
@@ -149,7 +179,7 @@ bool JamulSoundPlay(int which,long pan,long vol,byte playFlags,int priority)
 	if(schannel[chosen].soundNum!=-1)
 		Mix_HaltChannel(schannel[chosen].voice);
 
-	i=Mix_PlayChannel(-1, soundList[which].sample, 0);
+	i=Mix_PlayChannel(-1, soundList[which].sample, (playFlags & SND_LOOPING) ? -1 : 0);
 	if(i!=-1)
 	{
 		Mix_Volume(i, vol / 2);
@@ -167,14 +197,14 @@ bool JamulSoundPlay(int which,long pan,long vol,byte playFlags,int priority)
 			voice_set_frequency(i, freq);
 			voice_start(i);
 		}
-		if(profile.progress.purchase[modeShopNum[MODE_REVERSE]]&SIF_ACTIVE)
+		if(playFlags&SND_BACKWARDS)
 		{
 			voice_stop(i);
 			voice_set_position(i, soundList[which].sample->len - 1);
 			voice_set_frequency(i, -voice_get_frequency(i));
 			voice_start(i);
 		}
-		if(profile.progress.purchase[modeShopNum[MODE_MANIC]]&SIF_ACTIVE)
+		if(playFlags&SND_DOUBLESPEED)
 		{
 			voice_stop(i);
 			voice_set_frequency(i, 2 * voice_get_frequency(i));
@@ -206,8 +236,6 @@ bool JamulSoundStop(int which)
 		}
 	}
 
-	soundIsOn = 0;
-
 	return true;
 }
 
@@ -237,7 +265,7 @@ void JamulSoundPurge(void)
 	}
 }
 
-void GoPlaySound(int num,long pan,long vol,byte flags,int priority)
+void GoPlaySound(int num,long pan,long vol,int flags,int priority)
 {
 	if(!soundIsOn)
 		return;

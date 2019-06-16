@@ -3,6 +3,8 @@
 #include "display.h"
 #include "repair.h"
 #include "progress.h"
+#include "music.h"
+#include "shop.h"
 
 soundDesc_t soundInfo[MAX_SOUNDS]={
 	{SND_NONE,"No Sound At All!!",ST_EFFECT},
@@ -482,6 +484,16 @@ void ClearCustomSounds(void)
 	numCustom=0;
 }
 
+int GlobalFlags()
+{
+	int result = 0;
+	if (profile.progress.purchase[modeShopNum[MODE_REVERSE]]&SIF_ACTIVE)
+		result |= SND_BACKWARDS;
+	if (profile.progress.purchase[modeShopNum[MODE_MANIC]]&SIF_ACTIVE)
+		result |= SND_DOUBLESPEED;
+	return result;
+}
+
 void MakeSound(int snd,int x,int y,int flags,int priority)
 {
 	long pan,vol;
@@ -512,7 +524,7 @@ void MakeSound(int snd,int x,int y,int flags,int priority)
 	}
 	if(vol<-255)
 		return;
-	GoPlaySound(snd,pan,vol,(byte)flags,priority);
+	GoPlaySound(snd,pan,vol,flags|GlobalFlags(),priority);
 }
 
 void MakeNormalSound(int snd)
@@ -523,7 +535,7 @@ void MakeNormalSound(int snd)
 	if(profile.sound==0)
 		return;
 
-	GoPlaySound(snd,0,0,SND_MAXPRIORITY|SND_CUTOFF|SND_ONE,MAX_SNDPRIORITY);
+	GoPlaySound(snd,0,0,SND_MAXPRIORITY|SND_CUTOFF|SND_ONE|GlobalFlags(),MAX_SNDPRIORITY);
 }
 
 void MakeCustomSound(int snd,int x,int y,int flags,int priority)
@@ -556,7 +568,7 @@ void MakeCustomSound(int snd,int x,int y,int flags,int priority)
 	}
 	if(vol<-255)
 		return;
-	GoPlaySound(soundInfo[snd].num,pan,vol,(byte)flags,priority);
+	GoPlaySound(soundInfo[snd].num,pan,vol,flags|GlobalFlags(),priority);
 }
 
 void MakeNormalCustomSound(int snd)
@@ -570,7 +582,7 @@ void MakeNormalCustomSound(int snd)
 	if(profile.sound==0)
 		return;
 
-	GoPlaySound(soundInfo[snd].num,0,0,SND_MAXPRIORITY|SND_CUTOFF|SND_ONE,MAX_SNDPRIORITY);
+	GoPlaySound(soundInfo[snd].num,0,0,SND_MAXPRIORITY|SND_CUTOFF|SND_ONE|GlobalFlags(),MAX_SNDPRIORITY);
 }
 
 soundDesc_t *GetSoundInfo(int snd)
@@ -598,7 +610,7 @@ long GetCustomLength(int n)
 	return customLength[n];
 }
 
-byte AddCustomSound(char *fname)
+byte AddCustomSound(const char *fname)
 {
 	FILE *f;
 
@@ -647,7 +659,7 @@ soundDesc_t *AddCustomSound(byte *data, size_t length)
 	return &soundInfo[CUSTOM_SND_START + (numCustom++)];
 }
 
-byte ReplaceCustomSound(int n,char *fname)
+byte ReplaceCustomSound(int n,const char *fname)
 {
 	FILE *f;
 
@@ -751,7 +763,7 @@ int AppendCustomSounds(FILE *f)
 	return (start);
 }
 
-int GetCustomSoundByName(char *name)
+int GetCustomSoundByName(const char *name)
 {
 	int i;
 
@@ -771,5 +783,17 @@ void MakeSpaceSound(int snd,int priority)
 	if(profile.sound==0)
 		return;
 
-	GoPlaySound(snd,0,0,SND_CUTOFF,priority);
+	GoPlaySound(snd,0,0,SND_CUTOFF|GlobalFlags(),priority);
+}
+
+SDL_RWops* SoundLoadOverride(int num)
+{
+	if (num < CUSTOM_SND_START || num > CUSTOM_SND_START+GetNumCustomSounds())
+		return nullptr;
+
+	byte* buf = GetCustomSound(num - CUSTOM_SND_START);
+	if (!buf)
+		return nullptr;
+
+	return SDL_RWFromConstMem(buf, GetCustomLength(num - CUSTOM_SND_START));
 }

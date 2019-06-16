@@ -64,7 +64,7 @@ void LunaticInit(MGLDraw *mgl)
 	InitControls();
 	msgFromOtherModules=0;
 	JamulSoundVolume(profile.sound);
-	JamulSoundMusicVolume(profile.music);
+	SetMusicVolume(profile.music);
 	InitHiScores();
 }
 
@@ -598,7 +598,7 @@ void LunaticDraw(void)
 		char* end = s + sprintf(s,"Keys: ");
 		for (int i = 0; i < KEY_MAX; ++i)
 			if (key[i])
-				end += sprintf(end, "%s ", AllegroCodeText(i));
+				end += sprintf(end, "%s ", ScanCodeText(i));
 		PrintGlow(5,150,s,8,2);
 
 		end = s + sprintf(s,"Mouse: ");
@@ -734,7 +734,7 @@ byte PlayALevel(byte map)
 	return exitcode;
 }
 
-byte PlayWorld(MGLDraw *mgl,char *fname)
+byte PlayWorld(MGLDraw *mgl,const char *fname)
 {
 	char fullName[64];
 	byte result;

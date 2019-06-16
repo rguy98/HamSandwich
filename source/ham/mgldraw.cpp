@@ -1,16 +1,24 @@
 #include "mgldraw.h"
 #include "clock.h"
+#include "jamulsound.h"
+#include "hammusic.h"
+#include "log.h"
 #include <random>
+#include <algorithm>
 
-#include <SDL2/SDL_image.h>
-#ifdef _WIN32
-#include <SDL2/SDL_syswm.h>
+#ifdef SDL_UNPREFIXED
+	#include <SDL_image.h>
+	#ifdef _WIN32
+		#include <SDL_syswm.h>
+	#endif  // _WIN32
+#else  // SDL_UNPREFIXED
+	#include <SDL2/SDL_image.h>
+	#ifdef _WIN32
+		#include <SDL2/SDL_syswm.h>
+	#endif  // _WIN32
 #endif
 
-bool JamulSoundInit(int buffers);
-void JamulSoundExit();
 void SoundSystemExists();
-void UpdateMusic();
 void ControlKeyDown(byte scancode);
 void ControlKeyUp(byte scancode);
 void SetGameIdle(bool idle);
@@ -30,6 +38,8 @@ MGLDraw::MGLDraw(const char *name, int xRes, int yRes, bool windowed)
 	, xRes(xRes)
 	, yRes(yRes)
 	, pitch(xRes)
+	, winWidth(xRes)
+	, winHeight(yRes)
 	, scrn(nullptr)
 	, tapTrack(0)
 	, lastKeyPressed(0)
@@ -39,62 +49,86 @@ MGLDraw::MGLDraw(const char *name, int xRes, int yRes, bool windowed)
 	_globalMGLDraw = this;
 
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK)) {
-		printf("SDL_Init: %s\n", SDL_GetError());
+		LogError("SDL_Init(VIDEO|JOYSTICK): %s", SDL_GetError());
 		FatalError("Failed to initialize SDL");
 		return;
 	}
 
+#ifdef __ANDROID__
+	// On Android, tabbing out of the application may generate an SDL_Quit,
+	// which is received once the application is re-entered.
+	SDL_FlushEvents(SDL_FIRSTEVENT, SDL_LASTEVENT);
+#endif
+
 	if(JamulSoundInit(512))
 		SoundSystemExists();
 
-	Uint32 flags = windowed ? 0 : SDL_WINDOW_FULLSCREEN;
+	Uint32 flags = windowed ? 0 : SDL_WINDOW_FULLSCREEN_DESKTOP;
 	window = SDL_CreateWindow(name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, xRes, yRes, flags);
-	printf("window format: %s\n", SDL_GetPixelFormatName(SDL_GetWindowPixelFormat(window)));
 	if (!window) {
-		printf("SDL_CreateWindow: %s\n", SDL_GetError());
+		LogError("SDL_CreateWindow: %s", SDL_GetError());
 		FatalError("Failed to create window");
 		return;
 	}
+	LogDebug("window format: %s", SDL_GetPixelFormatName(SDL_GetWindowPixelFormat(window)));
+	SDL_GetWindowSize(window, &winWidth, &winHeight);
 
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
 	if (!renderer) {
-		printf("SDL_CreateRenderer: %s\n", SDL_GetError());
-		printf("Trying software renderer...\n");
+		LogError("SDL_CreateRenderer: %s", SDL_GetError());
+		LogDebug("Trying software renderer...");
 		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
 		if (!renderer) {
-			printf("SDL_CreateRenderer: %s\n", SDL_GetError());
+			LogError("SDL_CreateRenderer: %s", SDL_GetError());
 			FatalError("Failed to create renderer");
 			return;
 		}
 	}
 
+#ifndef _WIN32
+	// Icon embedding for non-Windows platforms.
+	// `tools/build/rescomp.py` produces a .cpp file containing these symbols.
+	// Marked `__attribute__((weak))` for platforms or projects which do not
+	// use this icon embedding method.
+	extern __attribute__((weak)) size_t WINDOW_ICON_SZ;
+	extern __attribute__((weak)) unsigned char WINDOW_ICON[];
+	if (&WINDOW_ICON && &WINDOW_ICON_SZ) {
+		SDL_Surface *surface = IMG_Load_RW(
+			SDL_RWFromConstMem(WINDOW_ICON, WINDOW_ICON_SZ),
+			1
+		);
+		SDL_SetWindowIcon(window, surface);
+		SDL_FreeSurface(surface);
+	}
+#endif
+
 #ifdef _DEBUG
 	SDL_RendererInfo info;
 	SDL_GetRendererInfo(renderer, &info);
-	printf("Renderer info:\n");
-	printf("  name: %s\n", info.name);
-	printf("  flags:");
+	LogDebug("renderer: %s", info.name);
+
+	char flagbuf[64] = "  flags:";
 	if (info.flags & SDL_RENDERER_SOFTWARE)
-		printf(" software");
+		strcat(flagbuf, " software");
 	if (info.flags & SDL_RENDERER_ACCELERATED)
-		printf(" accelerated");
+		strcat(flagbuf, " accelerated");
 	if (info.flags & SDL_RENDERER_PRESENTVSYNC)
-		printf(" vsync");
+		strcat(flagbuf, " vsync");
 	if (info.flags & SDL_RENDERER_TARGETTEXTURE)
-		printf(" ttex");
+		strcat(flagbuf, " ttex");
 	if (!info.flags)
-		printf(" 0");
-	printf("\n");
-	printf("  texture: (%d, %d)\n", info.max_texture_width, info.max_texture_height);
-	printf("  formats (%d):\n", info.num_texture_formats);
+		strcat(flagbuf, " 0");
+	LogDebug("%s", flagbuf);
+	LogDebug("  texture: (%d, %d)", info.max_texture_width, info.max_texture_height);
+	LogDebug("  formats (%d):", info.num_texture_formats);
 	for (Uint32 i = 0; i < info.num_texture_formats; ++i) {
-		printf("    %s\n", SDL_GetPixelFormatName(info.texture_formats[i]));
+		LogDebug("    %s", SDL_GetPixelFormatName(info.texture_formats[i]));
 	}
 #endif
 
 	texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, xRes, yRes);
 	if (!texture) {
-		printf("SDL_CreateTexture: %s\n", SDL_GetError());
+		LogError("SDL_CreateTexture: %s", SDL_GetError());
 		FatalError("Failed to create texture");
 		return;
 	}
@@ -110,6 +144,9 @@ MGLDraw::MGLDraw(const char *name, int xRes, int yRes, bool windowed)
 
 MGLDraw::~MGLDraw(void)
 {
+	SDL_DestroyTexture(texture);
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
 	JamulSoundExit();
 	delete[] buffer;
 	delete[] scrn;
@@ -143,8 +180,13 @@ void MGLDraw::GetMouse(int *x,int *y)
 
 void MGLDraw::SetMouse(int x,int y)
 {
-	if (!idle)
-		SDL_WarpMouseInWindow(window, x, y);
+	if (idle)
+		return;
+
+	int scale = std::max(1, std::min(winWidth / xRes, winHeight / yRes));
+	x = (winWidth - xRes * scale) / 2 + x * scale;
+	y = (winHeight - yRes * scale) / 2 + y * scale;
+	SDL_WarpMouseInWindow(window, x, y);
 }
 
 bool MGLDraw::Process(void)
@@ -182,7 +224,16 @@ inline void MGLDraw::StartFlip(void)
 void MGLDraw::FinishFlip(void)
 {
 	SDL_UpdateTexture(texture, NULL, buffer, pitch * sizeof(RGB));
-	SDL_RenderCopy(renderer, texture, NULL, NULL);
+
+	SDL_RenderClear(renderer);
+	int scale = std::max(1, std::min(winWidth / xRes, winHeight / yRes));
+	SDL_Rect dest = {
+		(winWidth - xRes * scale) / 2,
+		(winHeight - yRes * scale) / 2,
+		xRes * scale,
+		yRes * scale,
+	};
+	SDL_RenderCopy(renderer, texture, NULL, &dest);
 	SDL_RenderPresent(renderer);
 	UpdateMusic();
 
@@ -195,6 +246,16 @@ void MGLDraw::FinishFlip(void)
 			{
 				lastKeyPressed = e.key.keysym.sym;
 			}
+
+			if (e.key.keysym.scancode == SDL_SCANCODE_F11)
+			{
+				windowed = !windowed;
+				if (windowed) {
+					SDL_SetWindowFullscreen(window, 0);
+				} else {
+					SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+				}
+			}
 		} else if (e.type == SDL_TEXTINPUT) {
 			if (strlen(e.text.text) == 1)
 			{
@@ -203,8 +264,8 @@ void MGLDraw::FinishFlip(void)
 		} else if (e.type == SDL_KEYUP) {
 			ControlKeyUp(e.key.keysym.scancode);
 		} else if (e.type == SDL_MOUSEMOTION) {
-			mouse_x = e.motion.x;
-			mouse_y = e.motion.y;
+			mouse_x = (e.motion.x - dest.x) / scale;
+			mouse_y = (e.motion.y - dest.y) / scale;
 		} else if (e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP) {
 			int flag = 0;
 			if (e.button.button == 1)
@@ -224,6 +285,9 @@ void MGLDraw::FinishFlip(void)
 			} else if (e.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) {
 				SetGameIdle(false);
 				idle = false;
+			} else if (e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+				winWidth = e.window.data1;
+				winHeight = e.window.data2;
 			}
 		}
 	}
@@ -735,7 +799,7 @@ bool MGLDraw::LoadBMP(const char *name, PALETTE pal)
 
 	SDL_Surface* b = IMG_Load(name);
 	if (!b) {
-		printf("%s: %s\n", name, SDL_GetError());
+		LogError("%s: %s", name, SDL_GetError());
 		return false;
 	}
 
@@ -796,6 +860,7 @@ HWND MGLDraw::GetHWnd(void)
 void FatalError(const char *msg)
 {
 	fprintf(stderr, "FATAL: %s\n", msg);
+	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Fatal Error", msg, nullptr);
 	if (_globalMGLDraw)
 		_globalMGLDraw->Quit();
 }

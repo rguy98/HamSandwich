@@ -127,8 +127,10 @@ void ShowVictoryAnim(byte world)
 			//PlaySong(SONG_INTRO);
 			StopSong();
 			MakeNormalSound(SONG_INTRO);
-			if(FLI_play("graphics/Intro.flc",0,60,mgl))
-				JamulSoundStop(1);
+			FLI_play("graphics/Intro.flc",0,60,mgl);
+			JamulSoundStop(SONG_INTRO);
+			if (CurrentSong())
+				ReplaySong();
 			break;
 	}
 	mgl->ClearScreen();
@@ -210,7 +212,7 @@ void UpdateCamera(int x,int y,byte facing,Map *map)
 	scry=(rscry>>FIXSHIFT);
 }
 
-void Print(int x,int y,char *s,char bright,byte font)
+void Print(int x,int y,const char *s,char bright,byte font)
 {
 	if(font==0)
 		FontPrintStringBright(x,y,s,gameFont[0],bright);
@@ -223,22 +225,22 @@ void Print(int x,int y,char *s,char bright,byte font)
 	}
 }
 
-void PrintBright(int x,int y,char *s,char bright,byte font)
+void PrintBright(int x,int y,const char *s,char bright,byte font)
 {
 	FontPrintStringBright(x,y,s,gameFont[font],bright);
 }
 
-void PrintGlow(int x,int y,char *s,byte font)
+void PrintGlow(int x,int y,const char *s,byte font)
 {
 	FontPrintStringGlow(x,y,s,gameFont[font]);
 }
 
-void RightPrintGlow(int x,int y,char *s,byte font)
+void RightPrintGlow(int x,int y,const char *s,byte font)
 {
 	FontPrintStringGlow(x-FontStrLen(s,gameFont[font]),y,s,gameFont[font]);
 }
 
-void PrintBrightGlow(int x,int y,char *s,char brt,byte font)
+void PrintBrightGlow(int x,int y,const char *s,char brt,byte font)
 {
 	FontPrintStringBrightGlow(x,y,s,brt,gameFont[font]);
 }
@@ -262,7 +264,7 @@ void CenterPrint(int midx,int y,const char *s,char bright,byte font)
 	}
 }
 
-void CenterPrintGlow(int y,char *s,byte font)
+void CenterPrintGlow(int y,const char *s,byte font)
 {
 	int x;
 
@@ -270,7 +272,7 @@ void CenterPrintGlow(int y,char *s,byte font)
 	FontPrintStringGlow(x,y,s,gameFont[font]);
 }
 
-int GetStrLength(char *s,byte fnt)
+int GetStrLength(const char *s,byte fnt)
 {
 	return FontStrLen(s,gameFont[fnt]);
 }
@@ -313,13 +315,13 @@ void SprDraw(int x,int y,int z,byte hue,char bright,sprite_t *spr,byte flags)
 	dispList->DrawSprite(x,y,z,hue,bright,spr,flags);
 }
 
-void WallDraw(int x,int y,word wall,word floor,char *light,byte flags)
+void WallDraw(int x,int y,word wall,word floor,const char *light,byte flags)
 {
 	// this call returns whether it worked or not, but frankly, we don't care
 	dispList->DrawSprite(x,y,wall,floor,0,(sprite_t *)light,flags);
 }
 
-void RoofDraw(int x,int y,word roof,char *light,byte flags)
+void RoofDraw(int x,int y,word roof,const char *light,byte flags)
 {
 	// this call returns whether it worked or not, but frankly, we don't care
 	dispList->DrawSprite(x,y,TILE_HEIGHT,roof,0,(sprite_t *)light,flags);

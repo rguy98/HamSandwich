@@ -5,6 +5,7 @@
 #include "monsnotes.h"
 #include "tool.h"
 #include "edithelp.h"
+#include <vector>
 
 #define MMODE_NORMAL	0	// doing nothing (just viewing monsters, click to select, select all you like)
 #define MMODE_SELECT	1	// selecting a monster (pick one and you're done)
@@ -39,6 +40,7 @@ static dword groups[]={MG_ALL,MG_DRL,MG_EXPANDO,MG_FUN,MG_SUPREME,MG_MYSTIC,MG_H
 static dword colors[]={MC_ALL,MC_GREY,MC_GREEN,MC_BROWN,MC_BLUE,MC_RED,MC_YELLOW,MC_VIOLET,MC_AQUA,MC_GLOW};
 
 static dword monsList[512];
+static std::vector<dword> monsList;
 static word monsInList,monsStart,monsShown;
 static byte realClick;
 
@@ -263,12 +265,14 @@ static void MakeMonsterList(void)
 	monsStart=0;
 	pos=0;
 	monsInList=0;
+	monsList.clear();
+
 	// get all items which match this theme
 	for(i=0;i<NUM_MONSTERS;i++)
 	{
 		if(MonsterTheme(i)&themes[curTheme] &&(curGroup==0||MonsterGroup(i)&groups[curGroup])&&(curColor==0||MonsterColor(i)&colors[curColor])&&(MonsterSize(i)>=targetSizeMin&&MonsterSize(i)<=targetSizeMax))
 		{
-			monsList[pos]=i;
+			monsList.push_back(i);
 			monsInList=pos+1;
 			pos++;
 		}

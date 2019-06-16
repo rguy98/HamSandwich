@@ -1,5 +1,7 @@
 #include "jamulfont.h"
 #include "mgldraw.h"
+#include "appdata.h"
+#include <stdio.h>
 
 MGLDraw *fontmgl;
 // this is a sort of palette translation table for the font
@@ -27,26 +29,29 @@ void FontFree(mfont_t *font)
 
 int FontLoad(const char *fname, mfont_t *font)
 {
-	FILE *f;
-	int i;
-
-	f = fopen(fname, "rb");
+	SDL_RWops* f = AssetOpen_SDL(fname, "rb");
 	if (!f)
 		return FONT_FILENOTFOUND;
 
-	if (fread(font, sizeof (mfont_t), 1, f) != 1)
+	if (SDL_RWread(f, font, sizeof(mfont_t), 1) != 1) {
+		SDL_RWclose(f);
 		return FONT_INVALIDFILE;
+	}
 
 	font->data = (byte *) malloc(font->dataSize);
-	if (!font->data)
+	if (!font->data) {
+		SDL_RWclose(f);
 		return FONT_CANTALLOC;
+	}
 
-	if (fread(font->data, font->dataSize, 1, f) != 1)
+	if (SDL_RWread(f, font->data, font->dataSize, 1) != 1) {
+		SDL_RWclose(f);
 		return FONT_INVALIDFILE;
+	}
 
-	fclose(f);
+	SDL_RWclose(f);
 	font->chars[0] = font->data;
-	for (i = 1; i < font->numChars; i++)
+	for (int i = 1; i < font->numChars; i++)
 		font->chars[i] = font->chars[i - 1] + 1 + ((*font->chars[i - 1]) * font->height);
 
 	return FONT_OK;
@@ -56,7 +61,7 @@ int FontSave(char *fname, mfont_t *font)
 {
 	FILE *f;
 
-	f = fopen(fname, "wb");
+	f = AssetOpen(fname, "wb");
 	if (!f)
 		return FONT_FILENOTFOUND;
 
@@ -92,7 +97,7 @@ static void FontPrintChar(int x, int y, char c, mfont_t *font)
 	{
 		for (i = 0; i < (*font->chars[(int) c]); i++)
 		{
-			if (*src && (x > 0) && (x < scrWidth) && (y > 0) && (y < scrHeight))
+			if (*src && (x >= 0) && (x < scrWidth) && (y >= 0) && (y < scrHeight))
 				*dst = fontPal[*src];
 			dst++;
 			src++;
@@ -220,7 +225,7 @@ static void FontPrintCharColor(int x, int y, char c, byte color, char bright, mf
 	{
 		for (i = 0; i < (*font->chars[(int) c]); i++)
 		{
-			if (*src && (x > 0) && (x < scrWidth) && (y > 0) && (y < scrHeight))
+			if (*src && (x >= 0) && (x < scrWidth) && (y >= 0) && (y < scrHeight))
 			{
 				byte b = (*src + bright);
 				if((b&(~31))!=((*src)&(~31)))
@@ -264,7 +269,7 @@ static void FontPrintCharBright(int x, int y, char c, char bright, mfont_t *font
 	{
 		for (i = 0; i < (*font->chars[(int) c]); i++)
 		{
-			if (*src && (x > 0) && (x < scrWidth) && (y > 0) && (y < scrHeight))
+			if (*src && (x >= 0) && (x < scrWidth) && (y >= 0) && (y < scrHeight))
 			{
 				*dst = *src + bright;
 				if ((*dst & (~31)) != (*src & (~31)))
@@ -306,7 +311,7 @@ static void FontPrintCharSolid(int x, int y, byte c, mfont_t *font, byte color)
 	{
 		for (i = 0; i < (*font->chars[(int) c]); i++)
 		{
-			if (*src && (x > 0) && (x < scrWidth) && (y > 0) && (y < scrHeight))
+			if (*src && (x >= 0) && (x < scrWidth) && (y >= 0) && (y < scrHeight))
 				*dst = color;
 			dst++;
 			src++;

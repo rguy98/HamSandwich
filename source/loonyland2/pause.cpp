@@ -426,7 +426,7 @@ void RenderOptionsMenu(int x,int y)
 		for(j=0;j<7;j++)
 		{
 			if(i<2)
-				OptionButton(x+78+i*116,y+j*31,112,AllegroCodeText(player.var[VAR_CONTROLS+i*8+j]),3+i+j*3);
+				OptionButton(x+78+i*116,y+j*31,112,ScanCodeText(player.var[VAR_CONTROLS+i*8+j]),3+i+j*3);
 			else if(j>3)
 			{
 				sprintf(s,"Btn %d",player.var[VAR_CONTROLS+16+j-4]);
@@ -849,7 +849,7 @@ void RenderYesNo(int x,int y)
 	CenterPrintDark(x+455,y+204,"No",0);
 }
 
-void PlayerStat(char *txt,int val,int y)
+void PlayerStat(const char *txt,int val,int y)
 {
 	char s[32];
 	int x1,x2,wid,i;
@@ -864,7 +864,7 @@ void PlayerStat(char *txt,int val,int y)
 		PrintGlow(i,y,".",0,1);
 }
 
-void PlayerSlashStat(char *txt,int val,int val2,int y)
+void PlayerSlashStat(const char *txt,int val,int val2,int y)
 {
 	char s[32];
 	int x1,x2,wid,i;

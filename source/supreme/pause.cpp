@@ -5,6 +5,7 @@
 #include "intface.h"
 #include "shop.h"
 #include "dialogbits.h"
+#include "music.h"
 
 #define PE_CONTINUE	0	// back to gameplay
 #define PE_RETRY	1	// retry this level
@@ -453,7 +454,7 @@ byte UpdatePauseMenu(MGLDraw *mgl)
 			case PE_MUSVOL:
 				MakeNormalSound(SND_MENUSELECT);
 				profile.music=PrevVolumeSpot(profile.music);
-				JamulSoundMusicVolume(profile.music);
+				SetMusicVolume(profile.music);
 				break;
 			case PE_SONG:
 				PlayPrevSong();
@@ -473,7 +474,7 @@ byte UpdatePauseMenu(MGLDraw *mgl)
 			case PE_MUSVOL:
 				MakeNormalSound(SND_MENUSELECT);
 				profile.music=NextVolumeSpot(profile.music);
-				JamulSoundMusicVolume(profile.music);
+				SetMusicVolume(profile.music);
 				break;
 			case PE_SONG:
 				PlayNextSong();
@@ -506,7 +507,7 @@ byte UpdatePauseMenu(MGLDraw *mgl)
 				break;
 			case PE_MUSVOL:
 				profile.music=NextVolumeSpot(profile.music);
-				JamulSoundMusicVolume(profile.music);
+				SetMusicVolume(profile.music);
 				break;
 			case PE_MUSICMODE:
 				if((profile.musicMode&MUSIC_LISTBITS)==MUSIC_OFFICIAL)
@@ -532,7 +533,7 @@ byte UpdatePauseMenu(MGLDraw *mgl)
 				PlaySong(curMap->song);
 				break;
 			case PE_SONG:
-				PickSongToPlay();
+				ChooseNextSong();
 				break;
 			case PE_MUSIC:
 				cursor=0;

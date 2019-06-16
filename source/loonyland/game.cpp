@@ -10,7 +10,7 @@
 #include "bossbash.h"
 #include "help.h"
 #include "ch_summon.h"
-#include "debuggo.h"
+#include "log.h"
 #include "palettes.h"
 
 byte showStats=0;
@@ -570,7 +570,7 @@ byte PlayALevel(byte map)
 	return exitcode;
 }
 
-byte LunaticWorld(byte world,char *worldName)
+byte LunaticWorld(byte world,const char *worldName)
 {
 	byte result;
 

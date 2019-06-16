@@ -1,4 +1,5 @@
 #include "hamworld.h"
+#include "log.h"
 #include <string.h>
 
 namespace hamworld {
@@ -38,7 +39,7 @@ void Buffer::assign(string_view s)
 	memcpy(ptr, s.data(), len);
 }
 
-static size_t size_varint(size_t id)
+size_t size_varint(size_t id)
 {
 	size_t i = 1;
 	while (id > 127)
@@ -49,7 +50,7 @@ static size_t size_varint(size_t id)
 	return i;
 }
 
-static void write_varint(std::ostream& o, size_t id)
+void write_varint(std::ostream& o, size_t id)
 {
 	while (id > 127)
 	{
@@ -59,14 +60,14 @@ static void write_varint(std::ostream& o, size_t id)
 	o.put(id);
 }
 
-static void write_string(std::ostream& o, string_view s)
+void write_string(std::ostream& o, string_view s)
 {
 	write_varint(o, s.size());
 	o.write(s.data(), s.size());
 	//o.put(0);
 }
 
-static bool read_varint(std::istream& i, size_t* id)
+bool read_varint(std::istream& i, size_t* id)
 {
 	int shift = 0;
 	char ch;
@@ -82,7 +83,7 @@ static bool read_varint(std::istream& i, size_t* id)
 	return true;
 }
 
-static bool read_string(std::istream& i, Buffer buffer)
+bool read_string(std::istream& i, Buffer buffer)
 {
 	size_t len;
 	if (!read_varint(i, &len))
@@ -133,9 +134,7 @@ Save::Save(const char* fname)
 
 Save::~Save()
 {
-	if (!output.put(0)) {
-		printf("  error finishing HamWorld save\n");
-	}
+	output.put(0);
 }
 
 void Save::header(string_view author, string_view name, string_view app)
@@ -148,17 +147,14 @@ void Save::header(string_view author, string_view name, string_view app)
 	header.write_string(name);
 	header.write_string(app);
 	header.write_varint(0);  // empty metadata table
-	section(nullptr, header.save());
+	section(string_view(), header.save());
 }
 
 void Save::section(string_view name, string_view body)
 {
 	size_t size = size_varint(name.length()) + name.length() + body.length();
 	write_varint(output, size);
-	if (name != nullptr)
-		write_string(output, name);
-	else
-		output.put(0);
+	write_string(output, name);
 	output.write(body.data(), body.size());
 }
 
@@ -169,7 +165,6 @@ Load::Load(const char* fname)
 
 Load::~Load()
 {
-	printf("  load ended at 0x%x\n", (size_t) input.tellg());
 }
 
 bool Load::header(Buffer author, Buffer name, Buffer app)

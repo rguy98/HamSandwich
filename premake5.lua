@@ -1,7 +1,13 @@
 -- premake5.lua
+dofile "tools/build/android_studio.lua"
+
 workspace "HamSandwich"
-	configurations { "debug", "release" }
 	location "build"
+	configurations { "debug", "release" }
+
+	filter { "action:android-studio" }
+		location "build/android"
+		android_abis { "armeabi-v7a" }
 
 function base_project(name)
 	project(name)
@@ -11,6 +17,12 @@ function base_project(name)
 		architecture "x86"
 		targetdir("build/%{cfg.toolset}-%{cfg.buildcfg}/%{prj.name}/")
 		objdir("build/%{cfg.toolset}-%{cfg.buildcfg}/%{prj.name}/obj/")
+		android_package "com.platymuus.hamsandwich.%{prj.name}"
+
+		android_assetdirs {
+			"build/game/%{prj.name}/",
+			"assets/android/",
+		}
 
 		files {
 			"source/" .. name .. "/**.h",
@@ -26,16 +38,32 @@ function base_project(name)
 			defines { "NDEBUG" }
 			optimize "On"
 
-		filter "toolset:gcc"
+		filter { "toolset:gcc", "system:Windows" }
 			linkoptions { "-static-libgcc", "-static-libstdc++" }
 
 		filter "action:vs*"
-			defines { "_CRT_SECURE_NO_WARNINGS", "NOMINMAX" }
-			includedirs { "build/include/" }
-			libdirs { "build/lib/x86/" }
+			-- At least some versions of VS2017 don't recognize "C++17".
+			cppdialect "C++latest"
+			defines { "_CRT_SECURE_NO_WARNINGS", "NOMINMAX", "SDL_UNPREFIXED" }
+			-- The MSVC dependency script puts the SDL2 binaries here.
+			includedirs {
+				"build/SDL2-msvc/include",
+				"build/SDL2_mixer-msvc/include",
+				"build/SDL2_image-msvc/include",
+			}
+			libdirs {
+				"build/SDL2-msvc/lib/x86",
+				"build/SDL2_mixer-msvc/lib/x86",
+				"build/SDL2_image-msvc/lib/x86",
+			}
+			-- These emulate the `./run` script when running within VS.
 			debugargs { "window" }
 			debugenvs { "PATH=$(ProjectDir)/lib/x86/;%PATH%" }
 			debugdir "$(ProjectDir)/game/%{prj.name}"
+
+		filter "action:android-studio"
+			defines { "SDL_UNPREFIXED" }
+			buildoptions { "-fsigned-char", "-fexceptions" }
 
 		filter {}
 end
@@ -68,9 +96,26 @@ function icon_file(icon)
 	-- Workaround for bug in premake5's gmake2 generator, which does
 	-- not count .res (object) files as resources, only .rc (source)
 	filter { "system:Windows", "toolset:not clang" }
-		files { "source/" .. icon .. "/**.rc" }
+		files { "source/%{prj.name}/" .. icon .. ".rc" }
+
 	filter { "system:Windows", "action:gmake2", "toolset:not clang" }
-		linkoptions { "%{cfg.toolset}-%{cfg.buildcfg}/%{prj.name}/obj/" .. icon .. ".res" }
+		linkoptions { "%{cfg.objdir}/" .. icon .. ".res" }
+
+	-- Support for embedding the icon in the file on non-Windows systems
+	filter { "system:not Windows" }
+		files { "source/%{prj.name}/" .. icon .. ".rc" }
+		files { "%{cfg.objdir}/" .. icon .. ".rc.o" }
+
+	filter { "system:not Windows", "files:**.rc" }
+		buildmessage "%{file.name}"
+		buildcommands { 'python3 ../tools/build/rescomp.py "%{file.path}" "%{cfg.objdir}/%{file.basename}.rc.cpp"' }
+		buildoutputs { "%{cfg.objdir}/" .. icon .. ".rc.cpp" }
+		buildinputs { "tools/build/rescomp.py" }
+
+	-- Convert the icon to a resource
+	filter { "action:android-studio" }
+		android_icon("source/%{prj.name}/" .. icon .. ".ico")
+
 	filter {}
 end
 
@@ -93,6 +138,7 @@ library "ham"
 		buildoptions { "-Wall", "-Wextra", "-Wno-char-subscripts" }
 
 sdl2_project "lunatic"
+	android_appname "Dr. Lunatic"
 	icon_file "lunatic"
 	depends "ham"
 	pch "winpch"
@@ -102,6 +148,7 @@ sdl2_project "lunatic"
 		buildoptions { "-Wall", "-Wextra", "-Wno-unused-parameter" }
 
 sdl2_project "supreme"
+	android_appname "Supreme With Cheese"
 	icon_file "lunatic"
 	depends "ham"
 	pch "winpch"
@@ -119,13 +166,13 @@ sdl2_project "supreme"
 	filter "toolset:gcc"
 		buildoptions {
 			"-Wall",
-			"-Wno-write-strings",
 			"-Wno-char-subscripts",
 			"-Wno-unused-variable",
 			"-Wno-unused-but-set-variable",
 		}
 
 sdl2_project "sleepless"
+	android_appname "Sleepless Hollow"
 	icon_file "lunatic"
 	depends "ham"
 	pch "winpch"
@@ -142,21 +189,19 @@ sdl2_project "sleepless"
 	filter "toolset:gcc"
 		buildoptions {
 			"-Wall",
-			"-Wno-write-strings",
 			"-Wno-char-subscripts",
 			"-Wno-unused-variable",
 			"-Wno-unused-but-set-variable",
 		}
 
 sdl2_project "loonyland"
+	android_appname "Loonyland: Halloween Hill"
 	icon_file "loonyland"
 	depends "ham"
 	pch "winpch"
 
-	filter "toolset:gcc"
-		buildoptions { "-Wno-write-strings" }
-
 sdl2_project "loonyland2"
+	android_appname "Loonyland 2: Winter Woods"
 	icon_file "loonyland2"
 	depends "ham"
 	pch "winpch"
@@ -165,13 +210,8 @@ sdl2_project "loonyland2"
 		"monster_ai.cpp",
 	}
 
-	filter "toolset:gcc"
-		buildoptions { "-Wno-write-strings" }
-
 sdl2_project "mystic"
+	android_appname "Kid Mystic"
 	icon_file "mystic"
 	depends "ham"
 	pch "winpch"
-
-	filter "toolset:gcc"
-		buildoptions { "-Wno-write-strings" }
