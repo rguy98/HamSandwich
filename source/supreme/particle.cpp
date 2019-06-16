@@ -954,7 +954,7 @@ void StinkySteam(int x,int y,int z,int dz)
 	}
 }
 
-void CountessGlow(int x,int y)
+void MonsterGlow(int x,int y, dword m)
 {
 	int i;
 	for(i=0;i<maxParticles;i++)
@@ -970,11 +970,12 @@ void CountessGlow(int x,int y)
 			particleList[i]->life=4;
 			particleList[i]->size=0;
 			particleList[i]->color=64;
-			particleList[i]->type=PART_COUNTESS;
+			particleList[i]->type=m;
 			break;
 		}
 	}
 }
+
 
 void BlowUpGuy(int x,int y,int x2,int y2,int z,byte amt)
 {

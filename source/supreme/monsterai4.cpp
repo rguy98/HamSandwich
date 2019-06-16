@@ -16989,7 +16989,7 @@ void AI_MechaCountess(Guy *me,Map *map,world_t *world,Guy *goodguy)
 		{
 			goodguy->GetShot(0,0,4,map,world);
 		}
-		CountessGlow(me->x,me->y);
+		MonsterGlow(me->x,me->y,me->type);
 
 		if(me->mind1)
 			me->mind1--;
@@ -17572,9 +17572,9 @@ void AI_Yeti3(Guy *me,Map *map,world_t *world,Guy *goodguy)
 		{
 			for(i=0;i<4;i++)
 			{
-				x=me->x+Cosine(i*64)*64;
-				y=me->y+Sine(i*64)*64;
-				FireBullet(x,y,i*64,BLT_ICESPIKE,me->friendly);
+				x=me->x+Cosine(i*2)*64;
+				y=me->y+Sine(i*2)*64;
+				FireBullet(x,y,i*2,BLT_ICESPIKE,me->friendly);
 			}
 		}
 		return;	// can't do nothin' right now
@@ -17911,7 +17911,7 @@ void AI_Sphinx2(Guy *me,Map *map,world_t *world,Guy *goodguy)
 	}
 }
 
-void AI_SDZL(Guy *me,Map *map,world_t *world,Guy *goodguy)
+void AI_SDZL2(Guy *me,Map *map,world_t *world,Guy *goodguy)
 {
 	int i, x, y, w;
 	
@@ -17984,7 +17984,7 @@ void AI_SDZL(Guy *me,Map *map,world_t *world,Guy *goodguy)
 			me->reload = 5;
 			me->dx = Cosine(me->facing)*12*w;
 			me->dy = Sine(me->facing)*12*w;
-			SDZLGlow(me->x, me->y);
+			MonsterGlow(me->x,me->y,me->type);
 		}
 		if (me->seq == ANIM_A4 && me->frm > 1 && me->frm % 2 == 0)
 		{
@@ -18079,7 +18079,7 @@ void AI_SDZL(Guy *me,Map *map,world_t *world,Guy *goodguy)
 		}
 		else if (i < 260)
 		{
-			MakeSound(SND_SDZLSPD, me->x, me->y, SND_CUTOFF, 1200);
+			MakeSound(SND_BOBBYSLASH, me->x, me->y, SND_CUTOFF, 1200);
 			me->seq = ANIM_A4; // slash
 			me->facing = ((me->facing * 32) - 16 + Random(33));
 			me->frmTimer = 0;
@@ -18093,7 +18093,7 @@ void AI_SDZL(Guy *me,Map *map,world_t *world,Guy *goodguy)
 		}
 		else if (i < 340)
 		{
-			MakeSound(SND_SDZLSPIT2, me->x, me->y, SND_CUTOFF, 1200);
+			MakeSound(SND_BOBBYSTOMP, me->x, me->y, SND_CUTOFF, 1200);
 			me->seq = ANIM_A5; // slash
 			me->facing = ((me->facing * 32) - 16 + Random(33));
 			me->frmTimer = 0;

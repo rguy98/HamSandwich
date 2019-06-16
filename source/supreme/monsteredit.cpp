@@ -39,7 +39,6 @@ static dword themes[]={MT_GOOD,MT_EVIL,MT_FOREST,MT_DESERT,MT_ARCTIC,MT_CAVES,MT
 static dword groups[]={MG_ALL,MG_DRL,MG_EXPANDO,MG_FUN,MG_SUPREME,MG_MYSTIC,MG_HOLLOW,MG_LOONY,MG_NEW};
 static dword colors[]={MC_ALL,MC_GREY,MC_GREEN,MC_BROWN,MC_BLUE,MC_RED,MC_YELLOW,MC_VIOLET,MC_AQUA,MC_GLOW};
 
-static dword monsList[512];
 static std::vector<dword> monsList;
 static word monsInList,monsStart,monsShown;
 static byte realClick;

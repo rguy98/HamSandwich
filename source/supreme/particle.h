@@ -80,7 +80,7 @@ void SpecialSnow(int x,int y);
 void LightningBolt(int x,int y,int x2,int y2);
 void StinkySteam(int x,int y,int z,int dz);
 void GlassShatter(int x,int y,int x2,int y2,int z,byte amt);
-void CountessGlow(int x,int y);
+void MonsterGlow(int x,int y,dword m); //edited
 void MindControlSparks(int x,int y,int z,int dz);
 void BlowBubble(int x,int y,int z,int dz);
 void WeathermanWeather(int x,int y);

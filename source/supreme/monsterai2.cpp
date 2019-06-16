@@ -1744,7 +1744,7 @@ void AI_Countess(Guy *me,Map *map,world_t *world,Guy *goodguy)
 		{
 			goodguy->GetShot(0,0,4,map,world);
 		}
-		CountessGlow(me->x,me->y);
+		MonsterGlow(me->x,me->y,me->type);
 
 		if(me->mind1)
 			me->mind1--;

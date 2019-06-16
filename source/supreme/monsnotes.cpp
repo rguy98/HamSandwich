@@ -1943,9 +1943,14 @@ char monsNotes[NUM_MONSTERS][1024]={
 	//pygmy firedancer
 	"Retro Sez:",
 	//atomic zombie
-	"Retro Sez:",
+	"Retro Sez: For those who think the Super Duper Zombie is a cakewalk, here's a challenge for you!! "
+	"The Atomic Zombie is a super duper version of the original final boss, amplifying the difficulty "
+	"of the his attacks while throwing in some new ones. Walking behind this behemoth is no longer an option, "
+	"as these changes account for players who might try to cheese. He and MechaCountess (originally Countess-X) "
+	"were the first 'remixed bosses' I came up with, by the way.",
 	//deadly burner
-	"Retro Sez:",
+	"Retro Sez: With the inclusion of '360-degree flames', I wanted to add a Burner variant that showcased the "
+	"deadliness of this bullet variant. I'd say it works! It takes up more bullet slots (out of 512).",
 	//mechacountess
 	"Retro Sez:",
 	//young loony
