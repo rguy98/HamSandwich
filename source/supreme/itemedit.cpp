@@ -55,7 +55,7 @@ static dword themes[]={IT_PICKUP,IT_DECOR,IT_OBSTACLE,IT_BULLETPROOF,IT_DOOR,IT_
 				  IT_CRATE,IT_SIGN,IT_WEAPON,IT_POWERUP,IT_KEY,IT_COLLECT,IT_FOOD,IT_ENTRANCE,
 				  IT_CHAIR,IT_CUSTOM};
 static word trigs[]={ITR_GET,ITR_SHOOT,ITR_PLAYERBUMP,ITR_ENEMYBUMP,ITR_FRIENDBUMP,ITR_CHOP,
-				  ITR_MINECART,ITR_ALWAYS};
+				  ITR_MINECART,ITR_BURNT,ITR_BOMBED,ITR_FROZEN,ITR_ALWAYS};
 
 #define IEBTN_NONE	0
 #define IEBTN_NUM	1	// numerical
@@ -131,9 +131,11 @@ static char pwrUpName[MAX_POWERUP][32]={
 	"Combustion",
 	"Weakness",
 	"Strength",
+	"Confusion",
+	"Repulsion Shield",
 };
 
-static char wpnName[MAX_WEAPONS][32]={
+static char wpnName[64][64]={
 	"None",
 	"Missiles",
 	"AK-8087",
@@ -162,9 +164,16 @@ static char wpnName[MAX_WEAPONS][32]={
 	"Megaphone",
 	"Cucurbinator",
 	"Death Ray",
-	"Spore Gun",
+	"Whoopie Cushion",
 	"Abyssinator",
-	"Medic Pack",
+	"Medic Kit",
+	"Magic Wand",
+	"Burninator",
+	"B's Fav. Gun",
+	"AK-Blaster",
+	"Snow Blower",
+	"Confuse Ray",
+	"Grenadier"
 };
 
 static char colorName[8][16]={
@@ -874,8 +883,11 @@ static void ItemSetFlags(void)
 	MakeButton(BTN_CHECK,ID_TRIGGERS+3,CHECK_OFF,174,130+16*11,100,15,"Badguy Bump",FlagClick);
 	MakeButton(BTN_CHECK,ID_TRIGGERS+4,CHECK_OFF,174,130+16*12,100,15,"Goodguy Bump",FlagClick);
 	MakeButton(BTN_CHECK,ID_TRIGGERS+5,CHECK_OFF,174,130+16*13,100,15,"Machete Chop",FlagClick);
-	MakeButton(BTN_CHECK,ID_TRIGGERS+6,CHECK_OFF,174,130+16*14,100,15,"Minecart Hit",FlagClick);
-	MakeButton(BTN_CHECK,ID_TRIGGERS+7,CHECK_OFF,174,130+16*15,100,15,"Always",FlagClick);
+	MakeButton(BTN_CHECK,ID_TRIGGERS+6,CHECK_OFF,174,130+16*14,100,15,"Vehicle Hit",FlagClick);
+	MakeButton(BTN_CHECK,ID_TRIGGERS+7,CHECK_OFF,174,130+16*15,100,15,"Burnt",FlagClick);
+	MakeButton(BTN_CHECK,ID_TRIGGERS+8,CHECK_OFF,324,130+16*8,100,15,"Explosion",FlagClick);
+	MakeButton(BTN_CHECK,ID_TRIGGERS+9,CHECK_OFF,324,130+16*9,100,15,"Frozen",FlagClick);
+	MakeButton(BTN_CHECK,ID_TRIGGERS+10,CHECK_OFF,324,130+16*10,100,15,"Always",FlagClick);
 
 	MakeButton(BTN_NORMAL,ID_ITEMEFF,0,164,130+16*16,50,15,"Effect",EffectClick);
 	SetupEffect();
@@ -909,7 +921,7 @@ static void ItemSetFlags(void)
 			SetButtonState(ID_THEMES+i,CHECK_ON);
 			*/
 
-	for(i=0;i<8;i++)
+	for(i=0;i<11;i++)
 		if(GetItem(curItem)->trigger&trigs[i])
 			SetButtonState(ID_TRIGGERS+i,CHECK_ON);
 

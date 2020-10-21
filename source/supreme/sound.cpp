@@ -409,7 +409,7 @@ soundDesc_t soundInfo[MAX_SOUNDS]={
 	{SND_POLTERDIE,"Polterguy Die",ST_MONSTER},
 	{SND_POLTERSNEEZE,"Polterguy Sneeze",ST_MONSTER},
 	{SND_POLTERGET,"Polterguy Junk Shot",ST_MONSTER},
-	{SND_PUMPKINOUCH,"Pumpkin Ouch",ST_MONSTER},
+	{SND_PUMPKINOUCH,"Ice Pumpkin Die",ST_MONSTER},
 	{SND_MUMMYSHOOT,"Mummy Shoot",ST_MONSTER},
 	{SND_MUMMYSUMMON,"Mummy Summon",ST_MONSTER},
 	{SND_TREEOUCH,"Terror Tree Ouch",ST_MONSTER},
@@ -444,6 +444,11 @@ soundDesc_t soundInfo[MAX_SOUNDS]={
 	{SND_BEAM2,"Mini Beam Fire",ST_EFFECT},
 	{SND_YERFOUCH,"Yerfdog Ouch",ST_MONSTER},
 	{SND_YERFLEAVE,"Yerfdog 'Die'",ST_MONSTER},
+	{SND_PUMPKOUCH,"Pumpkin Ouch",ST_MONSTER},
+	{SND_PUMPKDIE,"Pumpkin Die",ST_MONSTER},
+	{SND_SZOMBIEDIE,"Super Zombie Die",ST_MONSTER},
+	{SND_SZOMBIEOUCH,"Super Zombie Ouch",ST_MONSTER},
+	{SND_SZOMBIELEAP,"Super Zombie Leap",ST_MONSTER},
 };
 
 byte soundAvailable=0;

@@ -32,6 +32,9 @@
 #define PART_SHORTYELLOW 24
 #define PART_FLOATER 25	// colored particles that float up in a ring
 #define PART_LAVA 26
+//from loonyland!
+#define PART_FIRE	27	// an expanding ring for bonkula
+#define PART_COLDFIRE 28	// same as fire, but white
 
 class Particle
 {
@@ -94,6 +97,8 @@ void TeamChangeRing(byte color,int x,int y,int z,byte num,byte force);
 void SmokeTile(int x,int y);
 void JackFrostWeather(int x,int y);
 void SuckParticle(int x,int y,int z);
+void MakeRingParticle(int x,int y, int z,byte size,byte cnt);
+void MakeColdRingParticle(int x,int y, int z,byte size);
 
 int CountParticles();
 

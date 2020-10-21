@@ -142,6 +142,29 @@ int TaggedSpecialVars(char c)
 			return TaggedMonster()->mapy;
 		case 'L':
 			return TaggedMonster()->hp;
+		case 'A':
+			return TaggedMonster()->age;
+	}
+	return 0;
+}
+
+int BossSpecialVars(char c)
+{
+	if(c>='a' && c<='z')
+		c+='A'-'a';
+	if(!TaggedMonster())
+		return 0;
+
+	switch(c)
+	{
+		case 'X':
+			return TaggedMonster()->mapx;
+		case 'Y':
+			return TaggedMonster()->mapy;
+		case 'L':
+			return TaggedMonster()->hp;
+		case 'A':
+			return TaggedMonster()->age;
 	}
 	return 0;
 }
@@ -218,12 +241,14 @@ varFunc_t GetSpecialVarFunc(char c)
 			return WorldSpecialVars;
 		case 'T':
 			return TaggedSpecialVars;
-		case 'B':
+		case 'R':
 			return VarbarSpecialVars;
 		case 'D':
 			return DateSpecialVars;
 		case 'C':
 			return ClockSpecialVars;
+		case 'B':
+			return BossSpecialVars;
 	}
 
 	return 0;

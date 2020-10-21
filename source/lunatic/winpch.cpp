@@ -1,3 +1,0 @@
-#include "winpch.h"
-
-// nothing.

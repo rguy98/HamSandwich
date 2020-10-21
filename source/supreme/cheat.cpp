@@ -3,6 +3,7 @@
 #include "shop.h"
 #include "gallery.h"
 #include "editor.h"
+#include "guy.h"
 #include <ctype.h>
 
 char cheatName[NUM_CHEATS][16]={
@@ -23,9 +24,14 @@ char cheatName[NUM_CHEATS][16]={
 	"Super Speed",
 	"Max. Rage",
 	"All Candles",
+	"Super Steelskin",
+	"Quick Fix",
+	"Confusion",
+	"Presto Change-O",
+	"Black Hole"
 };
 
-#define NUM_TYPE_CHEATS	3
+#define NUM_TYPE_CHEATS	4
 
 char cheatCode[NUM_TYPE_CHEATS][12]={
 #ifdef IGF
@@ -34,7 +40,8 @@ char cheatCode[NUM_TYPE_CHEATS][12]={
 #else
 	"scummypunk",	// get all cheats
 	"leartiste",	// get the editor
-	"fuck",	// get everything
+	"cheeter",	// get everything
+	"rosebud",	// get 1,000 coins and a key
 #endif
 };
 
@@ -75,9 +82,9 @@ void CheatKey(char c)
 						profile.progress.purchase[j]&=(~SIF_AVAILABLE);
 					}
 					profile.progress.purchase[ShopItemNumber(SHOP_DONATION,0)]=7;
-					for(j=0;j<NUM_PROFILE_MONSTERS;j++)
+					for(j=0;j<NUM_MONSTERS;j++)
 						profile.progress.scanned[j]=1;
-					for(j=0;j<100;j++)
+					for(j=0;j<120;j++)
 						profile.progress.goal[j]=1;
 					for(j=0;j<20;j++)
 						profile.progress.movie[j]=1;
@@ -117,16 +124,14 @@ void CheatKey(char c)
 						profile.progress.purchase[j]|=SIF_BOUGHT;
 						profile.progress.purchase[j]&=(~SIF_AVAILABLE);
 					}
-					profile.progress.purchase[ShopItemNumber(SHOP_DONATION,0)]=7;
-					for(j=0;j<NUM_PROFILE_MONSTERS;j++)
-						profile.progress.scanned[j]=1;
-					for(j=0;j<100;j++)
-						profile.progress.goal[j]=1;
-					for(j=0;j<20;j++)
-						profile.progress.movie[j]=1;
-					NewBigMessage("IGF SUPREME!",60);
+					NewBigMessage("NO SWEARING!",60);
 					SetupShops(curMap);
 					SetupGalPix(curMap);
+					break;
+				case 3:	// editor
+					profile.progress.totalCoins+=1000;
+					profile.progress.loonyKeys+=1;
+					NewBigMessage("DIRTY CHEATER.",60);
 					break;
 			}
 #endif
@@ -147,7 +152,7 @@ void DoCheat(byte w)
 	}
 
 	player.cheated=1;
-	if(!editing && verified)
+	if(!editing)
 		profile.progress.cheats++;
 	switch(w)
 	{
@@ -179,7 +184,7 @@ void DoCheat(byte w)
 			cy-=240;
 			for(i=0;i<60;i++)
 			{
-				FireBullet((cx+Random(640))<<FIXSHIFT,(cy+Random(480))<<FIXSHIFT,
+				FireBullet(0,(cx+Random(640))<<FIXSHIFT,(cy+Random(480))<<FIXSHIFT,
 							0,BLT_BOOM,1);
 			}
 			ShakeScreen(10);	// make the screen shake!
@@ -214,7 +219,7 @@ void DoCheat(byte w)
 			NewMessage("Ammo Crate!",30,0);
 			break;
 		case CHEAT_LIGHT:
-			player.hammerFlags^=HMR_LIGHT;
+			player.cheatrFlags^=HMR_LIGHT;
 			MakeNormalSound(SND_LIGHTSON);
 			break;
 		case CHEAT_WATER:
@@ -222,16 +227,16 @@ void DoCheat(byte w)
 			MakeNormalSound(SND_CHEATWIN);
 			break;
 		case CHEAT_OXYGEN:
-			player.hammerFlags^=HMR_OXYGEN;
+			player.cheatrFlags^=HMR_OXYGEN;
 			player.oxygen=127*256;
 			MakeNormalSound(SND_CHEATWIN);
 			break;
 		case CHEAT_NOSKID:
-			player.hammerFlags^=HMR_NOSKID;
+			player.cheatrFlags^=HMR_NOSKID;
 			MakeNormalSound(SND_CHEATWIN);
 			break;
 		case CHEAT_SPEED:
-			player.hammerFlags^=HMR_SPEED;
+			player.cheatrFlags^=HMR_SPEED;
 			MakeNormalSound(SND_CHEATWIN);
 			break;
 		case CHEAT_RAGE:
@@ -242,6 +247,41 @@ void DoCheat(byte w)
 			player.candles=curMap->numCandles;
 			SetPlayerGlow(128);
 			MakeNormalSound(SND_ALLCANDLE);
+			break;
+		case CHEAT_STRENGTH:
+			player.cheatrFlags^=HMR_STRENGTH;
+			MakeNormalSound(SND_CHEATWIN);
+			NewMessage("I've Got Nerves of Steel!",30,0);
+			break;
+		case CHEAT_QUICKFIX:
+			goodguy->weak = 0;
+			goodguy->ignited = 0;
+			goodguy->poison = 0;
+			goodguy->frozen = 0;
+			MakeNormalSound(SND_HEALTHCHEAT);
+			break;
+		case CHEAT_CONFUSE:
+			for(i=0;i<GetMaxGuys();i++)
+			{
+				if(guys[i]->aiType!=1 && !(MonsterFlags(guys[i]->type,guys[i]->aiType)&(MF_NOHIT|MF_INVINCIBLE)))
+				{
+					guys[i]->confuse=255;
+					TeamChangeRing(6,guys[i]->x,guys[i]->y,0,16,4);
+				}
+			}
+			MakeNormalSound(SND_WIZHIT);
+			NewMessage("Abracadabra!",30,0);
+			break;
+		case CHEAT_PRESTO:
+			player.playAs = Random(9);
+			TeamChangeRing(6,goodguy->x,goodguy->y,0,16,4);
+			MakeNormalSound(SND_WIZHIT);
+			NewMessage("Alakazam!",30,0);
+			break;
+		case CHEAT_BLACKHOLE:
+			player.weapon=WPN_BLACKHOLE;
+			player.ammo=5;
+			NewMessage("Abyssinator!",30,0);
 			break;
 	}
 }

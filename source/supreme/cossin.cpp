@@ -67,6 +67,16 @@ byte AngleFrom(int fromx,int fromy,int tox,int toy)
 	return (byte)ang;
 }
 
+int Distance(int fromx,int fromy,int tox,int toy)
+{
+	float f,f2;
+
+	f=(float)(fromx-tox)*(fromx-tox);
+	f2=(float)(fromy-toy)*(fromy-toy);
+
+	return (int)(sqrt(f+f2));
+}
+
 byte TurnToward(byte faceNow,byte newFace,byte spd)
 {
 	int diff,dir;

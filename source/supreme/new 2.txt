@@ -1,0 +1,24 @@
+if(type != 3){
+		if(flee_meter == 0)
+			chase2(xx, yy, -1/4);
+		else
+			flee_meter--;
+		dx = clamp(dx,-ms,ms);
+		dy = clamp(dy,-ms,ms);
+		if(x < cx + sprite_width/2 || x + sprite_width/2 > cw){
+			if(x < cx+sprite_width/2)
+				x = cx+sprite_width/2;
+			else
+				x = cw-sprite_width/2;
+			dx *= -1;
+			flee_meter = 4;
+		}
+		if(y < cy + sprite_height/2 || y + sprite_height/2 > ch){
+			if(y < cy+sprite_height/2)
+				y = cy+sprite_height/2;
+			else
+				y = ch-sprite_height/2;
+			dy *= -1;
+			flee_meter = 4;
+		}
+	}

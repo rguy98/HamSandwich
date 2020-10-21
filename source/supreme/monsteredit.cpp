@@ -479,6 +479,6 @@ void MonsterEdit_Help(void)
 	if(mode==MMODE_HELP)
 		return;
 	helpRemember=mode;
-	mode=MMODE_HELP;
+	mode=MMODE_HELP; 
 	InitEditHelp(HELP_MONSPICK);
 }

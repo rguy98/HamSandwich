@@ -82,7 +82,7 @@ int main(int argc, char* argv[])
 				break;
 			case 2:	// tutorial
 				shopping=0;
-				if(PlayWorld(mainmgl,"tutorial.dlw"))
+				if(PlayWorld(mainmgl,"tutorial.hsw"))
 					WorldSelectMenu(mainmgl);
 				break;
 			case 3:	// instructions
@@ -91,7 +91,7 @@ int main(int argc, char* argv[])
 			case 6:	// shopping
 				shopping=1;
 				ResetMoron();
-				PlayWorld(mainmgl,"spismall.dlw");
+				PlayWorld(mainmgl,"spismall.hsw");
 				break;
 			case 5:	// cards
 				shopping=0;

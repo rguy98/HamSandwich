@@ -50,8 +50,8 @@ static byte mapNum,mode;
 static world_t *world;
 
 static word flagNum[]={MAP_SNOWING,MAP_RAIN,MAP_HUB,MAP_SECRET,MAP_TORCHLIT,MAP_WELLLIT,
-				MAP_STARS,MAP_UNDERWATER,MAP_LAVA,MAP_STEALTH,MAP_WAVY,MAP_OXYGEN,MAP_TIMER,MAP_SHOWV0};
-static char flagName[][16]={
+				MAP_STARS,MAP_UNDERWATER,MAP_LAVA,MAP_STEALTH,MAP_WAVY,MAP_OXYGEN,MAP_TIMER,MAP_DYWTR,MAP_DYLVA,MAP_SHOWV0};
+static char flagName[][32]={
 	"Snowing",
 	"Raining",
 	"Hub Level",
@@ -62,10 +62,12 @@ static char flagName[][16]={
 	"Underwater",
 	"Underlava",
 	"Stealth",
-	"Wavy",
+	"Dumb Side",
 	"Oxygen Meter",
 	"Timed Level",
-	"Show Variable 0",
+	"Dynamic Water",
+	"Dynamic Lava",
+	"Var 0 Bar",
 };
 
 static byte *mapZoom;
@@ -179,7 +181,7 @@ static void AutoBrainsClick(int id)
 	{
 		if(m->badguy[i].type==MONS_ZOMBIE || m->badguy[i].type==MONS_ZOMBONI || m->badguy[i].type==MONS_MUTANT || m->badguy[i].type==MONS_BOMBIE || m->badguy[i].type==MONS_ZOMBIELORD || m->badguy[i].type==MONS_BOMBIELORD || m->badguy[i].type==MONS_FROZOMBIE|| m->badguy[i].type==MONS_FLYINGZOMBIE)
 			m->numBrains++;
-		if(m->badguy[i].type==MONS_SUPERZOMBIE || m->badguy[i].type==MONS_SUMUZOMBIE)
+		if(m->badguy[i].type==MONS_SUPERZOMBIE || m->badguy[i].type==MONS_SUMUZOMBIE || m->badguy[i].type==MONS_SUPRBOMBIE)
 			m->numBrains+=2;
 		if(m->badguy[i].type && BrainsGiven(m->badguy[i].item)>0)
 			m->numBrains+=BrainsGiven(m->badguy[i].item);
@@ -400,8 +402,10 @@ byte ZoomTileColor(int x,int y)
 		if (world->map[mapNum]->badguy[i].type &&
 			world->map[mapNum]->badguy[i].x==x &&
 			world->map[mapNum]->badguy[i].y==y && 
-			(world->map[mapNum]->badguy[i].type==MONS_BOUAPHA||world->map[mapNum]->badguy[i].type==MONS_BUNNY||world->map[mapNum]->badguy[i].type==MONS_FOLLOWBUNNY||world->map[mapNum]->badguy[i].type==MONS_FRIENDLY2||world->map[mapNum]->badguy[i].type==MONS_GOODROBOT||world->map[mapNum]->badguy[i].type==MONS_GOODBONE||
-			world->map[mapNum]->badguy[i].type==MONS_GOODROBOT2||world->map[mapNum]->badguy[i].type==MONS_WIZARD||world->map[mapNum]->badguy[i].type==MONS_PUNKBUNNY||world->map[mapNum]->badguy[i].type==MONS_MINECART||world->map[mapNum]->badguy[i].type==MONS_RAFT||world->map[mapNum]->badguy[i].type==MONS_LOG||world->map[mapNum]->badguy[i].type==MONS_YERFDOG))
+			(world->map[mapNum]->badguy[i].type==MONS_BOUAPHA||world->map[mapNum]->badguy[i].type==MONS_BUNNY||world->map[mapNum]->badguy[i].type==MONS_FOLLOWBUNNY||world->map[mapNum]->badguy[i].type==MONS_FRIENDLY2||world->map[mapNum]->badguy[i].type==MONS_GOODROBOT||
+			world->map[mapNum]->badguy[i].type==MONS_GOODBONE||world->map[mapNum]->badguy[i].type==MONS_GOODROBOT2||world->map[mapNum]->badguy[i].type==MONS_WIZARD||world->map[mapNum]->badguy[i].type==MONS_PUNKBUNNY||world->map[mapNum]->badguy[i].type==MONS_MINECART||
+			world->map[mapNum]->badguy[i].type==MONS_RAFT||world->map[mapNum]->badguy[i].type==MONS_LOG||world->map[mapNum]->badguy[i].type==MONS_YERFDOG||
+			world->map[mapNum]->badguy[i].type==MONS_GOLEM))
 		{
 			return (1*32)+16;	// bright green=goodguy
 		}
@@ -424,21 +428,27 @@ byte ZoomTileColor(int x,int y)
 	else
 	{
 		if(world->terrain[m->floor].flags&TF_SOLID)
-			return (20);	// grey=solid floor tile
+			return (8);	// grey=solid floor tile
 		if(world->terrain[m->floor].flags&TF_WATER)
 			return (32*3)+8;	// blue=water
 		if(world->terrain[m->floor].flags&TF_LAVA)
 			return (32*4)+8;	// dark red=lava
 		if(world->terrain[m->floor].flags&TF_ICE)
-			return (32*7)+8;	// dark aqua=ice
+			return (32*7)+10;	// aqua=ice
 		if(world->terrain[m->floor].flags&TF_RUBBER)
 			return (32*7)+10;	// pink = bouncy
 		if(world->terrain[m->floor].flags&TF_MINECART)
-			return (32*1)+5;	// darker green=mine path
+			return (32*2)+5;	// dark brown=mine path
 		if(world->terrain[m->floor].flags&TF_BUNNY)
-			return (32*6)+12;	// brighter pink=bunny path
+			return (32*6)+10;	// light brown=bunny path
+		if(world->terrain[m->floor].flags&TF_SPACE)
+			return (32*0)+24;	// light grey=space
+		if(world->terrain[m->floor].flags&TF_PROPULSE)
+			return (32*3)+16;	// light blue=propulsion
+		if(world->terrain[m->floor].flags&TF_QUICKS)
+			return (32*5)+16;	// dark yellow=quicksand
 
-		return (32*1)+8;	// dark green=floor
+		return (32*1)+6;	// green=floor
 	}
 }
 

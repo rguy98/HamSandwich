@@ -888,7 +888,7 @@ byte TryHighScore(void)
 	if(player.perfect)
 		trueScore=(int)((float)trueScore*1.5f);
 
-	if(!editing && verified)
+	if(!editing)
 		gotRecords=CheckRecords(trueScore,player.clock,curWorld.map[player.levelNum]);
 	else
 		gotRecords=0;

@@ -1,3 +1,4 @@
+//jeff
 #define MT_WEIRD MT_BITS
 #define MT_SPOOKY MT_MANSION
 #define MT_PYGMY MT_ISLAND
@@ -624,7 +625,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 			}},
 		{"Dust Devil",255,255,0,AI_DustDevil,
-		 50,23,600,2000,"graphics/dustdevil.jsp",0,MF_NOMOVE|MF_ONEFACE|MF_GHOST|MF_NOSHADOW,
+		 50,23,450,2000,"graphics/dustdevil.jsp",0,MF_NOMOVE|MF_ONEFACE|MF_GHOST|MF_NOSHADOW,
 		 MT_EVIL|MT_WACKY|MT_DESERT|MT_MINIBOSS,MG_DRL,MC_GLOW,
 			{
 				{0,1,2,3,4,5,255},	// idle
@@ -1543,7 +1544,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,10,11,12,13,14,15,16,17,18,19,20,19,20,19,20,21,22,23,255},	// triple punch
 			}},
 		{"MultiMoss",1,6,0,AI_MultiMoss,
-		 18,17,10,250,"!22",0,MF_ONEFACE|MF_ENEMYWALK|MF_FREEWALK|MF_NOSHADOW,
+		 18,17,30,250,"!22",0,MF_ONEFACE|MF_ENEMYWALK|MF_FREEWALK|MF_NOSHADOW,
 		 MT_EVIL|MT_TRAP|MT_VEGGIE|MT_CAVES,MG_FUN,MC_VIOLET,
 			{
 				{0,1,2,3,4,5,6,255},	// idle
@@ -1557,7 +1558,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,255},	// attack
 			}},
 		{"Moss Rapido",1,5,0,AI_MossRapido,
-		 15,17,1,25,"!21",0,MF_NOMOVE|MF_ONEFACE|MF_FREEWALK|MF_ENEMYWALK|MF_WALLWALK|MF_NOSHADOW,
+		 15,17,5,25,"!21",0,MF_NOMOVE|MF_ONEFACE|MF_FREEWALK|MF_ENEMYWALK|MF_WALLWALK|MF_NOSHADOW,
 		 MT_EVIL|MT_VEGGIE|MT_CAVES,MG_FUN,MC_YELLOW,
 			{
 				{0,255},	// idle
@@ -2678,7 +2679,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 			}},
 		{"Shroomlord",255,255,0,AI_ShroomLord,
 		 15,14,40,300,"graphics/shrmlord.jsp",0,0,
-		 MT_EVIL|MT_VEGGIE,MG_SUPREME,MC_GREEN,
+		 MT_EVIL|MT_VEGGIE|MT_FOREST,MG_SUPREME,MC_GREEN,
 			{
 				{0,255},	// idle
 				{1,2,3,2,1,0,4,5,6,5,4,0,255},	// move
@@ -2924,7 +2925,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,10,11,12,11,10,9,10,11,12,11,10,9,10,11,12,13,14,255},	// attack=stab
 			}},
 		{"Jack Frost",4,7,2,AI_JackFrost,
-		 50,23,350,2000,"!45",0,MF_NOMOVE|MF_ONEFACE|MF_NOSHADOW,
+		 50,23,400,2000,"!45",0,MF_NOMOVE|MF_ONEFACE|MF_NOSHADOW,
 		 MT_EVIL|MT_ARCTIC|MT_MINIBOSS,MG_SUPREME,MC_AQUA,
 			{
 				{0,1,2,3,4,5,255},	// idle
@@ -2952,7 +2953,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 			}},
 		//KID MYSTIC
-		{"Eye Guy",255,255,0,AI_Eyeguy,
+		{"Eye Guy",255,255,0,AI_Eyeguy, //good to go - just add particles upon yelwave despawn
 		 14,17,20,75,"kmgraphics/eyeguy.jsp",0,0,
 		 MT_EVIL|MT_THINGY,MG_MYSTIC,MC_YELLOW,
 			{
@@ -2966,7 +2967,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,10,11,12,255},	// a4
 				{7,8,9,10,11,12,255},	// a5
 			}},
-		{"Oculoid",255,255,0,AI_Peeper,
+		{"Oculoid",255,255,0,AI_Peeper, //good to go!
 		 26,8,40,150,"kmgraphics/peeper.jsp",0,MF_FLYING|MF_NOMOVE,
 		 MT_EVIL|MT_THINGY|MT_FLYING,MG_MYSTIC,MC_RED,
 			{
@@ -2980,7 +2981,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{5,6,7,6,5,255},	// a4
 				{5,6,7,6,5,255},	// a5
 			}},
-		{"The Rook",255,255,0,AI_Tower,
+		{"The Rook",255,255,0,AI_Tower, //good to go
 		 60,17,500,500,"kmgraphics/tower.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_MINIBOSS,MG_MYSTIC,MC_GREY,
 			{
@@ -2994,7 +2995,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{1,2,2,2,2,2,2,1,255},	// A4
 				{1,2,2,2,2,2,2,1,255},	// A5
 			}},
-		{"The Lookey-Loo",255,255,0,AI_Lookeyloo,
+		{"The Lookey-Loo",255,255,0,AI_Lookeyloo, //mind4
 		 64,7,1000,2000,"kmgraphics/lookyloo.jsp",0,MF_NOMOVE|MF_ONEFACE|MF_SPRITEBOX,
 		 MT_EVIL|MT_BOSS|MT_THINGY,MG_MYSTIC,MC_GREEN,
 			{
@@ -3008,7 +3009,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255}, //unused
 				{0,255}, //unused
 			}},
-		{"Pinkeye",255,255,0,AI_Pinkeye,
+		{"Pinkeye",255,255,0,AI_Pinkeye, //good to go
 		 11,13,20,1,"kmgraphics/pinkeye.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_THINGY,MG_MYSTIC,MC_BROWN,
 			{
@@ -3022,7 +3023,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{1,2,3,4,5,6,7,8,255},	// unused
 				{1,2,3,4,5,6,7,8,255},	// unused
 			}},
-		{"Microfish",255,255,0,AI_Microfish,
+		{"Microfish",255,255,0,AI_Microfish, //good to go
 		 1,1,1,1,"kmgraphics/micro.jsp",0,MF_AQUATIC|MF_NOSHADOW|MF_WATERWALK,
 		 MT_EVIL|MT_ANIMAL|MT_AQUATIC|MT_WACKY,MG_MYSTIC,MC_YELLOW,
 			{
@@ -3036,7 +3037,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// unused
 				{0,255},	// unused
 			}},
-		{"Grumpy Golem",255,255,0,AI_Golem,
+		{"Grumpy Golem",255,255,0,AI_Golem, //good to go
 		 32,26,100,0,"kmgraphics/golem.jsp",0,MF_NOMOVE|MF_FREEWALK,
 		 MT_GOOD,MG_MYSTIC,MC_GREY,
 			{
@@ -3050,7 +3051,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,10,11,12,12,12,13,13,14,14,255},	// unused
 				{7,8,9,10,11,12,12,12,13,13,14,14,255},	// unused
 			}},
-		{"Bobby Khan",255,255,0,AI_BobbyKhan,
+		{"Bobby Khan",255,255,0,AI_BobbyKhan, //good to go
 		 48,46,1500,5000,"kmgraphics/bobby.jsp",0,MF_NOMOVE|MF_ONEFACE,
 		 MT_EVIL|MT_BOSS,MG_MYSTIC,MC_VIOLET,
 			{
@@ -3064,7 +3065,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{45,45,45,17,17,255},	// A4=blocked a shot
 				{7,8,9,10,11,12,13,14,255},	// unused attack
 			}},
-		{"Crazy Bush",255,255,0,AI_Crazybush,
+		{"Crazy Bush",255,255,0,AI_Crazybush, //good to go
 		 10,8,20,5,"kmgraphics/crazybush.jsp",0,0,
 		 MT_EVIL|MT_WACKY|MT_VEGGIE|MT_FOREST,MG_MYSTIC,MC_GREEN,
 			{
@@ -3078,7 +3079,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// unused
 				{0,255},	// unused
 			}},
-		{"Octon",255,255,0,AI_Octopus,
+		{"Octon",255,255,0,AI_Octopus, //good to go
 		 19,21,20,40,"kmgraphics/octopus.jsp",0,MF_AQUATIC|MF_WATERWALK,
 		 MT_EVIL|MT_ZOID|MT_AQUATIC|MT_FOREST,MG_MYSTIC,MC_VIOLET,
 			{
@@ -3092,7 +3093,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{16,17,18,19,20,19,18,17,16,255},	// unused
 				{16,17,18,19,20,19,18,17,16,255},	// unused
 			}},
-		{"Blockhead",255,255,0,AI_Incabot,
+		{"Blockhead",255,255,0,AI_Incabot, //good to go
 		 12,23,5,2,"kmgraphics/incabot.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_FOREST,MG_MYSTIC,MC_GREY,
 			{
@@ -3106,7 +3107,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Blockhead Kiln",255,255,0,AI_Incagen,
+		{"Blockhead Kiln",255,255,0,AI_Incagen, //good to go
 		 40,16,100,100,"kmgraphics/incagen.jsp",0,MF_NOMOVE|MF_ONEFACE|MF_ENEMYWALK,
 		 MT_EVIL|MT_FOREST|MT_GENERATE|MT_TRAP,MG_MYSTIC,MC_GREY,
 			{
@@ -3120,7 +3121,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// idle
 				{0,255},	// idle
 			}},
-		{"Megablockhead H",255,255,0,AI_Incagold,
+		{"Megablockhead H",255,255,0,AI_Incagold, //good to go
 		 11,16,2000,75,"kmgraphics/incagold.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_FOREST|MT_TRAP,MG_MYSTIC,MC_BROWN,
 			{
@@ -3134,7 +3135,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// unused
 				{0,255},	// unused
 			}},
-		{"Megablockhead V",255,255,0,AI_Incagold,
+		{"Megablockhead V",255,255,0,AI_Incagold, //good to go
 		 11,16,2000,75,"kmgraphics/incagold.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_FOREST,MG_MYSTIC,MC_BROWN,
 			{
@@ -3148,7 +3149,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// unused
 				{0,255},	// unused
 			}},
-		{"Log",255,255,0,AI_Log,
+		{"Log",255,255,0,AI_Log, //good to go
 		 15,10,1,50,"kmgraphics/log.jsp",0,MF_WATERWALK|MF_AQUATIC|MF_FREEWALK|MF_NOHIT|MF_ONEFACE|MF_FACECMD|MF_ENEMYWALK,
 		 MT_GOOD|MT_AQUATIC|MT_FOREST,MG_MYSTIC,MC_BROWN,
 			{
@@ -3162,7 +3163,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,1,2,3,4,5,6,7,8,9,255},	// idle
 				{0,1,2,3,4,5,6,7,8,9,255},	// idle
 			}},
-		{"Blocko the Great",255,255,0,AI_Incaboss,
+		{"Blocko the Great",255,255,0,AI_Incaboss, //fix lasers - DONE!
 		 65,20,1,500,"kmgraphics/incaboss.jsp",0,MF_NOMOVE|MF_ONEFACE|MF_ENEMYWALK|MF_INVINCIBLE,
 		 MT_EVIL|MT_MINIBOSS|MT_FOREST,MG_MYSTIC,MC_GREY,
 			{
@@ -3176,12 +3177,12 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// unused
 				{0,255},	// unused
 			}},
-		{"Blocko the Great",255,255,0,AI_Incatongue,
+		{"Blocko the Great",255,255,0,AI_Incatongue, //make invisible? - DONE!
 		 45,1,400,100,"kmgraphics/log.jsp",0,MF_NOMOVE|MF_ONEFACE|MF_ENEMYWALK,
 		 0,MG_MYSTIC,MC_GREY,
 			{
-				{0,255},	// idle
-				{0,255},	// move
+				{254,255},	// idle
+				{254,255},	// move
 				{254,255},	// attack=unused
 				{254,255},	// die
 				{254,255},	// unused
@@ -3190,7 +3191,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{254,255},	// unused
 				{254,255},	// unused
 			}},
-		{"Peeping Bomb",255,255,0,AI_PeepBomb,
+		{"Peeping Bomb",255,255,0,AI_PeepBomb, //good to go
 		 13,41,20,50,"kmgraphics/peepbomb.jsp",0,MF_FLYING|MF_ONEFACE|MF_FACECMD,
 		 MT_EVIL|MT_THINGY|MT_TRAP,MG_MYSTIC,MC_GREY,
 			{
@@ -3204,7 +3205,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// unused
 				{0,255},	// unused
 			}},
-		{"Peeping Bomb",255,255,0,AI_PeepBomb,
+		{"Peeping Bomb",255,255,0,AI_PeepBomb, //good to go
 		 13,41,20,50,"kmgraphics/peepbomb.jsp",0,MF_FLYING|MF_ONEFACE|MF_FACECMD,
 		 MT_EVIL|MT_THINGY|MT_TRAP,MG_MYSTIC,MC_GREEN,
 			{
@@ -3218,7 +3219,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// unused
 				{0,255},	// unused
 			}},
-		{"Trapazoid",255,255,0,AI_Trapazoid,
+		{"Trapazoid",255,255,0,AI_Trapazoid, //good to go
 		 14,10,30,70,"kmgraphics/trapazoid.jsp",0,MF_NOMOVE|MF_NOSHADOW,
 		 MT_EVIL|MT_ZOID|MT_TRAP,MG_MYSTIC,MC_AQUA,
 			{
@@ -3232,7 +3233,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{1,2,3,4,5,6,7,8,9,9,255},	// unused
 				{1,2,3,4,5,6,7,8,9,9,255},	// unused
 			}},
-		{"Trapazoid II",7,2,-3,AI_Trapazoid,
+		{"Trapazoid II",7,2,-2,AI_Trapazoid, //try something with the bullets
 		 14,10,30,70,"kmgraphics/trapazoid.jsp",0,MF_NOMOVE|MF_NOSHADOW,
 		 MT_EVIL|MT_ZOID|MT_TRAP,MG_MYSTIC,MC_BROWN,
 			{
@@ -3246,7 +3247,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{1,2,3,4,5,6,7,8,9,9,255},	// unused
 				{1,2,3,4,5,6,7,8,9,9,255},	// unused
 			}},
-		{"Whackazoid",7,6,0,AI_Whackazoid,
+		{"Whackazoid",7,6,0,AI_Whackazoid, //check original
 		 14,10,1,5,"kmgraphics/trapazoid.jsp",0,MF_NOMOVE|MF_NOSHADOW,
 		 MT_EVIL|MT_TRAP,MG_MYSTIC,MC_VIOLET,
 			{
@@ -3260,7 +3261,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// unused
 				{0,255},	// unused
 			}},
-		{"Slimy Slug",255,255,0,AI_Slug,
+		{"Slimy Slug",255,255,0,AI_Slug, //good to go
 		 12,19,30,50,"kmgraphics/slug.jsp",0,0,
 		 MT_EVIL|MT_ANIMAL|MT_CAVES,MG_MYSTIC,MC_AQUA,
 			{
@@ -3274,12 +3275,12 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{1,2,3,255},	// unused
 				{1,2,3,255},	// unused
 			}},
-		{"Sniper Snail",255,255,0,AI_Snail,
+		{"Sniper Snail",255,255,0,AI_Snail, //just fix the animation
 		 12,19,45,60,"kmgraphics/snail.jsp",0,0,
 		 MT_EVIL|MT_ANIMAL|MT_CAVES,MG_MYSTIC,MC_GREEN,
 			{
 				{0,255},	// idle
-				{1,2,3,4,2,1,0,255},	// move
+				{0,1,2,3,4,3,2,1,255},	// move
 				{4,5,6,5,4,3,2,1,255},	// attack=spit goop
 				{5,6,7,8,9,10,11,12,13,14,15,16,17,18,255},	// die
 				{5,6,7,8,9,10,11,12,13,14,14,14,255},	// A1=go into shell
@@ -3288,21 +3289,21 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{4,5,6,5,4,3,2,1,255},	// unused
 				{4,5,6,5,4,3,2,1,255},	// unused
 			}},
-		{"Smashball",255,255,0,AI_Ball,
+		{"Smashball",255,255,0,AI_Ball, //good to go
 		 14,1,40,500,"kmgraphics/ball.jsp",0,MF_INVINCIBLE|MF_ENEMYWALK|MF_NOMOVE|MF_ONEFACE|MF_WATERWALK|MF_FREEWALK,
 		 MT_GOOD|MT_TRAP|MT_CAVES,MG_MYSTIC,MC_GREY,
 			{
 				{0,255},	// idle
 				{0,255},	// move
-				{0,255},	// attack
+				{0,0,0,0,0,0,0,0,0,0,255},	// attack
 				{0,255},	// die
-				{0,255},	// no
-				{0,255},	// no
-				{0,255},	// no
-				{0,255},	// no
-				{0,255},	// no
+				{0,0,0,0,0,0,0,0,0,0,255},	// attack
+				{0,0,0,0,0,0,0,0,0,0,255},	// attack
+				{0,0,0,0,0,0,0,0,0,0,255},	// attack
+				{0,0,0,0,0,0,0,0,0,0,255},	// attack
+				{0,0,0,0,0,0,0,0,0,0,255},	// attack
 			}},
-		{"Optimum Octon",255,255,0,AI_OctoBoss,
+		{"Optimum Octon",255,255,0,AI_OctoBoss, //good to go
 		 90,15,450,300,"kmgraphics/octoboss.jsp",0,MF_ONEFACE|MF_NOMOVE|MF_AQUATIC|MF_WATERWALK|MF_ENEMYWALK,
 		 MT_EVIL|MT_ZOID|MT_BOSS|MT_AQUATIC|MT_FOREST,MG_MYSTIC,MC_VIOLET,
 			{
@@ -3316,7 +3317,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{10,11,12,13,14,14,14,14,14,14,14,14,14,13,12,11,10,255},	// unused
 				{10,11,12,13,14,14,14,14,14,14,14,14,14,13,12,11,10,255},	// unused
 			}},
-		{"Octentacle",255,255,0,AI_OctoTentacle,
+		{"Octentacle",255,255,0,AI_OctoTentacle, //good to go
 		 20,11,80,50,"kmgraphics/octotent.jsp",0,MF_NOMOVE|MF_AQUATIC|MF_WATERWALK|MF_ENEMYWALK,
 		 MT_BITS,MG_MYSTIC,MC_VIOLET,
 			{
@@ -3330,7 +3331,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{1,2,3,4,5,6,7,8,9,10,9,8,7,6,5,4,3,2,1,255},	// unused
 				{1,2,3,4,5,6,7,8,9,10,9,8,7,6,5,4,3,2,1,255},	// unused
 			}},
-		{"Octentacle",255,255,0,AI_OctoTentacle,
+		{"Octentacle",255,255,0,AI_OctoTentacle, //good to go
 		 20,11,80,50,"kmgraphics/octotent.jsp",0,MF_NOMOVE|MF_AQUATIC|MF_WATERWALK|MF_ENEMYWALK,
 		 MT_BITS,MG_MYSTIC,MC_VIOLET,
 			{
@@ -3344,7 +3345,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{1,2,3,4,5,6,7,8,9,10,9,8,7,6,5,4,3,2,1,255},	// unused
 				{1,2,3,4,5,6,7,8,9,10,9,8,7,6,5,4,3,2,1,255},	// unused
 			}},
-		{"Rammy Gruff",255,255,0,AI_Rammy,
+		{"Rammy Gruff",255,255,0,AI_Rammy, //check ramming?
 		 20,52,275,300,"kmgraphics/goat.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_BOSS|MT_ANIMAL|MT_FOREST,MG_MYSTIC,MC_GREY,
 			{
@@ -3358,7 +3359,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// none
 				{0,255},	// unused
 			}},
-		{"Hoppy Gruff",255,255,-3,AI_Hoppy,
+		{"Hoppy Gruff",255,255,-3,AI_Hoppy, //good to go
 		 20,52,325,300,"kmgraphics/goat.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_BOSS|MT_ANIMAL|MT_FOREST,MG_MYSTIC,MC_GREY,
 			{
@@ -3372,7 +3373,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// none
 				{0,255},	// unused
 			}},
-		{"Gruffy Gruff",255,255,3,AI_Gruffy,
+		{"Gruffy Gruff",255,255,3,AI_Gruffy, //good to go
 		 20,52,400,300,"kmgraphics/goat.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_BOSS|MT_ANIMAL|MT_FOREST,MG_MYSTIC,MC_GREY,
 			{
@@ -3386,7 +3387,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// none
 				{0,255},	// unused
 			}},
-		{"Happy Stick Shroom",255,255,0,AI_StickShroom,
+		{"Happy Stick Shroom",255,255,0,AI_StickShroom, //good to go
 		 9,6,15,50,"kmgraphics/stkshr.jsp",0,MF_ONEFACE,
 		 MT_EVIL|MT_WACKY|MT_VEGGIE|MT_FOREST,MG_MYSTIC,MC_AQUA,
 			{
@@ -3400,7 +3401,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// unused
 				{0,255},	// unused
 			}},
-		{"Happy Stick Spider",255,255,0,AI_StickSpider,
+		{"Happy Stick Spider",255,255,0,AI_StickSpider, //good to go
 		 9,6,25,70,"kmgraphics/stkspd.jsp",0,MF_ONEFACE,
 		 MT_EVIL|MT_WACKY|MT_SPIDER|MT_ANIMAL|MT_FOREST,MG_MYSTIC,MC_AQUA,
 			{
@@ -3414,7 +3415,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// unused
 				{0,255},	// unused
 			}},
-		{"Happy Stick Corpse",255,255,0,AI_StickCorpse,
+		{"Happy Stick Corpse",255,255,0,AI_StickCorpse, //good to go
 		 11,10,40,100,"kmgraphics/stkskl.jsp",0,MF_ONEFACE,
 		 MT_EVIL|MT_WACKY|MT_SPOOKY|MT_CAVES,MG_MYSTIC,MC_AQUA,
 			{
@@ -3428,7 +3429,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// unused
 				{0,255},	// unused
 			}},
-		{"Happy Stick Bat",255,255,0,AI_StickBat,
+		{"Happy Stick Bat",255,255,0,AI_StickBat, //good to go
 		 11,6,20,60,"kmgraphics/stkbat.jsp",0,MF_ONEFACE|MF_FLYING,
 		 MT_EVIL|MT_WACKY|MT_FLYING|MT_SPOOKY|MT_ANIMAL|MT_CAVES,MG_MYSTIC,MC_AQUA,
 			{
@@ -3442,7 +3443,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// unused
 				{0,255},	// unused
 			}},
-		{"Happy Stick Dancer",7,6,0,AI_Dancer,
+		{"Happy Stick Dancer",7,6,8,AI_Dancer, //good to go
 		 11,10,400,5000,"kmgraphics/stkskl.jsp",0,MF_ONEFACE|MF_FREEWALK|MF_ENEMYWALK|MF_NOMOVE,
 		 MT_EVIL|MT_WACKY|MT_MINIBOSS|MT_CAVES,MG_MYSTIC,MC_AQUA,
 			{
@@ -3457,7 +3458,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// unused
 			}},
 		//SLEEPLESS HOLLOW
-		{"Creepy Crawly",1,0,-3,AI_BigSpider,
+		{"Creepy Crawly",1,0,-3,AI_BigSpider, //good to go
 		 8,21,20,50,"graphics/bigspdr.jsp",0,0,
 		 MT_EVIL|MT_SPIDER|MT_ANIMAL|MT_FOREST,MG_HOLLOW,MC_GREY,
 			{
@@ -3471,7 +3472,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Froggy",255,255,0,AI_Frog,
+		{"Froggy",255,255,0,AI_Frog, //good to go
 		 6,22,4,100,"graphics/frog.jsp",0,0,
 		 MT_EVIL|MT_ANIMAL|MT_FOREST,MG_HOLLOW,MC_GREEN,
 			{
@@ -3485,7 +3486,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{9,10,11,12,13,14,15,16,255},	// unused
 				{9,10,11,12,13,14,15,16,255},	// unused
 			}},
-		{"Flying Pumpkin",2,4,0,AI_PumpkinFly,
+		{"Flying Pumpkin",2,4,0,AI_PumpkinFly, //good to go
 		 11,6,5,500,"!19",0,MF_FLYING,
 		 MT_EVIL|MT_PUMPKIN|MT_FLYING|MT_FOREST,MG_HOLLOW,MC_RED,
 			{
@@ -3499,7 +3500,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{1,2,3,4,5,0,255},	// move
 				{1,2,3,4,5,0,255},	// move
 			}},
-		{"Dumble",1,6,0,AI_Whatsit,
+		{"Dumble",1,6,0,AI_Whatsit, //good to go
 		 12,44,20,50,"graphics/babything.jsp",0,0,
 		 MT_EVIL|MT_THINGY,MG_HOLLOW,MC_VIOLET,
 			{
@@ -3513,7 +3514,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{31,32,33,32,31,255}, // look left (A4)
 				{0,255},
 			}},
-		{"Glass Jaw",0,7,0,AI_Bonehead,
+		{"Glass Jaw",0,7,0,AI_Bonehead, //good to go - check glass effect
 		 8,38,10,50,"!2",0,0,
 		 MT_EVIL|MT_SPOOKY|MT_ARCTIC,MG_HOLLOW,MC_AQUA,
 			{
@@ -3527,7 +3528,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Toadie",1,2,0,AI_Frog,
+		{"Toadie",1,2,0,AI_Frog, //good to go
 		 6,22,8,100,"!249",0,0,
 		 MT_EVIL|MT_ANIMAL|MT_FOREST,MG_HOLLOW,MC_BROWN,
 			{
@@ -3536,7 +3537,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{9,10,11,12,13,14,15,16,255},	// attack
 				{17,18,19,20,21,255},		// die
 			}},
-		{"Firebug",1,4,0,AI_BigSpider,
+		{"Firebug",1,4,0,AI_BigSpider, //good to go
 		 8,21,10,50,"!5",0,0,
 		 MT_EVIL|MT_SPIDER|MT_ANIMAL|MT_CAVES,MG_HOLLOW,MC_RED,
 			{
@@ -3550,7 +3551,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Firebat",2,4,0,AI_Bat,
+		{"Firebat",2,4,0,AI_Bat, //good to go
 		 8,27,12,25,"!3",0,MF_FLYING,
 		 MT_SPOOKY|MT_FLYING|MT_EVIL|MT_ANIMAL|MT_CAVES,MG_HOLLOW,MC_RED,
 			{
@@ -3564,7 +3565,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Happy Stick Tree",255,255,0,AI_Tree,
+		{"Happy Stick Tree",255,255,0,AI_Tree, //good to go
 		 20,5,128,5000,"graphics/tree.jsp",0,MF_NOMOVE|MF_ONEFACE,
 		 MT_EVIL|MT_WACKY|MT_MINIBOSS|MT_FOREST,MG_HOLLOW,MC_AQUA,
 			{
@@ -3578,7 +3579,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,0,0,0,255},	// unused
 				{0,0,0,0,255},	// unused
 			}},
-		{"Funnybone",4,1,6,AI_Goodbone,
+		{"Funnybone",4,1,6,AI_Goodbone, //good to go
 		 8,38,10,50,"!2",0,0,
 		 MT_GOOD,MG_HOLLOW,MC_GREY,
 			{
@@ -3591,7 +3592,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,10,11,11,11,11,254,11,254,11,254,11,254,11,254,11,254,11,254,11,255},		// drown=A3
 				{11,10,9,8,7,255},	// resurrect=A4
 		}},
-		{"Headless Horseradish",255,255,0,AI_Horseradish,
+		{"Headless Horseradish",255,255,0,AI_Horseradish, //good to go - removed 10000 hp bs
 		 11,10,1000,10000,"graphics/radish.jsp",0,MF_NOMOVE|MF_ENEMYWALK|MF_FREEWALK,
 		 MT_EVIL|MT_VEGGIE|MT_BOSS|MT_PUMPKIN,MG_HOLLOW,MC_GREY,
 			{
@@ -3605,7 +3606,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{5,6,7,8,9,255},	// unused
 				{5,6,7,8,9,255},	// unused
 			}},
-		{"Big Head Todd",4,5,0,AI_BigHead,
+		{"Big Head Todd",4,5,0,AI_BigHead, //good to go
 		 50,8,300,1500,"graphics/lich.jsp",0,MF_NOMOVE|MF_ONEFACE,
 		 MT_EVIL|MT_SPOOKY|MT_MINIBOSS|MT_SKELETON,MG_HOLLOW,MC_GREY,
 			{
@@ -3619,7 +3620,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Big Head Rod",255,255,0,AI_BigHead2,
+		{"Big Head Rod",255,255,0,AI_BigHead2, //good to go
 		 50,8,300,1500,"graphics/lich.jsp",0,MF_NOMOVE|MF_ONEFACE,
 		 MT_EVIL|MT_SPOOKY|MT_MINIBOSS|MT_SKELETON,MG_HOLLOW,MC_GREY,
 			{
@@ -3633,7 +3634,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Big Head Maude",4,1,0,AI_BigHead,
+		{"Big Head Maude",4,1,0,AI_BigHead, //good to go
 		 50,8,300,1500,"graphics/lich.jsp",0,MF_NOMOVE|MF_ONEFACE,
 		 MT_EVIL|MT_SPOOKY|MT_MINIBOSS|MT_SKELETON,MG_HOLLOW,MC_GREY,
 			{
@@ -3647,7 +3648,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Big Head Bod",255,255,0,AI_BigHeadBod,
+		{"Big Head Bod",255,255,0,AI_BigHeadBod, //good to go
 		 8,32,10,50,"llgraphics/bonehead.jsp",0,MF_NOHIT|MF_ENEMYWALK|MF_FREEWALK|MF_NOMOVE,
 		 MT_BITS,MG_HOLLOW,MC_GREY,
 			{
@@ -3660,7 +3661,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{11,10,9,8,7,255},	// resurrect=A3
 				{28,29,30,31,30,29,28,255},	// leap skyward
 			}},
-		{"Sir Spookley Hauntmore",255,255,0,AI_Spook,
+		{"Sir Spookley Hauntmore",255,255,0,AI_Spook, //good to go, just fix boss hp issue
 		 30,9,300,1,"llgraphics/bigghost.jsp",0,MF_ONEFACE|MF_FLYING|MF_FREEWALK|MF_ENEMYWALK,
 		 MT_EVIL|MT_BOSS|MT_SPOOKY|MT_FLYING,MG_HOLLOW,MC_GREY,
 			{
@@ -3674,7 +3675,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{1,2,3,2,1,255},	// unused
 				{1,2,3,2,1,255},	// unused
 			}},
-		{"Spookley:Inv",255,255,0,AI_Spook,
+		{"Spookley:Inv",255,255,0,AI_Spook, //good to go, just fix boss hp issue
 		 30,9,300,1,"llgraphics/bigghost.jsp",0,MF_ONEFACE|MF_FLYING|MF_GHOST|MF_FREEWALK|MF_ENEMYWALK|MF_NOSHADOW|MF_NOHIT,
 		 MT_BITS,MG_HOLLOW,MC_GLOW,
 			{
@@ -3688,7 +3689,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{1,2,3,2,1,255},	// unused
 				{1,2,3,2,1,255},	// unused
 			}},
-		{"Spark",0,7,7,AI_Spark,
+		{"Spark",0,7,7,AI_Spark, //good to go
 		 11,2,6,300,"!66",0,MF_GHOST|MF_ONEFACE|MF_NOHIT|MF_FREEWALK|MF_ENEMYWALK|MF_INVINCIBLE|MF_NOMOVE|MF_WALLWALK|MF_FLYING|MF_WATERWALK,
 		 MT_EVIL|MT_TRAP,MG_HOLLOW,MC_AQUA,
 			{
@@ -3697,7 +3698,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// attack
 				{0,255},	// die
 			}},
-		{"Sparky",3,7,2,AI_Sparky,
+		{"Sparky",3,7,2,AI_Sparky, //good to go
 		 12,55,100,100,"graphics/wolfman.jsp",0,MF_FREEWALK|MF_ENEMYWALK|MF_NOMOVE,
 		 MT_EVIL|MT_MINIBOSS|MT_ANIMAL,MG_HOLLOW,MC_BROWN,
 			{
@@ -3711,7 +3712,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{30,31,32,32,32,33,34,35,36,37,38,39,40,41,42,43,255},	// attack (pounce)
 				{30,31,32,32,32,33,34,35,36,37,38,39,40,41,42,43,255},	// attack (pounce)
 			}},
-		{"Megaburner",255,255,0,AI_Burner,
+		{"Megaburner",255,255,0,AI_Burner, //good to go
 		 18,2,30,300,"!66",0,MF_NOSHADOW|MF_ONEFACE|MF_NOMOVE|MF_INVINCIBLE,
 		 MT_EVIL|MT_TRAP,MG_HOLLOW,MC_GREY,
 			{
@@ -3725,7 +3726,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// attack
 				{0,255},	// attack
 			}},
-		{"Iron Skull",4,0,-8,AI_IronSkull,
+		{"Iron Skull",4,0,-8,AI_IronSkull, //fix attacks?
 		 50,8,900,1500,"!44",0,MF_NOMOVE|MF_ONEFACE|MF_FLYING|MF_ENEMYWALK,
 		 MT_EVIL|MT_SPOOKY|MT_BOSS|MT_SKELETON,MG_HOLLOW,MC_GREY,
 			{
@@ -3739,7 +3740,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Lightswitch",255,255,0,AI_LightSwitch,
+		{"Lightswitch",255,255,0,AI_LightSwitch, //what does it do?
 		 10,8,3000,1,"llgraphics/lghtball.jsp",0,MF_NOMOVE|MF_ONEFACE,
 		 MT_EVIL|MT_TRAP,MG_HOLLOW,MC_GREY,
 			{
@@ -3748,8 +3749,8 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,6,5,4,3,2,1,0,0,0,0,255},	// attack (shove)
 				{0,255},	// die
 			}},
-		{"Unbreakable Glass",255,255,0,AI_Knight,
-		 50,47,1000,1000,"graphics/knight.jsp",0,MF_GLOW|MF_ONEFACE|MF_NOMOVE,
+		{"Unbreakable Glass",255,255,0,AI_Knight, //make it invincible
+		 50,47,5000,1200,"graphics/knight.jsp",0,MF_GLOW|MF_ONEFACE|MF_NOMOVE,
 		 MT_EVIL|MT_MINIBOSS,MG_HOLLOW,MC_GLOW,
 			{
 				{14,255},	// idle
@@ -3762,7 +3763,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{26,27,28,29,30,31,32,33,255},	// attack
 				{26,27,28,29,30,31,32,33,255},	// attack
 			}},
-		{"Mad Cow",255,255,0,AI_MadCow,
+		{"Mad Cow",255,255,0,AI_MadCow, //good to go
 		 22,15,20,250,"graphics/cow.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_ANIMAL|MT_FOREST,MG_HOLLOW,MC_BROWN,
 			{
@@ -3772,7 +3773,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,10,11,12,13,14,255},	// die
 				{5,5,6,6,6,5,5,255},	// attack
 			}},
-		{"Extremely Mad Cow",2,4,2,AI_MadCow2,
+		{"Extremely Mad Cow",2,4,2,AI_MadCow2, //good to go
 		 32,15,1000,250,"graphics/cow.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_ANIMAL|MT_FOREST,MG_HOLLOW,MC_RED,
 			{
@@ -3782,7 +3783,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,10,11,12,13,14,255},	// die
 				{5,5,6,6,6,5,5,255},	// attack
 			}},
-		{"Lady Von Spatula",255,255,-3,AI_Spatula,
+		{"Lady Von Spatula",6,3,-3,AI_Spatula, //good to go
 		 25,28,300,1000,"!73",0,MF_ONEFACE|MF_NOMOVE,
 		 MT_EVIL|MT_BOSS|MT_SPOOKY,MG_HOLLOW,MC_VIOLET,
 			{
@@ -3796,7 +3797,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{13,14,15,16,17,18,18,18,18,18,19,255},	// attack
 				{13,14,15,16,17,18,18,18,18,18,19,255},	// attack
 			}},
-		{"Royal Guard",2,6,-4,AI_BatGuard,
+		{"Royal Guard",2,6,-4,AI_BatGuard, //good to go
 		 8,27,50,25,"!3",0,MF_FLYING|MF_NOMOVE|MF_ENEMYWALK|MF_FREEWALK|MF_WALLWALK,
 		 MT_BITS,MG_HOLLOW,MC_VIOLET,
 			{
@@ -3810,7 +3811,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Laser",0,4,-2,AI_Turret,
+		{"Laser",0,4,-2,AI_Turret, //good to go
 		 10,1,80,200,"graphics/turret.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_TRAP|MT_HIGHTECH,MG_HOLLOW,MC_RED,
 			{
@@ -3824,7 +3825,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// attack
 				{0,255},	// attack
 			}},
-		{"Laser",0,4,-2,AI_Turret,
+		{"Laser",0,4,-2,AI_Turret, //good to go
 		 10,1,80,200,"graphics/turret.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_TRAP|MT_HIGHTECH,MG_HOLLOW,MC_RED,
 			{
@@ -3838,7 +3839,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// attack
 				{0,255},	// attack
 			}},
-		{"Laser",0,4,-2,AI_Turret,
+		{"Laser",0,4,-2,AI_Turret, //good to go
 		 10,1,80,200,"graphics/turret.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_TRAP|MT_HIGHTECH,MG_HOLLOW,MC_RED,
 			{
@@ -3852,7 +3853,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// attack
 				{0,255},	// attack
 			}},
-		{"Laser",0,4,-2,AI_Turret,
+		{"Laser",0,4,-2,AI_Turret, //good to go
 		 10,1,80,200,"graphics/turret.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_TRAP|MT_HIGHTECH,MG_HOLLOW,MC_RED,
 			{
@@ -3866,7 +3867,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// attack
 				{0,255},	// attack
 			}},
-		{"Reflection",255,255,0,AI_Reflection,
+		{"Reflection",255,255,0,AI_Reflection, //good to go
 		 4,29,128,0,"!1",0,MF_NOMOVE|MF_INVINCIBLE|MF_WATERWALK,
 		 MT_GOOD|MT_TRAP,MG_HOLLOW,MC_GREEN,
 			{
@@ -3880,7 +3881,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,10,11,12,13,14,15,16,255},	// attack
 				{7,8,9,10,11,12,13,14,15,16,255},	// attack
 			}},
-		{"The Darkness",255,255,-7,AI_Darkness,
+		{"The Darkness",255,255,-7,AI_Darkness, //good to go
 		 11,29,32,300,"!1",0,MF_WATERWALK|MF_FREEWALK,
 		 MT_EVIL|MT_TRAP|MT_SPOOKY,MG_HOLLOW,MC_GLOW,
 			{
@@ -3894,7 +3895,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{254,255},	// unused
 				{254,255},	// unused
 			}},
-		{"Scaredy Bat",2,5,0,AI_ScaredyBat,
+		{"Scaredy Bat",2,5,0,AI_ScaredyBat, //good to go
 		 8,27,20,25,"graphics/bat.jsp",0,MF_FLYING,
 		 MT_FLYING|MT_ANIMAL|MT_GOOD|MT_WACKY|MT_SPOOKY,MG_HOLLOW,MC_YELLOW,
 			{
@@ -3908,7 +3909,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Blaster",5,4,0,AI_LightBlaster,
+		{"Blaster",5,4,0,AI_LightBlaster, //good to go
 		 10,8,100,1,"llgraphics/lghtball.jsp",0,MF_NOMOVE|MF_ONEFACE,
 		 MT_EVIL|MT_TRAP,MG_HOLLOW,MC_RED,
 			{
@@ -3917,7 +3918,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,6,5,4,3,2,1,0,255},	// attack
 				{0,255},	// die
 			}},
-		{"Speedy Hernandez",3,5,0,AI_Speedy,
+		{"Speedy Hernandez",3,5,0,AI_Speedy, //good to go
 		 12,55,350,100,"graphics/wolfman.jsp",0,MF_FREEWALK|MF_ENEMYWALK|MF_NOMOVE,
 		 MT_EVIL|MT_BOSS|MT_ANIMAL,MG_HOLLOW,MC_BROWN,
 			{
@@ -3931,7 +3932,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{30,31,32,32,32,33,34,35,36,37,38,39,40,41,42,43,255},	// attack (pounce)
 				{30,31,32,32,32,33,34,35,36,37,38,39,40,41,42,43,255},	// attack (pounce)
 			}},
-		{"The Grue",6,0,-13,AI_Grue,
+		{"The Grue",6,0,-13,AI_Grue, //good to go
 		 30,30,500,1500,"graphics/mamaspdr.jsp",0,MF_NOMOVE|MF_ENEMYWALK,
 		 MT_EVIL|MT_BOSS|MT_SPIDER,MG_HOLLOW,MC_GREY,
 			{
@@ -3945,7 +3946,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Marsh Marrow",0,1,-4,AI_Bonehead,
+		{"Marsh Marrow",0,1,-4,AI_Bonehead, //good to go
 		 8,38,40,50,"!2",0,0,
 		 MT_SPOOKY|MT_EVIL|MT_SKELETON,MG_HOLLOW,MC_GREEN,
 			{
@@ -3959,7 +3960,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Toad Hole",1,2,6,AI_Patch,
+		{"Toad Hole",1,2,6,AI_Patch, //good to go
 		 16,17,50,1000,"graphics/patch.jsp",0,MF_NOMOVE|MF_ENEMYWALK|MF_ONEFACE|MF_NOSHADOW,
 		 MT_EVIL|MT_TRAP|MT_GENERATE|MT_FOREST,MG_HOLLOW,MC_BROWN,
 			{
@@ -3973,7 +3974,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{1,2,0,2,0,1,2,1,0,1,0,2,1,2,1,0,2,1,2,255},	// attack
 				{1,2,0,2,0,1,2,1,0,1,0,2,1,2,1,0,2,1,2,255},	// attack
 			}},
-		{"Beetle Nest",1,5,6,AI_Patch,
+		{"Beetle Nest",1,5,6,AI_Patch, //good to go
 		 16,17,100,1000,"graphics/patch.jsp",0,MF_NOMOVE|MF_ENEMYWALK|MF_ONEFACE|MF_NOSHADOW,
 		 MT_EVIL|MT_TRAP|MT_GENERATE|MT_FOREST,MG_HOLLOW,MC_YELLOW,
 			{
@@ -3987,7 +3988,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{1,2,0,2,0,1,2,1,0,1,0,2,1,2,1,0,2,1,2,255},	// attack
 				{1,2,0,2,0,1,2,1,0,1,0,2,1,2,1,0,2,1,2,255},	// attack
 			}},
-		{"Simulated Head",255,255,0,AI_PumpkinFly,
+		{"Simulated Head",255,255,0,AI_PumpkinFly, //good to go
 		 11,6,25,250,"!19",0,MF_FLYING,MG_HOLLOW,MC_BROWN,
 		 MT_BITS,
 			{
@@ -4001,7 +4002,8 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{1,2,3,4,5,0,255},	// move
 				{1,2,3,4,5,0,255},	// move
 			}},
-		{"Redbone",0,4,-6,AI_Bonehead,
+		//LOONYLAND
+		{"Redbone",0,4,-6,AI_Bonehead, //give a funny
 		 8,38,10,50,"!2",0,0,
 		 MT_SPOOKY|MT_EVIL|MT_SKELETON,MG_LOONY,MC_RED,
 			{
@@ -4015,7 +4017,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Gangrene",0,1,-4,AI_Bonehead,
+		{"Gangrene",0,1,-4,AI_Bonehead, //good to go
 		 8,38,10,50,"!2",0,0,
 		 MT_SPOOKY|MT_EVIL|MT_SKELETON,MG_LOONY,MC_GREEN,
 			{
@@ -4029,7 +4031,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Numbskull",0,5,-5,AI_Bonehead,
+		{"Numbskull",0,5,-5,AI_Bonehead, //good to go
 		 8,38,10,50,"!2",0,0,
 		 MT_SPOOKY|MT_EVIL|MT_SKELETON,MG_LOONY,MC_YELLOW,
 			{
@@ -4040,10 +4042,10 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{25,26,27,28,29,30,255},	// chomp/spit projectile
 				{31,32,32,32,31,255},	// point at bouapha
 				{16,15,14,13,12,11,10,9,8,7,255},	// resurrect=A3
-				{0,255},
+				{31,32,32,32,31,255},	// point at bouapha
 				{0,255},
 			}},
-		{"Bombie",0,4,0,AI_Zombie,
+		{"Bombie",0,4,0,AI_Zombie, //good to go
 		 11,32,10,150,"graphics/zombie.jsp",0,0,
 		 MT_SPOOKY|MT_ZOMBIE|MT_EVIL,MG_LOONY,MC_RED,
 			{
@@ -4057,7 +4059,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Zombie Lord",0,6,2,AI_Zombie,
+		{"Zombie Lord",0,6,2,AI_Zombie, //fix speed!!
 		 11,32,80,150,"graphics/zombie.jsp",0,0,
 		 MT_SPOOKY|MT_ZOMBIE|MT_EVIL|MT_MINIBOSS,MG_LOONY,MC_VIOLET,
 			{
@@ -4099,7 +4101,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,10,11,12,13,12,11,10,11,12,13,12,11,10,9,8,7,255},	// unused
 				{7,8,9,10,11,12,13,12,11,10,11,12,13,12,11,10,9,8,7,255},	// unused
 			}},
-		{"Croaker",1,6,-3,AI_Frog,
+		{"Croaker",1,6,-3,AI_Frog, //fix attack
 		 6,22,4,100,"graphics/frog.jsp",0,0,
 		 MT_EVIL|MT_ANIMAL|MT_FOREST,MG_LOONY,MC_VIOLET,
 			{
@@ -4113,7 +4115,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{9,10,11,12,13,14,15,16,255},	// unused
 				{9,10,11,12,13,14,15,16,255},	// unused
 			}},
-		{"Rag Man",0,0,0,AI_Mummy,
+		{"Rag Man",0,0,0,AI_Mummy, //good to go
 		 15,28,60,300,"llgraphics/mummy.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_SPOOKY|MT_DESERT,MG_LOONY,MC_GREY,
 			{
@@ -4127,7 +4129,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,10,11,12,13,14,255},	// attack 4
 				{7,8,9,10,11,12,13,14,255},	// attack 5
 			}},
-		{"Pharaoh Faucet",6,5,2,AI_Mummy,
+		{"Pharaoh Faucet",6,5,2,AI_Mummy, //good to go
 		 15,28,60,300,"llgraphics/mummy.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_SPOOKY|MT_DESERT,MG_LOONY,MC_GREY,
 			{
@@ -4141,7 +4143,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,10,11,12,13,14,255},	// attack 4
 				{7,8,9,10,11,12,13,14,255},	// attack 5
 			}},
-		{"Grand Pharaoh",0,5,2,AI_Mummy,
+		{"Grand Pharaoh",0,5,2,AI_Mummy, //good to go
 		 15,28,150,500,"llgraphics/mummy.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_SPOOKY|MT_DESERT|MT_MINIBOSS,MG_LOONY,MC_YELLOW,
 			{
@@ -4155,8 +4157,8 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,10,11,12,13,14,255},	// attack 4
 				{7,8,9,10,11,12,13,14,255},	// attack 5
 			}},
-		{"Terror Tree",0,0,0,AI_EvilTree,
-		 32,24,10,1,"llgraphics/eviltree.jsp",0,MF_NOMOVE|MF_ONEFACE,
+		{"Terror Tree",0,0,0,AI_EvilTree, //fix steam
+		 32,24,80,1,"llgraphics/eviltree.jsp",0,MF_NOMOVE|MF_ONEFACE,
 		 MT_EVIL|MT_SPOOKY|MT_VEGGIE|MT_FOREST,MG_LOONY,MC_BROWN,
 			{
 				{4,5,6,7,8,9,10,11,12,13,255},	// idle
@@ -4169,8 +4171,8 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,1,2,3,1,255},	// unused
 				{0,1,2,3,1,255},	// unused
 			}},
-		{"Swamp Stump",4,1,0,AI_EvilTree,
-		 32,24,10,1,"llgraphics/eviltree.jsp",0,MF_NOMOVE|MF_ONEFACE,
+		{"Swamp Stump",4,1,0,AI_EvilTree, //fix bullet attack
+		 32,24,80,1,"llgraphics/eviltree.jsp",0,MF_NOMOVE|MF_ONEFACE,
 		 MT_EVIL|MT_SPOOKY|MT_VEGGIE|MT_FOREST,MG_LOONY,MC_BROWN,
 			{
 				{4,5,6,7,8,9,10,11,12,13,255},	// idle
@@ -4183,9 +4185,9 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,1,2,3,1,255},	// unused
 				{0,1,2,3,1,255},	// unused
 			}},
-		{"Dingbat",255,255,0,AI_Bat2,
-		 8,33,5,25,"llgraphics/bat.jsp",0,MF_FLYING,
-		 MT_SPOOKY|MT_FLYING|MT_EVIL|MT_ANIMAL,MG_LOONY,MC_BROWN,
+		{"Dingbat",255,255,0,AI_Bat2, //compare attacks to source
+		 8,33,25,25,"llgraphics/bat.jsp",0,MF_FLYING,
+		 MT_SPOOKY|MT_FLYING|MT_EVIL|MT_ANIMAL,MG_LOONY,MC_BROWN, //work on!
 			{
 				{0,255},	// idle
 				{1,2,3,2,1,0,4,5,6,5,4,0,255},	// move
@@ -4197,8 +4199,8 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Gargoyle",2,0,0,AI_Bat2,
-		 8,33,5,25,"llgraphics/bat.jsp",0,MF_FLYING,
+		{"Gargoyle",2,0,0,AI_Bat2, //compare attacks to source
+		 8,33,50,25,"llgraphics/bat.jsp",0,MF_FLYING,
 		 MT_SPOOKY|MT_FLYING|MT_EVIL|MT_ANIMAL,MG_LOONY,MC_GREY,
 			{
 				{0,255},	// idle
@@ -4211,8 +4213,8 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Vamp Bat",2,4,-6,AI_Bat2,
-		 8,33,5,25,"llgraphics/bat.jsp",0,MF_FLYING,
+		{"Vamp Bat",2,4,-6,AI_Bat2, //compare attacks to source
+		 8,33,40,25,"llgraphics/bat.jsp",0,MF_FLYING,
 		 MT_SPOOKY|MT_FLYING|MT_EVIL|MT_ANIMAL,MG_LOONY,MC_RED,
 			{
 				{0,255},	// idle
@@ -4225,7 +4227,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Dire Wolf",2,0,0,AI_Werewolf,
+		{"Dire Wolf",2,0,0,AI_Werewolf, //good to go
 		 12,55,70,100,"graphics/wolfman.jsp",0,0,
 		 MT_EVIL|MT_SPOOKY|MT_ANIMAL,MG_LOONY,MC_GREY,
 			{
@@ -4239,7 +4241,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{30,31,32,32,32,33,34,35,36,37,38,39,40,41,42,43,255},	// attack (pounce)
 				{30,31,32,32,32,33,34,35,36,37,38,39,40,41,42,43,255},	// attack (pounce)
 			}},
-		{"Larry",0,0,0,AI_Larry,
+		{"Larry",0,0,0,AI_Larry, //good to go
 		 25,38,300,1000,"llgraphics/larry.jsp",0,0,
 		 MT_EVIL|MT_SPOOKY|MT_ANIMAL|MT_BOSS,MG_LOONY,MC_YELLOW,
 			{
@@ -4253,7 +4255,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// blank = A4
 				{0,255},	// blank = A5
 			}},
-		{"Swampdog",0,0,0,AI_Swampdog,
+		{"Swampdog",0,0,0,AI_Swampdog, //good to go
 		 18,43,20,75,"llgraphics/swampdog.jsp",0,0,
 		 MT_EVIL|MT_SPOOKY|MT_THINGY,MG_LOONY,MC_YELLOW,
 			{
@@ -4267,13 +4269,13 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{19,18,18,255},	// get bored = A4
 				{0,0,0,0,255},	// hyper idle = A5
 			}},
-		{"Bog Beast",5,1,-3,AI_Swampdog,
-		 18,43,20,75,"llgraphics/swampdog.jsp",0,0,
+		{"Bog Beast",5,1,-3,AI_Swampdog, //good to go
+		 18,43,40,125,"llgraphics/swampdog.jsp",0,0,
 		 MT_EVIL|MT_SPOOKY|MT_THINGY,MG_LOONY,MC_GREEN,
 			{
 				{11,255},	// idle
 				{12,13,14,13,12,11,15,16,17,16,15,255},	// move
-				{20,21,22,23,23,22,21,20,255},	// attack (eye jab)
+				{20,21,22,23,23,22,22,21,20,255},	// attack (eye jab)
 				{33,34,35,36,37,38,39,40,41,42,255},		// die
 				{18,19,19,19,255},	// perk up = A1
 				{1,2,3,4,5,6,7,8,9,10,0,255},	// charge = A2
@@ -4281,8 +4283,8 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{19,18,18,255},	// get bored = A4
 				{0,0,0,0,255},	// hyper idle = A5
 			}},
-		{"Shambling Thing",5,3,-3,AI_Swampdog,
-		 18,43,20,75,"llgraphics/swampdog.jsp",0,0,
+		{"Shambling Thing",5,3,-3,AI_Swampdog, //good to go
+		 18,43,70,175,"llgraphics/swampdog.jsp",0,0,
 		 MT_EVIL|MT_SPOOKY|MT_THINGY,MG_LOONY,MC_BLUE,
 			{
 				{11,255},	// idle
@@ -4295,7 +4297,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{19,18,18,255},	// get bored = A4
 				{0,0,0,0,255},	// hyper idle = A5
 			}},
-		{"Shade",255,255,-12,AI_LLGhost,
+		{"Shade",255,255,-12,AI_LLGhost, //good to go
 		 14,23,10,50,"llgraphics/ghost.jsp",0,MF_WALLWALK|MF_NOSHADOW|MF_FLYING|MF_GLOW|MF_ENEMYWALK|MF_FREEWALK,
 		 MT_EVIL|MT_SPOOKY|MT_FLYING,MG_LOONY,MC_GLOW,
 			{
@@ -4309,7 +4311,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{4,5,6,7,8,9,10,11,6,7,8,9,10,11,6,7,8,9,10,11,12,13,14,14,14,15,15,16,17,255},	//unused
 				{4,5,6,7,8,9,10,11,6,7,8,9,10,11,6,7,8,9,10,11,12,13,14,14,14,15,15,16,17,255},	//unused
 			}},
-		{"Banshee",255,255,10,AI_LLGhost,
+		{"Banshee",255,255,10,AI_LLGhost, //good to go
 		 14,23,10,50,"llgraphics/ghost.jsp",0,MF_WALLWALK|MF_NOSHADOW|MF_FLYING|MF_GLOW|MF_ENEMYWALK|MF_FREEWALK,
 		 MT_EVIL|MT_SPOOKY|MT_FLYING,MG_LOONY,MC_GLOW,
 			{
@@ -4323,7 +4325,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{4,5,6,7,8,9,10,11,6,7,8,9,10,11,6,7,8,9,10,11,12,13,14,14,14,15,15,16,17,255},	//unused
 				{4,5,6,7,8,9,10,11,6,7,8,9,10,11,6,7,8,9,10,11,12,13,14,14,14,15,15,16,17,255},	//unused
 			}},
-		{"Draculite",0,1,-4,AI_Spikey,
+		{"Draculite",0,1,-4,AI_Spikey, //good to go
 		 12,13,80,500,"graphics/vampire.jsp",0,0,
 		 MT_EVIL|MT_VAMPIRE|MT_SPOOKY,MG_LOONY,MC_GREEN,
 			{
@@ -4337,7 +4339,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{3,4,5,6,7,8,9,255},	// attack
 				{3,4,5,6,7,8,9,255},	// attack
 			}},
-		{"Vamp Lord",0,6,-2,AI_Spikey,
+		{"Vamp Lord",0,6,-2,AI_Spikey, //spice em' up!
 		 12,13,80,500,"graphics/vampire.jsp",0,0,
 		 MT_EVIL|MT_VAMPIRE|MT_SPOOKY|MT_MINIBOSS,MG_LOONY,MC_VIOLET,
 			{
@@ -4351,7 +4353,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{3,4,5,6,7,8,9,255},	// attack
 				{3,4,5,6,7,8,9,255},	// attack
 			}},
-		{"Frankenjulie",0,0,0,AI_Frankenjulie,
+		{"Frankenjulie",0,0,0,AI_Frankenjulie, //good to go
 		 80,39,600,3500,"llgraphics/frankenj.jsp",0,MF_NOMOVE|MF_ONEFACE,
 		 MT_EVIL|MT_BOSS|MT_SPOOKY|MT_WACKY,MG_LOONY,MC_AQUA,
 			{
@@ -4364,7 +4366,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,19,19,18,18,17,17,16,16,255}, // A3=arm spin
 				{35,36,37,38,38,38,38,37,36,35,34,255},	// A4=missile launch
 			}},
-		{"Frankenhand",0,0,0,AI_Hand,
+		{"Frankenhand",0,0,0,AI_Hand, //increase knockback!
 		 30,40,100,3500,"llgraphics/hand.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_WACKY|MT_SPOOKY,MG_LOONY,MC_AQUA,
 			{
@@ -4373,7 +4375,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{12,13,14,15,16,17,18,19,20,21,22,255},	// attack
 				{23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,255},	// die
 			}},
-		{"Polterguy",255,255,2,AI_Polterguy,
+		{"Polterguy",255,255,2,AI_Polterguy, //fix direction!
 		 30,9,300,1,"llgraphics/bigghost.jsp",0,MF_ONEFACE|MF_FLYING|MF_FREEWALK|MF_ENEMYWALK,
 		 MT_EVIL|MT_BOSS|MT_SPOOKY|MT_FLYING,MG_LOONY,MC_GREY,
 			{
@@ -4387,7 +4389,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{1,2,3,2,1,255},	// unused
 				{1,2,3,2,1,255},	// unused
 			}},
-		{"Gusty the Elder",3,7,3,AI_WindElder,
+		{"Gusty the Elder",3,7,3,AI_WindElder, //include new attack?
 		 20,13,300,800,"llgraphics/elder.jsp",0,0,
 		 MT_EVIL|MT_MINIBOSS|MT_SPOOKY|MT_VAMPIRE,MG_LOONY,MC_AQUA,
 			{
@@ -4398,7 +4400,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,9,9,9,8,8,7,7,255},	// summon pose = A1
 				{10,11,12,12,12,11,10,255},	// point = A2
 			}},
-		{"Stoney the Elder",3,2,0,AI_EarthElder,
+		{"Stoney the Elder",3,2,0,AI_EarthElder, //good to go
 		 20,13,300,800,"llgraphics/elder.jsp",0,0,
 		 MT_EVIL|MT_MINIBOSS|MT_SPOOKY|MT_VAMPIRE,MG_LOONY,MC_BROWN,
 			{
@@ -4409,7 +4411,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,9,9,9,8,8,7,7,255},	// summon pose = A1
 				{10,11,12,12,12,12,12,12,12,12,11,10,255},	// point = A2
 			}},
-		{"Drippy the Elder",255,255,0,AI_WaterElder,
+		{"Drippy the Elder",255,255,0,AI_WaterElder, //make harder! include big bubble attack please
 		 20,13,300,800,"llgraphics/elder.jsp",0,MF_FLYING,
 		 MT_EVIL|MT_MINIBOSS|MT_SPOOKY|MT_VAMPIRE,MG_LOONY,MC_BLUE,
 			{
@@ -4420,7 +4422,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,9,9,9,8,8,7,7,255},	// summon pose = A1
 				{10,11,12,12,12,12,12,12,12,12,11,10,255},	// point = A2
 			}},
-		{"Toasty the Elder",3,4,0,AI_FireElder,
+		{"Toasty the Elder",3,4,0,AI_FireElder, //good to go
 		 20,13,300,800,"llgraphics/elder.jsp",0,0,
 		 MT_EVIL|MT_MINIBOSS|MT_SPOOKY|MT_VAMPIRE,MG_LOONY,MC_RED,
 			{
@@ -4431,7 +4433,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,9,9,9,8,8,7,7,255},	// summon pose = A1
 				{10,11,12,12,12,12,12,12,12,12,11,10,255},	// point = A2
 			}},
-		{"Count Bonkula",255,255,0,AI_Bonkula,
+		{"Count Bonkula",255,255,0,AI_Bonkula, //fix bullet attack, compare source material
 		 8,28,200,1000,"llgraphics/bossvamp.jsp",0,MF_WALLWALK|MF_NOMOVE|MF_INVINCIBLE|MF_FLYING,
 		 MT_EVIL|MT_BOSS|MT_SPOOKY|MT_VAMPIRE,MG_LOONY,MC_VIOLET,
 			{
@@ -4441,7 +4443,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{21,22,23,24,25,26,27,26,25,24,25,26,27,255},		// die
 				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255},	// A1=spin around
 			}},
-		{"The Evilizer",255,255,0,AI_Evilizer,
+		{"The Evilizer",255,255,0,AI_Evilizer, //include new enemies & invincible
 		 140,32,2000,35000,"llgraphics/evilizer.jsp",0,MF_NOMOVE|MF_ONEFACE|MF_FACECMD,
 		 MT_EVIL|MT_BOSS|MT_SPOOKY|MT_SKELETON,MG_LOONY,MC_VIOLET,
 			{
@@ -4450,7 +4452,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// attack (shoot)
 				{0,0,0,0,0,0,0,255},	// die
 			}},
-		{"Steam Pump",255,255,0,AI_EvilPump,
+		{"Steam Pump",255,255,0,AI_EvilPump, //nerf!!!
 		 30,13,500,100,"llgraphics/evilpump.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_SPOOKY|MT_SKELETON,MG_LOONY,MC_VIOLET,
 			{
@@ -4459,7 +4461,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{9,10,11,12,12,12,12,11,10,9,255},	// attack (shoot)
 				{9,10,11,12,11,10,9,10,12,9,12,9,12,9,255},	// die
 			}},
-		{"Agent Skully",0,6,2,AI_Bonehead,
+		{"Agent Skully",0,6,2,AI_Bonehead, //compare source material
 		 8,38,10,50,"graphics/skeleton.jsp",0,0,
 		 MT_SPOOKY|MT_EVIL|MT_SKELETON,MG_LOONY,MC_VIOLET,
 			{
@@ -4473,7 +4475,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Summony the Elder",3,1,-5,AI_SummonElder,
+		{"Summony the Elder",3,1,-5,AI_SummonElder, //good to go
 		 20,13,500,5000,"llgraphics/elder.jsp",0,0,
 		 MT_EVIL|MT_MINIBOSS|MT_SPOOKY|MT_VAMPIRE,MG_LOONY,MC_GREEN,
 			{
@@ -4484,9 +4486,9 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,9,9,9,8,8,7,7,255},	// summon pose = A1
 				{10,11,12,12,12,12,12,12,12,12,11,10,255},	// point = A2
 			}},
-		{"Harry",5,2,0,AI_Harry,
+		{"Harry",5,2,0,AI_Harry, //check source
 		 25,38,300,1500,"llgraphics/larry.jsp",0,0,
-		 MT_EVIL|MT_SPOOKY|MT_ANIMAL|MT_BOSS,MG_LOONY,MC_BROWN,
+		 MT_EVIL|MT_SPOOKY|MT_ANIMAL|MT_BOSS,MG_LOONY,MC_BROWN, //work on!
 			{
 				{0,255},	// idle
 				{1,2,3,3,2,1,0,4,5,6,6,5,4,0,255},	// move
@@ -4498,7 +4500,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// blank = A4
 				{0,255},	// blank = A5
 			}},
-		{"Frogurt",1,5,2,AI_Frog,
+		{"Frogurt",1,5,2,AI_Frog, //cjheck source
 		 6,22,4,100,"graphics/frog.jsp",0,0,
 		 MT_EVIL|MT_ANIMAL|MT_FOREST,MG_LOONY,MC_GREEN,
 			{
@@ -4512,8 +4514,8 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{9,10,11,12,13,14,15,16,255},	// unused
 				{9,10,11,12,13,14,15,16,255},	// unused
 			}},
-		{"Torture Tree",4,5,0,AI_EvilTree,
-		 32,24,100,1,"llgraphics/eviltree.jsp",0,MF_NOMOVE|MF_ONEFACE,
+		{"Torture Tree",4,5,0,AI_EvilTree, //check source?
+		 32,24,150,1,"llgraphics/eviltree.jsp",0,MF_NOMOVE|MF_ONEFACE, //work on!
 		 MT_EVIL|MT_SPOOKY|MT_VEGGIE|MT_FOREST,MG_LOONY,MC_BROWN,
 			{
 				{4,5,6,7,8,9,10,11,12,13,255},	// idle
@@ -4526,8 +4528,8 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,1,2,3,1,255},	// unused
 				{0,1,2,3,1,255},	// unused
 			}},
-		{"Gasbat",2,1,-3,AI_Bat2,
-		 8,33,5,25,"llgraphics/bat.jsp",0,MF_FLYING,
+		{"Gasbat",2,1,-3,AI_Bat2, //check source
+		 8,33,15,25,"llgraphics/bat.jsp",0,MF_FLYING,
 		 MT_SPOOKY|MT_FLYING|MT_EVIL|MT_ANIMAL,MG_LOONY,MC_GREEN,
 			{
 				{0,255},	// idle
@@ -4540,7 +4542,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Marsh Mutt",5,6,3,AI_Swampdog,
+		{"Marsh Mutt",5,6,3,AI_Swampdog, //good to go
 		 18,43,150,350,"llgraphics/swampdog.jsp",0,0,
 		 MT_EVIL|MT_SPOOKY|MT_THINGY,MG_LOONY,MC_VIOLET,
 			{
@@ -4554,7 +4556,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{19,18,18,255},	// get bored = A4
 				{0,0,0,0,255},	// hyper idle = A5
 			}},
-		{"King Toot",0,6,0,AI_Mummy,
+		{"King Toot",0,6,0,AI_Mummy, //good to go
 		 15,28,300,800,"llgraphics/mummy.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_SPOOKY|MT_DESERT|MT_MINIBOSS,MG_LOONY,MC_VIOLET,
 			{
@@ -4569,7 +4571,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,10,11,12,13,14,255},	// attack 5
 			}},
 		{"Ghastly Stench",0,1,3,AI_Ghastly,
-		 30,9,250,1,"llgraphics/bigghost.jsp",0,MF_ONEFACE|MF_FLYING|MF_FREEWALK|MF_ENEMYWALK,
+		 30,9,250,1,"llgraphics/bigghost.jsp",0,MF_ONEFACE|MF_FLYING|MF_FREEWALK|MF_ENEMYWALK, //work on!
 		 MT_EVIL|MT_BOSS|MT_SPOOKY|MT_FLYING,MG_LOONY,MC_GREEN,
 			{
 				{0,255},	// idle
@@ -4582,7 +4584,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{1,2,3,2,1,255},	// unused
 				{1,2,3,2,1,255},	// unused
 			}},
-		{"Bombie Lord",0,4,7,AI_Zombie,
+		{"Bombie Lord",0,4,7,AI_Zombie, //give a different attack OR stop brains from spawning!
 		 11,32,70,150,"graphics/zombie.jsp",0,0,
 		 MT_SPOOKY|MT_ZOMBIE|MT_EVIL|MT_MINIBOSS|MT_WACKY,MG_LOONY,MC_RED,
 			{
@@ -4610,7 +4612,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{1,2,3,4,5,0,255},	// move
 				{1,2,3,4,5,0,255},	// move
 			}},
-		{"Mini-Frankenjulie",0,0,0,AI_MiniFrankenjulie,
+		{"Mini-Frankenjulie",0,0,0,AI_MiniFrankenjulie, //nerf a bit??
 		 40,39,400,1500,"llgraphics/franksml.jsp",0,MF_NOMOVE|MF_ONEFACE,
 		 MT_EVIL|MT_MINIBOSS|MT_SPOOKY|MT_WACKY,MG_LOONY,MC_AQUA,
 			{
@@ -4623,7 +4625,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,19,19,18,18,17,17,16,16,255}, // A3=arm spin
 				{35,36,37,38,38,38,38,37,36,35,34,255},	// A4=missile launch
 			}},
-		{"MechaBonkula",5,255,4,AI_MechaBonkula,
+		{"MechaBonkula",5,255,4,AI_MechaBonkula,  //check source material, add hammer shake ground
 		 8,28,700,5000,"llgraphics/bossvamp.jsp",0,MF_WALLWALK|MF_NOMOVE|MF_FLYING,
 		 MT_EVIL|MT_BOSS|MT_SPOOKY|MT_VAMPIRE|MT_HIGHTECH|MT_WACKY,MG_LOONY,MC_GREY,
 			{
@@ -4633,7 +4635,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{21,22,23,24,25,26,27,26,25,24,25,26,27,255},		// die
 				{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,255},	// A1=spin around
 			}},
-		{"Arctic Wolf",2,7,2,AI_Werewolf,
+		{"Arctic Wolf",2,7,2,AI_Werewolf,  //good to go
 		 12,55,60,100,"graphics/wolfman.jsp",0,0,
 		 MT_EVIL|MT_SPOOKY|MT_ANIMAL|MT_ARCTIC,MG_LOONY,MC_AQUA,
 			{
@@ -4647,8 +4649,8 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{20,21,22,23,24,25,26,26,26,26,26,26,26,26,27,28,29,255},	// howl 2
 				{30,31,32,32,32,33,34,35,36,37,38,39,40,41,42,43,255},	// attack (pounce)
 			}},
-		{"Grabby Bat",2,6,-3,AI_Bat2,
-		 8,33,5,25,"llgraphics/bat.jsp",0,MF_FLYING|MF_ENEMYWALK|MF_FREEWALK,
+		{"Grabby Bat",2,6,-3,AI_Bat2,  //good to go
+		 8,33,15,25,"llgraphics/bat.jsp",0,MF_FLYING|MF_ENEMYWALK|MF_FREEWALK,
 		 MT_SPOOKY|MT_FLYING|MT_EVIL|MT_ANIMAL,MG_LOONY,MC_VIOLET,
 			{
 				{0,255},	// idle
@@ -4661,7 +4663,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Hot Dog",5,4,-1,AI_Swampdog,
+		{"Frankenfurter",5,4,-1,AI_Swampdog,  //good to go
 		 18,43,80,150,"llgraphics/swampdog.jsp",0,0,
 		 MT_EVIL|MT_SPOOKY|MT_THINGY,MG_LOONY,MC_RED,
 			{
@@ -4675,7 +4677,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{19,18,18,255},	// get bored = A4
 				{0,0,0,0,255},	// hyper idle = A5
 			}},
-		{"Happy Stick Witch",255,255,0,AI_StickWitch,
+		{"Happy Stick Witch",255,255,0,AI_StickWitch,  //check wall hugging and projecitle issues
 		 12,20,500,5000,"llgraphics/stikwtch.jsp",0,MF_ONEFACE,
 		 MT_EVIL|MT_SPOOKY|MT_THINGY|MT_MINIBOSS|MT_WACKY,MG_LOONY,MC_AQUA,
 			{
@@ -4714,21 +4716,21 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,10,11,12,13,14,15,16,17,18,19,255},	// attack=smack
 				{7,8,9,10,11,12,13,14,15,16,17,18,19,255},	// attack=smack
 			}},
-		{"JUMPKIN!",2,3,1,AI_Jumpkin,
-		 10,13,50,750,"llgraphics/pumpkin.jsp",0,0,
-		 MT_EVIL|MT_PUMPKIN|MT_VEGGIE|MT_WACKY,MG_NEW,MC_BLUE,
+		{"Ice Pumpkin",2,7,2,AI_Pumpkin,
+		 11,6,5,500,"graphics/pumpkin.jsp",0,0,
+		 MT_EVIL|MT_PUMPKIN|MT_ARCTIC|MT_VEGGIE|MT_FOREST,MG_NEW,MC_AQUA,
 			{
 				{0,255},	// idle
-				{0,1,2,3,4,5,255},	// move
-				{0,1,2,3,255},	// attack (unused)
-				{6,7,8,9,10,11,12,255},		// die
+				{1,2,3,4,5,0,255},	// move
+				{1,2,3,4,5,0,255},	// move
+				{0,0,255},	// die (just long enough to spew shrapnel)
 				{1,2,3,4,5,0,255},	// move
 				{1,2,3,4,5,0,255},	// move
 				{1,2,3,4,5,0,255},	// move
 				{1,2,3,4,5,0,255},	// move
 				{1,2,3,4,5,0,255},	// move
 			}},
-		{"Night Terror",6,2,-4,AI_NightTerror,
+		{"Night Terror",6,2,-4,AI_NightTerror, //good to go
 		 12,13,60,500,"graphics/vampire.jsp",0,0,
 		 MT_EVIL|MT_VAMPIRE|MT_SPOOKY,MG_NEW,MC_BROWN,
 			{
@@ -4742,7 +4744,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{3,4,5,6,7,8,9,255},	// attack
 				{3,4,5,6,7,8,9,255},	// attack
 			}},
-		{"Revenge Armor",4,3,-3,AI_CloneArmor,
+		{"Revenge Armor",4,3,-3,AI_CloneArmor, //turn into evil clone upon destruction
 		 20,14,128,0,"graphics/pwrarmor.jsp",0,0,
 		 MT_SPACE|MT_EVIL|MT_HUMAN,MG_NEW,MC_BLUE,
 			{
@@ -4756,7 +4758,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,9,9,9,8,7,255},	// attack
 				{7,8,9,9,9,9,8,7,255},	// attack
 			}},
-		{"Ice Scream",1,7,3,AI_ScreamQueen,
+		{"Ice Scream",1,7,3,AI_ScreamQueen, //good to go
 		 12,44,20,50,"graphics/babything.jsp",0,0,
 		 MT_EVIL|MT_THINGY|MT_ARCTIC,MG_NEW,MC_AQUA,
 			{
@@ -4770,7 +4772,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{31,32,33,32,31,255}, // look left (A4)
 				{0,255},
 			}},
-		{"Grue Jr.",1,0,-13,AI_GrueJr,
+		{"Grue Jr.",1,0,-13,AI_GrueJr, //fix particle glitch
 		 8,21,10,50,"graphics/bigspdr.jsp",0,0,
 		 MT_EVIL|MT_SPIDER|MT_ANIMAL,MG_NEW,MC_GREY,
 			{
@@ -4784,7 +4786,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Pygmy Boomeranger",5,2,0,AI_PygmyBoomer,
+		{"Pygmy Boomeranger",5,2,0,AI_PygmyBoomer, //make less floaty?
 		 10,41,15,100,"graphics/pygmy2.jsp",0,0,
 		 MT_EVIL|MT_PYGMY|MT_HUMAN,MG_NEW,MC_BROWN,
 			{
@@ -4798,7 +4800,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{20,21,22,23,24,25,26,27,28,255},	// attack
 				{20,21,22,23,24,25,26,27,28,255},	// attack
 			}},
-		{"Deathcap",255,255,0,AI_HotShroom,
+		{"Deathcap",255,255,0,AI_HotShroom, //good to go
 		 15,23,30,50,"expgraphics/shroomgrn.jsp",0,0,
 		 MT_EVIL|MT_VEGGIE|MT_TRAP,MG_NEW,MC_AQUA,
 			{
@@ -4812,36 +4814,36 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Terror Brain",0,4,4,NULL,	
-		 40,7,200,500,"expgraphics/brain_red.jsp",0,MF_NOMOVE|MF_ONEFACE|MF_FACECMD|MF_NOGRAV|MF_ENEMYWALK|MF_FREEWALK,
-		 MT_EVIL|MT_MINIBOSS|MT_CAVES,MG_NEW,MC_RED,
+		{"Wild Bush",1,4,3,AI_Crazybush, //actually program
+		 10,8,20,5,"kmgraphics/crazybush.jsp",0,0,
+		 MT_EVIL|MT_WACKY|MT_VEGGIE|MT_FOREST,MG_NEW,MC_RED,
 			{
 				{0,255},	// idle
-				{0,255},	// move
-				{0,255},	// no form of attack
-				{1,2,3,2,1,0,4,5,6,5,4,0,1,2,3,2,1,0,4,5,6,5,255},	// die
-				{0,255},
-				{0,255},
-				{0,255},
-				{0,255},
-				{0,255},
+				{1,2,1,0,3,4,3,0,255},	// move
+				{0,255},	// attack
+				{5,6,7,255},	// die
+				{0,255},	// unused
+				{0,255},	// unused
+				{0,255},	// unused
+				{0,255},	// unused
+				{0,255},	// unused
 			}},
-		{"Terror Stalk",255,255,0,NULL,
-		 11,13,20,1,"kmgraphics/pinkeye.jsp",0,MF_FLYING|MF_NOMOVE|MF_ENEMYWALK|MF_FREEWALK|MF_WALLWALK|MF_GLOW,
-		 MT_BITS,MG_NEW,MC_BROWN,
+		{"Atom Splitter",0,6,3,AI_Bombot, //actually program
+		 13,10,50,100,"!80",0,0,
+		 MT_EVIL|MT_HIGHTECH|MT_TRAP,MG_NEW,MC_VIOLET,
 			{
 				{0,255},	// idle
-				{0,255},	// move
-				{1,2,3,4,5,6,7,8,255},	// fire
-				{9,10,11,12,12,11,10,9,9,255},	// die & resurrect (freezes on frm 3 until ready)
-				{0,255},
-				{1,2,3,4,5,6,7,8,255},	// unused
-				{1,2,3,4,5,6,7,8,255},	// unused
-				{1,2,3,4,5,6,7,8,255},	// unused
-				{1,2,3,4,5,6,7,8,255},	// unused
+				{1,2,1,0,3,4,3,0,255},	// move
+				{5,6,6,6,6,6,5,255},	// attack
+				{7,8,9,9,9,9,255},	// die
+				{5,6,6,6,6,6,5,255},	// attack
+				{5,6,6,6,6,6,5,255},	// attack
+				{5,6,6,6,6,6,5,255},	// attack
+				{5,6,6,6,6,6,5,255},	// attack
+				{5,6,6,6,6,6,5,255},	// attack
 			}},
-		{"Noodlenode",255,255,0,AI_Noodlenode,
-		 10,8,40,50,"expgraphics/dancebot.jsp",0,MF_ONEFACE|MF_NOMOVE|MF_WATERWALK,
+		{"Repairbot",255,255,0,AI_Noodlenode, //good to go?
+		 10,8,40,50,"expgraphics/dancebot.jsp",0,MF_ONEFACE|MF_NOMOVE|MF_WATERWALK|MF_FLYING,
 		 MT_EVIL|MT_WACKY|MT_HIGHTECH,MG_NEW,MC_GREY,
 			{
 				{0,255},// idle
@@ -4854,7 +4856,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,2,4,6,7,6,4,2,1,255},// attack
 				{0,2,4,6,7,6,4,2,1,255},// attack
 			}},
-		{"Sandman",0,2,-1,AI_Snowguy,
+		{"Sandman",0,2,-1,AI_Snowguy, //actually program
 		 26,36,40,200,"graphics/snowguy.jsp",0,0,
 		 MT_EVIL|MT_DESERT|MT_HUMAN,MG_NEW,MC_BROWN,
 			{
@@ -4868,7 +4870,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Nasty Tree",255,255,0,AI_Decoy,
+		{"Nasty Tree",255,255,0,AI_Decoy, //good to go
 		 12,6,80,500,"expgraphics/treedecoy.jsp",0,MF_ONEFACE|MF_NOMOVE|MF_NOSHADOW,
 		 MT_EVIL|MT_WACKY|MT_VEGGIE|MT_TRAP|MT_FOREST,MG_NEW,MC_GREEN,
 			{
@@ -4882,7 +4884,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,0,0,0,0,0,255},	// attack=slash
 				{0,0,0,0,0,0,255},	// attack=slash
 			}},
-		{"Deadeye",5,4,3,AI_Eyeguy,
+		{"Deadeye",5,4,3,AI_Eyeguy, //actually program
 		 14,17,20,75,"kmgraphics/eyeguy.jsp",0,0,
 		 MT_EVIL|MT_THINGY|MT_TRAP,MG_NEW,MC_RED,
 			{
@@ -4896,7 +4898,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,10,11,12,255},	// a4
 				{7,8,9,10,11,12,255},	// a5
 			}},
-		{"Peabrain",255,255,0,AI_Zombie,
+		{"Peabrain",255,255,0,AI_Zombie, //properly animate
 		 5,42,10,50,"expgraphics/zombie2.jsp",0,MF_ONEFACE,
 		 MT_EVIL|MT_SPOOKY|MT_ZOMBIE|MT_WACKY,MG_NEW,MC_GREY,
 			{
@@ -4910,9 +4912,9 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{15,16,17,18,19,20,21,22,23,23,24,25,26,27,28,255},	// attack
 				{7,8,9,10,11,12,13,14,255},	// A1 = stomp ground
 			}},
-		{"Anubis",2,0,-4,AI_Werewolf,
+		{"Anubis",2,0,-4,AI_Werewolf, //actually program
 		 12,55,60,100,"graphics/wolfman.jsp",0,0,
-		 MT_EVIL|MT_SPOOKY|MT_ANIMAL|MT_ARCTIC,MG_NEW,MC_GREY,
+		 MT_EVIL|MT_ANIMAL|MT_DESERT,MG_NEW,MC_GREY,
 			{
 				{0,255},	// idle
 				{1,2,3,2,1,0,4,5,6,5,4,0,255},	// move
@@ -4924,7 +4926,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{20,21,22,23,24,25,26,26,26,26,26,26,26,26,27,28,29,255},	// howl 2
 				{30,31,32,32,32,33,34,35,36,37,38,39,40,41,42,43,255},	// attack (pounce)
 			}},
-		{"Odd Hologram",255,255,0,AI_Hologram,
+		{"Odd Hologram",255,255,0,AI_Hologram, //good to go
 		 40,21,256,100,"expgraphics/drhologram.jsp",0,MF_GLOW,
 		 MT_EVIL|MT_WACKY|MT_HIGHTECH|MT_ASYLUM,MG_NEW,MC_RED,
 			{
@@ -4939,8 +4941,8 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{1,2,3,4,5,6,5,4,5,6,5,6,5,4,3,4,3,4,5,4,3,2,1,255},	// attack=laugh
 				{1,2,3,4,5,6,5,4,5,6,5,6,5,4,3,4,3,4,5,4,3,2,1,255},	// attack=laugh
 			}},
-		{"Crabshell",255,255,0,AI_Crabshell,
-		 12,7,80,50,"expgraphics/crabbot.jsp",0,MF_ONEFACE,
+		{"Spiderbot",255,255,0,AI_Crabshell, //not even programmed yet?
+		 12,7,120,50,"expgraphics/crabbot.jsp",0,MF_ONEFACE,
 		 MT_EVIL|MT_HIGHTECH,MG_NEW,MC_GREY,
 			{
 				{0,255},// idle
@@ -4953,7 +4955,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,2,4,6,7,6,4,2,1,255},// attack
 				{0,2,4,6,7,6,4,2,1,255},// attack
 			}},
-		{"Patrol Zoid",2,4,-3,AI_PatrolZoid,
+		{"Patrol Zoid",2,4,-3,AI_PatrolZoid, //good to go
 		 15,20,80,75,"graphics/geozoid.jsp",0,MF_NOMOVE|MF_AQUATIC|MF_WATERWALK,
 		 MT_EVIL|MT_ZOID|MT_ASYLUM|MT_TRAP,MG_NEW,MC_BROWN,
 			{
@@ -4967,21 +4969,21 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Galvigourd",2,0,-1,AI_Galvigourd,
-		 11,6,100,500,"graphics/pumpkin.jsp",0,0,
+		{"Galvigourd",2,0,-1,AI_Galvigourd, //good to go
+		 10,13,100,500,"llgraphics/pumpkin.jsp",0,0,
 		 MT_EVIL|MT_PUMPKIN|MT_VEGGIE|MT_HIGHTECH,MG_NEW,MC_GREY,
 			{
 				{0,255},	// idle
-				{1,2,3,4,5,0,255},	// move
-				{1,2,3,4,5,0,255},	// move
-				{0,0,255},	// die (just long enough to spew shrapnel)
-				{1,2,3,4,5,0,255},	// move
-				{1,2,3,4,5,0,255},	// move
-				{1,2,3,4,5,0,255},	// move
+				{0,1,2,3,4,5,255},	// move
+				{0,1,2,3,0,1,2,3,0,1,2,3,255},	// attack (unused)
+				{6,7,8,9,10,11,12,255},		// die
+				{6,7,8,9,10,11,12,255},	// attack (unused)
+				{12,255},	// ball
+				{12,11,10,9,8,7,6,255},	// attack part 2
 				{1,2,3,4,5,0,255},	// move
 				{1,2,3,4,5,0,255},	// move
 			}},
-		{"Kaboomkin",2,4,2,AI_BigPumpkin,	// big pumpkin
+		{"Kaboomkin",2,4,2,AI_BigPumpkin, //good to go
 		 14,1,20,500,"!52",0,0,
 		 MT_EVIL|MT_PUMPKIN|MT_VEGGIE,MG_NEW,MC_RED,
 			{
@@ -4995,7 +4997,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,0,0,255},	// move
 				{0,0,0,255},	// move
 			}},
-		{"Chef Liem",255,255,0,AI_ChefLiem,
+		{"Chef Liem",255,255,0,AI_ChefLiem, //PLEASE PROGRAM THIS
 		 13,3,600,100,"expgraphics/chefliem.jsp",0,MF_ONEFACE,
 		 MT_EVIL|MT_HUMAN|MT_BOSS|MT_WACKY,MG_NEW,MC_GREY,
 			{
@@ -5009,21 +5011,20 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,0,0,255},	// move
 				{0,0,0,255},	// move
 			}},
-		{"Kelvozoid",4,7,2,AI_Serpent,
-		 15,20,25,75,"graphics/serpent.jsp",0,MF_AQUATIC|MF_WATERWALK,
+		{"Kelvozoid",3,7,2,AI_Serpent, //good to go
+		 15,20,25,75,"graphics/magmazoid.jsp",0,MF_AQUATIC|MF_WATERWALK,
 		 MT_AQUATIC|MT_EVIL|MT_ZOID|MT_ARCTIC,MG_NEW,MC_AQUA,
 			{
 				{0,255},	// idle
 				{1,2,3,2,1,0,255},	// move
-				{10,11,12,13,14,15,16,255},	// attack=spit snow
-				{17,18,19,20,21,22,255},	// die
-				{4,5,6,7,8,9,255},	//A1=rise out of the snow
-				{254,255},			//A2=idle under the ground
-				{10,11,12,13,14,15,16,255},	// attack=spit snow
-				{0,255},
-				{0,255},
+				{4,5,6,7,8,9,9,9,9,10,255},	// attack=spit spines
+				{11,12,13,14,15,16,17,255},	// die
+				{4,5,6,7,8,9,9,9,9,10,255},	// attack=spit spines
+				{4,5,6,7,8,9,9,9,9,10,255},	// attack=spit spines
+				{4,5,6,7,8,9,9,9,9,10,255},	// attack=spit spines
+				{4,5,6,7,8,9,9,9,9,10,255},	// attack=spit spines
 			}},
-		{"Missozoid",3,0,-3,AI_Serpent,
+		{"Missozoid",3,0,-3,AI_Serpent, //good to go
 		 15,18,30,75,"graphics/freakazoid.jsp",0,MF_AQUATIC|MF_WATERWALK,
 		 MT_EVIL|MT_ZOID|MT_HIGHTECH|MT_AQUATIC,MG_NEW,MC_GREY,
 			{
@@ -5036,7 +5037,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{4,5,6,7,8,9,9,9,9,10,255},	// attack=spit spines
 				{4,5,6,7,8,9,9,9,9,10,255},	// attack=spit spines
 			}},
-		{"FroZombie",0,7,8,AI_Zombie,
+		{"FroZombie",0,7,8,AI_Zombie, //good to go
 		 11,32,20,150,"graphics/zombie.jsp",0,0,
 		 MT_SPOOKY|MT_ZOMBIE|MT_EVIL|MT_ARCTIC,MG_NEW,MC_AQUA,
 			{
@@ -5050,7 +5051,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Super Mutant Zombie",0,1,2,AI_SuperZombie,
+		{"Super Mutant Zombie",0,1,2,AI_SuperMutantZombie, //re-examine
 		 36,38,200,2500,"graphics/suprzmbe.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_MINIBOSS|MT_SPOOKY|MT_ZOMBIE,MG_NEW,MC_GREEN,
 			{
@@ -5064,7 +5065,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Hotfoot",255,255,0,AI_Hotfoot,
+		{"Hotfoot",255,255,0,AI_Hotfoot, //add attacks and make it move right
 		 4,3,20,2500,"expgraphics/burny.jsp",0,MF_NOMOVE|MF_ONEFACE,
 		 MT_EVIL|MT_WACKY|MT_SPOOKY,MG_NEW,MC_YELLOW,
 			{
@@ -5078,7 +5079,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// unused
 				{0,255},	// unused
 			}},
-		{"Xeno Empress",255,255,0,AI_XenoEmpressHead,
+		{"Xeno Empress",255,255,0,AI_XenoEmpressHead, //add attacks and make it move right
 		 36,5,500,1000,"expgraphics/queenskull.jsp",0,MF_NOMOVE|MF_ONEFACE|MF_FREEWALK|MF_ENEMYWALK,
 		 MT_BITS,MG_NEW,MC_GREY,
 			{
@@ -5135,7 +5136,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,7,7,8,8,8,9,9,9,9,9,9,9,9,9,9,9,9,10,9,8,7,255},	// attack=slow fire
 			}},
 		
-		{"Flying Zombie",3,4,-1,AI_Zombie,
+		{"Flying Zombie",3,4,-1,AI_Zombie, //make it cooler
 		 11,32,40,250,"graphics/zombie.jsp",0,MF_FLYING|MF_WATERWALK,
 		 MT_SPOOKY|MT_ZOMBIE|MT_EVIL|MT_FLYING,MG_NEW,MC_GREY,
 			{
@@ -5149,7 +5150,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Gingersnap",2,4,1,AI_Gingersnap,
+		{"Gingersnap",2,4,1,AI_Gingersnap, //replace AI
 		 12,33,90,600,"graphics/ginger.jsp",0,0,
 		 MT_EVIL|MT_WACKY|MT_TRAP,MG_NEW,MC_RED,
 			{
@@ -5163,7 +5164,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Atomic SEAL",1,6,-1,AI_EliteSeal,
+		{"Atomic SEAL",1,6,-1,AI_EliteSeal, //good to go
 		 22,20,75,125,"!31",0,0,
 		 MT_EVIL|MT_ANIMAL|MT_ARCTIC,MG_NEW,MC_GREY,
 			{
@@ -5177,7 +5178,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{6,6,9,10,13,14,255},	// attack=full auto
 				{6,6,9,10,13,14,255},	// attack=full auto
 			}},
-		{"Wet Blanket",255,255,0,AI_Ghost,
+		{"Wet Blanket",255,255,0,AI_Ghost, //good to go
 		 14,23,40,300,"expgraphics/ghostblu.jsp",0,MF_WALLWALK|MF_NOSHADOW|MF_FLYING|MF_GLOW|MF_ENEMYWALK|MF_FREEWALK,
 		 MT_EVIL|MT_SPOOKY|MT_FLYING,MG_NEW,MC_GLOW,
 			{
@@ -5191,7 +5192,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{4,5,6,7,8,9,10,11,6,7,8,9,10,11,6,7,8,9,10,11,12,13,14,14,14,15,15,16,17,255},	//unused
 				{4,5,6,7,8,9,10,11,6,7,8,9,10,11,6,7,8,9,10,11,12,13,14,14,14,15,15,16,17,255},	//unused
 			}},
-		{"Minitilda",4,3,0,AI_Minitilda,	// the head of matilda
+		{"Minitilda",4,3,0,AI_Minitilda, //good to go
 		 40,11,500,1000,"expgraphics/minitilda.jsp",0,MF_NOMOVE|MF_ONEFACE|MF_FACECMD|MF_NOGRAV|MF_ENEMYWALK|MF_FREEWALK,
 		 MT_EVIL|MT_SPIDER|MT_MINIBOSS,MG_NEW,MC_BLUE,
 			{
@@ -5307,8 +5308,8 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// attack
 				{0,255},	// die
 			}},
-		{"Pygmy Firedancer",6,4,2,AI_Pygmy,
-		 10,50,15,100,"graphics/pygmy.jsp",0,0,
+		{"Pygmy Firedancer",6,4,-2,AI_Firedancer, //good to go
+		 10,50,45,100,"graphics/pygmy.jsp",0,0,
 		 MT_EVIL|MT_PYGMY|MT_HUMAN,MG_NEW,MC_RED,
 			{
 				{0,0,0,0,0,0,0,0,0,0,1,2,3,2,1,0,0,0,4,5,6,5,4,255},	// idle
@@ -5318,10 +5319,10 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{14,15,16,17,18,19,20,16,17,18,19,15,14,255},	// (A1) bored (spin spear)
 				{21,22,23,24,25,26,26,26,27,28,27,26,27,28,27,26,255}, // (A2) bored (yawn)
 				{47,48,49,48,47,0,47,48,49,48,47,255},	// (A3) angry, spotted Bouapha
-				{0,255},
+				{0,47,48,49,49,49,48,47,47,0,255}, // (A4) jump!!
 				{0,255},
 			}},
-		{"Atomic Zombie",0,6,6,AI_SDZL2,
+		{"Atomic Zombie",0,6,6,AI_SDZL2, //good to go
 		 40,48,1200,35000,"graphics/sdzl.jsp",0,MF_NOMOVE|MF_ONEFACE,
 		 MT_EVIL|MT_ZOMBIE|MT_BOSS,MG_NEW,MC_VIOLET,
 			{
@@ -5335,7 +5336,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{39, 38, 37, 36, 35, 35, 35, 36, 36, 36, 37, 37, 37, 38, 39, 255}, // A4=atomic dodge
 				{27, 26, 25, 25, 24, 23, 22, 22, 21, 21, 20, 19, 255}, // A5=atomic throw
 			}},
-		{"Deadly Burner",0,4,-2,AI_Burner,
+		{"Deadly Burner",0,4,-2,AI_Burner, //good to go
 		 18,2,30,300,"graphics/burner.jsp",0,MF_NOSHADOW|MF_ONEFACE|MF_NOMOVE|MF_INVINCIBLE,
 		 MT_EVIL|MT_TRAP,MG_NEW,MC_RED,
 			{
@@ -5349,19 +5350,19 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// attack
 				{0,255},	// attack
 			}},
-		{"MechaCountess",6,0,5,AI_MechaCountess,
-		 25,28,220,1000,"graphics/countess.jsp",0,MF_ONEFACE,
-		 MT_EVIL|MT_BOSS|MT_VAMPIRE|MT_SPOOKY,MG_NEW,MC_GREY,
+		{"LunaChick Prime",6,2,0,AI_RockTrooper,
+		 40,23,800,1000,"!78",0,MF_NOMOVE,
+		 MT_EVIL|MT_HIGHTECH,MG_NEW,MC_RED,
 			{
-				{0,1,2,3,4,5,6,7,8,9,255},	// idle
-				{0,1,2,3,4,5,6,7,8,9,255},	// move
-				{13,14,15,16,17,18,18,18,18,18,19,255},	// attack
-				{20,21,22,22,22,22,23,24,25,26,27,255},	// die
-				{10,11,12,12,12,12,11,10,255},	// A1=summon boneheads
-				{3,3,3,255},	// A2=charge up to rush
-				{13,14,15,16,17,18,18,18,18,18,19,255},	// attack
-				{13,14,15,16,17,18,18,18,18,18,19,255},	// attack
-				{13,14,15,16,17,18,18,18,18,18,19,255},	// attack
+				{0,255},	// idle
+				{1,2,1,0,3,4,3,0,255},	// move
+				{10,11,11,11,12,13,14,14,15,255},	// attack
+				{16,17,18,19,20,21,22,22,22,255},	// die
+				{5,6,7,7,8,9,255},	// A1=lob grenade
+				{10,11,11,11,12,13,14,14,15,255},	// attack
+				{10,11,11,11,12,13,14,14,15,255},	// attack
+				{10,11,11,11,12,13,14,14,15,255},	// attack
+				{10,11,11,11,12,13,14,14,15,255},	// attack
 			}},
 		{"Young Loony",255,255,0,NULL,
 		 11,25,128,0,"llgraphics/kidloony.jsp",0,MF_WATERWALK,
@@ -5391,7 +5392,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{1,2,0,2,0,1,2,1,0,1,0,2,1,2,1,0,2,1,2,255},	// attack
 				{1,2,0,2,0,1,2,1,0,1,0,2,1,2,1,0,2,1,2,255},	// attack
 			}},
-		{"Winter Gourd",1,3,4,AI_WinterGourd,
+		{"Winter Gourd",1,3,4,AI_WinterGourd, //good to go
 		 8,14,10,100,"graphics/squash.jsp",0,0,
 		 MT_EVIL|MT_VEGGIE|MT_PUMPKIN|MT_ARCTIC,MG_NEW,MC_BLUE,
 			{
@@ -5405,8 +5406,8 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{7,8,9,10,9,8,7,255},	// attack
 				{7,8,9,10,9,8,7,255},	// attack
 			}},
-		{"Count Eshkah",3,6,-3,AI_CountEshkah,
-		 20,13,500,800,"llgraphics/elder.jsp",0,0,
+		{"Count Eshkah",3,6,-3,AI_CountEshkah, //good to go
+		 20,13,500,800,"llgraphics/elder.jsp",0,MF_ENEMYWALK,
 		 MT_EVIL|MT_BOSS|MT_VAMPIRE,MG_NEW,MC_VIOLET,
 			{
 				{0,255},	// idle
@@ -5415,8 +5416,11 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,0,0,0,0,0,255},		// die
 				{7,8,9,9,9,9,8,8,7,7,255},	// summon pose = A1
 				{10,11,12,12,12,11,10,255},	// point = A2
+				{10,11,12,12,12,11,10,255},	// point = A3
+				{1,2,3,4,4,4,4,5,6,255},	// shove = A5
+				{1,2,3,4,4,4,4,4,4,4,4,5,6,255},	// shove = A4
 			}},
-		{"Deathstone",2,7,-4,AI_RollerKiller,
+		{"Deathstone",2,7,-4,AI_RollerKiller, //good to go
 		 35,11,500,1000,"graphics/roller.jsp",0,MF_NOMOVE|MF_ONEFACE,
 		 MT_EVIL|MT_HIGHTECH|MT_TRAP,MG_NEW,MC_AQUA,
 			{
@@ -5430,7 +5434,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Happy Stick Snowman",255,255,0,AI_StickSnowman,
+		{"Happy Stick Snowman",255,255,0,AI_StickSnowman, //fix sprite
 		 11,6,40,60,"expgraphics/stksnow.jsp",0,MF_ONEFACE,
 		 MT_EVIL|MT_WACKY|MT_ARCTIC,MG_NEW,MC_AQUA,
 			{
@@ -5444,7 +5448,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// unused
 				{0,255},	// unused
 			}},
-		{"Happy Stick Fish",255,255,0,AI_StickFish,
+		{"Happy Stick Fish",255,255,0,AI_StickFish, //actually program
 		 11,6,40,60,"expgraphics/stkfish.jsp",0,MF_ONEFACE|MF_FLYING,
 		 MT_EVIL|MT_WACKY|MT_UNDERSEA|MT_ANIMAL,MG_NEW,MC_AQUA,
 			{
@@ -5458,7 +5462,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},	// unused
 				{0,255},	// unused
 			}},
-		{"Yerfdog",0,0,0,AI_Yerfboss,
+		{"Yerfdog",0,0,0,AI_Yerfboss, //good to go
 		 28,31,500,1000,"expgraphics/yerfboss.jsp",0,MF_FREEWALK|MF_ENEMYWALK|MF_WATERWALK|MF_ONEFACE,
 		 MT_EVIL|MT_ANIMAL|MT_BOSS,MG_NEW,MC_GREY,
 			{
@@ -5472,22 +5476,22 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{17,18,19,20,21,22,23,24,25,26,255},	// unused
 				{17,18,19,20,21,22,23,24,25,26,255},	// unused
 			}},
-		{"The Delirious",1,0,0,AI_Shapeshifter,
-		 11,29,1500,10000,"!1",0,MF_WATERWALK|MF_ENEMYWALK,
+		{"Happy Stick Supreme",1,0,0,AI_Shapeshifter, //good to go
+		 80,29,1500,10000,"expgraphics/stickboss.jsp",0,MF_WATERWALK|MF_ENEMYWALK|MF_ONEFACE,
 		 MT_EVIL|MT_BOSS,MG_NEW,MC_GREY,
 			{
 				{0,255},	// idle
-				{1,2,3,2,1,0,4,5,6,5,4,0,255},	// move
-				{7,8,9,10,11,12,13,14,15,16,255},	// attack
-				{0,0,0,0,0,0,0,26,27,28,255},		// die
-				{23,24,25,24,23,255},	// use item
-				{17,18,19,20,21,22,21,20,21,22,21,20,19,18,17,255},	// bored
-				{1,3,1,0,4,6,4,0,1,3,1,0,0,0,26,27,28,255},	// watery death
-				{7,8,9,10,11,12,13,14,15,16,255},	// attack
-				{7,8,9,10,11,12,13,14,15,16,255},	// attack
+				{0,255},	// move
+				{3,4,5,6,7,8,9,255},	// attack=chomp
+				{3,3,4,4,5,5,6,6,7,7,8,254,8,254,9,254,9,255},	// die
+				{6,7,7,7,6,0,8,9,9,9,8,255},	// A1=show off muscles
+				{3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,255},	// A2=sadness
+				{1,0,2,0,1,0,2,0,1,0,2,0,0,0,3,4,5,255},	// watery death
+				{0,255},
+				{0,255},
 			}},
-		{"The Eldritch",2,0,-12,AI_Sphinx2,
-		 80,11,1200,5000,"graphics/sphinx.jsp",0,MF_ONEFACE|MF_NOMOVE|MF_FLYING|MF_WATERWALK,
+		{"The Eldritch",2,0,-12,AI_Sphinx2, //tentacles to arms
+		 80,11,1200,5000,"graphics/sphinx.jsp",0,MF_ONEFACE|MF_NOMOVE|MF_WATERWALK,
 		 MT_EVIL|MT_BOSS|MT_DESERT,MG_NEW,MC_GREY,
 			{
 				{0,255},	// idle
@@ -5499,7 +5503,7 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{1,2,3,255},	// attack=summon mummy
 				{1,2,3,255},	// attack=summon mummy
 			}},
-		{"The Crimson",1,4,-4,AI_Thing2,
+		{"Thing Crimson",1,4,-4,AI_Thing2, //good to go
 		 64,11,1100,5000,"graphics/thething.jsp",0,MF_NOMOVE|MF_AQUATIC|MF_WATERWALK|MF_ENEMYWALK|MF_ONEFACE,
 		 MT_EVIL|MT_THINGY|MT_BOSS,MG_NEW,MC_RED,
 			{
@@ -5513,8 +5517,8 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Hans the Unknown",1,0,-4,AI_Yeti3,
-		 48,40,1000,5000,"graphics/yeti.jsp",0,MF_NOMOVE,
+		{"Hans Solo",1,5,4,AI_Yeti3, //make better moves
+		 48,40,500,5000,"graphics/yeti.jsp",0,MF_NOMOVE,
 		 MT_EVIL|MT_BOSS|MT_ARCTIC|MT_ANIMAL,MG_NEW,MC_GREY,
 			{
 				{0,255},	// idle
@@ -5527,33 +5531,31 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 			}},
-		{"Eldritch Tentacle",1,0,-6,AI_ThingTentacle,
-		 32,1,400,100,"graphics/thingtent.jsp",0,MF_NOMOVE|MF_FREEWALK|MF_NOGRAV|MF_ENEMYWALK,
-		 MT_BITS,MG_NEW,MC_GREY,
+		{"Eldritch Arm",2,0,-12,AI_SphinxArm,	// arm1
+		 30,10,600,2000,"graphics/sphinxarm1.jsp",0,MF_ONEFACE|MF_NOMOVE|MF_SPRITEBOX|MF_ENEMYWALK,
+		 MT_BITS,MG_NEW,MC_BROWN,
 			{
 				{0,255},	// idle
 				{0,255},	// move
-				{0,255},	// attack
-				{0,0,0,0,0,255},	// die
-				{0,255},
-				{0,255},
-				{0,255},
-				{0,255},
-				{0,255},
+				{1,2,3,4,5,6,7,7,8,9,255},	// attack=swipe
+				{0,1,2,3,2,3,4,3,2,3,4,3,254,4,254,3,254,4,255},	// die
+				{1,2,3,4,5,6,7,7,8,9,255},	// attack=swipe
+				{1,2,3,4,5,6,7,7,8,9,255},	// attack=swipe
+				{1,2,3,4,5,6,7,7,8,9,255},	// attack=swipe
+				{1,2,3,4,5,6,7,7,8,9,255},	// attack=swipe
 			}},
-		{"Eldritch Tentacle",1,0,-6,AI_ThingTentacle,	// tentacle tip
-		 32,1,400,100,"graphics/thingtent2.jsp",0,MF_NOMOVE|MF_FREEWALK|MF_NOGRAV|MF_ENEMYWALK,
+		{"Eldritch Arm",2,0,-12,AI_SphinxArm,	// arm2
+		 30,10,600,2000,"graphics/sphinxarm2.jsp",0,MF_ONEFACE|MF_NOMOVE|MF_SPRITEBOX|MF_ENEMYWALK,
 		 MT_BITS,MG_NEW,MC_GREY,
 			{
 				{0,255},	// idle
 				{0,255},	// move
-				{0,255},	// attack
-				{0,0,0,0,0,255},	// die
-				{0,255},
-				{0,255},
-				{0,255},
-				{0,255},
-				{0,255},
+				{1,2,3,4,5,6,7,7,8,9,255},	// attack=swipe
+				{0,1,2,3,2,3,4,3,2,3,4,3,254,4,254,3,254,4,255},	// die
+				{1,2,3,4,5,6,7,7,8,9,255},	// attack=swipe
+				{1,2,3,4,5,6,7,7,8,9,255},	// attack=swipe
+				{1,2,3,4,5,6,7,7,8,9,255},	// attack=swipe
+				{1,2,3,4,5,6,7,7,8,9,255},	// attack=swipe
 			}},
 		{"Crimson Tentacle",1,4,-4,AI_ThingTentacle,
 		 32,1,600,100,"graphics/thingtent.jsp",0,MF_NOMOVE|MF_FREEWALK|MF_NOGRAV|MF_ENEMYWALK,
@@ -5580,6 +5582,228 @@ monsterType_t monsType[NUM_MONSTERS]=
 				{0,255},
 				{0,255},
 				{0,255},
+				{0,255},
+				{0,255},
+			}},
+		{"The Ascended",255,255,4,AI_Kongor2, //re-examine
+		 80,32,750,2000,"expgraphics/kongorghost.jsp",0,MF_NOMOVE|MF_NOSHADOW|MF_ONEFACE|MF_GHOST|MF_ENEMYWALK|MF_FREEWALK|MF_WALLWALK,
+		 MT_EVIL|MT_ANIMAL|MT_BOSS|MT_PYGMY,MG_NEW,MC_GLOW,
+			{
+				{0,255},	// idle
+				{1,2,3,2,1,0,255},	// move (left)
+				{7,8,9,10,10,9,8,7,255},	// attack (left pound)
+				{15,16,17,24,25,26,27,28,29,30,31,255},	// die
+				{4,5,6,5,4,0,255}, // A1=move (right)
+				{11,12,13,14,14,13,12,11,255}, // A2=right pound
+				{15,16,17,18,19,20,19,18,21,22,23,22,21,18,19,20,19,18,255}, // A3=chest pound
+				{21,22,23,22,21,17,16,15,255}, // A4=finish chest pound
+				{7,8,9,10,10,9,8,7,255},	// attack (left pound)
+			}},
+		{"Vamp Jr.",6,3,2,AI_Vampire, //good to go
+		 12,13,30,500,"graphics/vampire.jsp",0,0,
+		 MT_EVIL|MT_VAMPIRE|MT_SPOOKY,MG_NEW,MC_BLUE,
+			{
+				{1,2,1,0,255},	// idle
+				{1,2,1,0,255},	// move
+				{3,4,5,6,7,8,9,255},	// attack
+				{12,11,10,255},		// die
+				{3,4,5,6,7,8,9,255},	// attack
+				{3,4,5,6,7,8,9,255},	// attack
+				{3,4,5,6,7,8,9,255},	// attack
+				{3,4,5,6,7,8,9,255},	// attack
+				{3,4,5,6,7,8,9,255},	// attack
+			}},
+		{"Centiboomkin",2,4,5,AI_CentiBody,	// body
+		 14,5,20,200,"graphics/cpbody.jsp",0,MF_ENEMYWALK,
+		 MT_BITS,MG_NEW,MC_RED,
+			{
+				{0,255},	// idle
+				{1,2,1,0,3,4,3,0,255},	// move
+				{0,255},	// attack
+				{0,0,0,255},	// die
+				{0,255},	// attack
+				{0,255},	// attack
+				{0,255},	// attack
+				{0,255},	// attack
+			}},
+		{"Centiboomkin",2,4,5,AI_CentiHead,	// head
+		 14,1,40,500,"graphics/cphead.jsp",0,MF_ENEMYWALK,
+		 MT_EVIL|MT_VEGGIE|MT_PUMPKIN|MT_MINIBOSS|MT_DESERT,MG_NEW,MC_RED,
+			{
+				{0,255},	// idle
+				{0,255},	// move
+				{0,255},	// attack
+				{0,0,0,255},	// die
+				{0,255},	// attack
+				{0,255},	// attack
+				{0,255},	// attack
+				{0,255},	// attack
+			}},
+		{"Freezer",0,7,10,AI_Snowblower,  //good to go
+		 18,2,30,300,"!66",0,MF_NOSHADOW|MF_ONEFACE|MF_NOMOVE|MF_INVINCIBLE,
+		 MT_EVIL|MT_TRAP|MT_ARCTIC,MG_NEW,MC_AQUA,
+			{
+				{0,255},	// idle
+				{0,255},	// move
+				{0,255},	// attack
+				{0,255},	// die
+				{0,255},	// attack
+				{0,255},	// attack
+				{0,255},	// attack
+				{0,255},	// attack
+				{0,255},	// attack
+			}},
+		{"MultiShroom",1,6,4,AI_MultiShroom,  //good to go
+		 15,23,30,50,"graphics/shroom.jsp",0,0,
+		 MT_EVIL|MT_VEGGIE|MT_CAVES|MT_TRAP|MT_FOREST,MG_NEW,MC_VIOLET,
+			{
+				{0,255},	// idle
+				{1,2,3,2,1,0,4,5,6,5,4,0,255},	// move
+				{7,8,9,10,11,12,13,14,255},	// attack
+				{15,16,17,18,19,20,21,22,255},	// die
+				{22,21,20,19,18,17,16,15,255},	// a1 (revive)
+				{2,8,9,10,11,12,13,14,255},	// attack
+				{7,8,9,10,11,12,13,14,255},	// attack
+				{0,255},
+				{0,255},
+			}},
+		{"Wacky Wrapper",0,3,2,AI_Mumble, //fix speed
+		 15,28,30,100,"!39",0,MF_NOMOVE,
+		 MT_EVIL|MT_SPOOKY|MT_DESERT|MT_ASYLUM,MG_NEW,MC_BLUE,
+			{
+				{0,255},	// idle
+				{1,2,3,4,5,0,6,7,8,9,10,0,255},	// move
+				{11,12,13,14,15,16,17,18,255},	// attack=head crush
+				{19,20,21,22,23,24,25,26,27,255},	// die
+				{11,12,13,14,15,16,17,18,255},	// attack=head crush
+				{11,12,13,14,15,16,17,18,255},	// attack=head crush
+				{11,12,13,14,15,16,17,18,255},	// attack=head crush
+				{11,12,13,14,15,16,17,18,255},	// attack=head crush
+				{11,12,13,14,15,16,17,18,255},	// attack=head crush
+			}},
+		{"Pusher:Horizontal",0,3,1,AI_Pusher,
+		 18,2,30,300,"!66",0,MF_NOSHADOW|MF_ONEFACE|MF_NOMOVE|MF_NOHIT|MF_INVINCIBLE|MF_ENEMYWALK|MF_FREEWALK,
+		 MT_EVIL|MT_TRAP,MG_NEW,MC_BLUE,
+			{
+				{254,254,254,255},	// idle
+				{254,254,254,255},	// move
+				{254,254,254,255},	// attack
+				{254,255},		// die
+				{254,254,254,255},	// move
+				{254,254,254,255},	// move
+				{254,254,254,255},	// move
+				{254,254,254,255},	// move
+				{254,254,254,255},	// move
+			}},
+		{"Pusher:Vertical",0,3,1,AI_Pusher,
+		 18,2,30,300,"!66",0,MF_NOSHADOW|MF_ONEFACE|MF_NOMOVE|MF_NOHIT|MF_INVINCIBLE|MF_ENEMYWALK|MF_FREEWALK,
+		 MT_EVIL|MT_TRAP,MG_NEW,MC_BLUE,
+			{
+				{254,254,254,255},	// idle
+				{254,254,254,255},	// move
+				{254,254,254,255},	// attack
+				{254,255},		// die
+				{254,254,254,255},	// move
+				{254,254,254,255},	// move
+				{254,254,254,255},	// move
+				{254,254,254,255},	// move
+				{254,254,254,255},	// move
+			}},
+		{"Medic Cap",5,1,5,AI_ShroomLord,
+		 15,14,40,300,"graphics/shrmlord.jsp",0,0,
+		 MT_EVIL|MT_VEGGIE|MT_FOREST,MG_NEW,MC_GREEN,
+			{
+				{0,255},	// idle
+				{1,2,3,2,1,0,4,5,6,5,4,0,255},	// move
+				{7,7,8,8,8,9,10,11,12,12,13,13,255},	// spit spores
+				{0,0,255},	// die
+				{7,7,8,8,8,9,10,11,12,12,13,13,255},	// spit spores
+				{7,7,8,8,8,9,10,11,12,12,13,13,255},	// spit spores
+				{7,7,8,8,8,9,10,11,12,12,13,13,255},	// spit spores
+				{7,7,8,8,8,9,10,11,12,12,13,13,255},	// spit spores
+				{7,7,8,8,8,9,10,11,12,12,13,13,255},	// spit spores
+			}},
+		{"BUDDY PUMPKIN!",255,255,4,AI_Pumpkin,
+		 11,6,5,500,"graphics/pumpkin.jsp",0,0,
+		 MT_GOOD|MT_PUMPKIN|MT_VEGGIE|MT_FOREST,MG_NEW,MC_BROWN,
+			{
+				{0,255},	// idle
+				{1,2,3,4,5,0,255},	// move
+				{1,2,3,4,5,0,255},	// move
+				{0,0,255},	// die (just long enough to spew shrapnel)
+				{1,2,3,4,5,0,255},	// move
+				{1,2,3,4,5,0,255},	// move
+				{1,2,3,4,5,0,255},	// move
+				{1,2,3,4,5,0,255},	// move
+				{1,2,3,4,5,0,255},	// move
+			}},
+		{"Death Cart",2,4,2,AI_MinecartBad,
+		 11,8,100,500,"graphics/minecar.jsp",0,MF_NOMOVE|MF_FREEWALK,
+		 MT_VEHICLE|MT_TRAP,MG_NEW,MC_RED,
+			{
+				{0,255},	// idle
+				{1,2,3,4,5,6,7,0,255},	// move
+				{1,2,3,4,3,2,1,0,255},	// attack
+				{1,2,3,4,5,6,7,6,5,4,3,2,1,0,255},	// die
+				{1,2,3,4,3,2,1,0,255},	// attack
+				{1,2,3,4,3,2,1,0,255},	// attack
+				{1,2,3,4,3,2,1,0,255},	// attack
+				{1,2,3,4,3,2,1,0,255},	// attack
+				{1,2,3,4,3,2,1,0,255},	// attack
+			}},
+		{"Bone Rider",4,3,-2,AI_Bonehead,
+		 8,38,25,50,"graphics/skeleton.jsp",0,MF_ENEMYWALK|MF_FREEWALK,
+		 MT_SPOOKY|MT_FOREST|MT_CAVES|MT_SKELETON|MT_EVIL,MG_NEW,MC_GREY,
+			{
+				{0,255},	// idle
+				{1,2,3,2,1,0,4,5,6,5,4,0,255},	// move
+				{20,21,22,23,24,255},	// attack
+				{7,8,9,10,11,12,13,14,15,16,255},		// die
+				{25,26,27,28,29,30,255},	// chomp/spit projectile
+				{31,32,32,32,31,255},	// point at bouapha
+				{16,15,14,13,12,11,10,9,8,7,255},	// resurrect=A3
+				{0,255},
+				{0,255},
+			}},
+		{"Cart Jockey",6,5,-2,AI_Pygmy,
+		 10,50,35,100,"graphics/pygmy.jsp",0,MF_ENEMYWALK|MF_FREEWALK,
+		 MT_EVIL|MT_PYGMY|MT_HUMAN,MG_DRL,MC_VIOLET,
+			{
+				{0,0,0,0,0,0,0,0,0,0,1,2,3,2,1,0,0,0,4,5,6,5,4,255},	// idle
+				{8,9,10,9,8,7,11,12,13,12,11,7,255},	// move
+				{29,30,31,31,32,33,34,35,36,255},	// attack
+				{37,38,39,40,41,42,43,44,45,46,255},	// die
+				{14,15,16,17,18,19,20,16,17,18,19,15,14,255},	// (A1) bored (spin spear)
+				{21,22,23,24,25,26,26,26,27,28,27,26,27,28,27,26,255}, // (A2) bored (yawn)
+				{47,48,49,48,47,0,47,48,49,48,47,255},	// (A3) angry, spotted Bouapha
+				{0,255},
+				{0,255},
+			}},
+		{"Minecart Chest",2,4,-4,AI_Chest,
+		 16,5,100,1000,"graphics/chest.jsp",0,MF_NOMOVE|MF_ONEFACE|MF_ENEMYWALK|MF_FREEWALK,
+		 MT_TRAP|MT_UNDERSEA,MG_SUPREME,MC_BROWN,
+			{
+				{0,255},	// idle
+				{0,255},	// move
+				{0,255},	// attack
+				{1,2,3,4,255},	// die
+				{1,2,3,4,255},	// die
+				{1,2,3,4,255},	// die
+				{1,2,3,4,255},	// die
+				{1,2,3,4,255},	// die
+				{1,2,3,4,255},	// die
+			}},
+		{"Super Bombie",0,4,5,AI_SuperBombie, //re-examine
+		 36,38,128,2500,"graphics/suprzmbe.jsp",0,MF_NOMOVE,
+		 MT_EVIL|MT_MINIBOSS|MT_SPOOKY|MT_ZOMBIE,MG_NEW,MC_RED,
+			{
+				{0,255},	// idle
+				{1,2,3,2,1,0,4,5,6,5,4,0,255},	// move
+				{17,18,19,20,21,22,23,24,25,255},	// attack=punch
+				{9,10,11,12,13,14,15,15,15,15,15,15,255},	// die
+				{7,8,9,10,11,11,11,12,12,13,13,13,14,14,14,15,16,16,255},	// A1=leap
+				{26,27,28,29,30,255},	// A2=attempted grab
+				{27,31,32,33,34,35,34,36,37,36,34,35,34,36,37,36,34,35,34,33,31,27,255},	//A3= grab n' pound
 				{0,255},
 				{0,255},
 			}},

@@ -77,7 +77,6 @@
 // the Asylum bosses
 #define MONS_DRL	  57
 #define MONS_SDZL	  58
-
 #define MONS_SANTA	  59
 
 // expansion "monsters"
@@ -160,6 +159,7 @@
 #define MONS_PUMPKIN2	128
 #define MONS_CRAZYBONE	129
 #define MONS_CREEPAZOID 130
+// -- SWC
 #define MONS_LAZYBONE	131
 #define MONS_STAREYBAT	132
 #define MONS_MADMAN		133
@@ -380,23 +380,23 @@
 //new stuff
 #define MONS_PLAYWOLF		341
 #define MONS_PLAYWIZARD		342
-#define MONS_JUMPKIN		343
+#define MONS_ICEPUMPKN		343 // implement
 #define MONS_NIGHTVAMP		344
 #define MONS_REVENGECLONE	345
 #define MONS_THINGY4		346
 #define MONS_GRUESML		347
 #define MONS_PYGMYBOOMER	348
 #define MONS_DEATHCAP		349
-#define MONS_TERRORBRAIN	350
-#define MONS_EYEGUARD		351
+#define MONS_BURNBUSH		350 //implement
+#define MONS_ATOMBOT		351 //implement
 #define MONS_NOODLENODE		352
-#define MONS_SANDMAN		353
+#define MONS_SANDMAN		353 //fix
 #define MONS_DECOY			354
 #define MONS_DEADEYE		355
 #define MONS_PEABRAIN		356
-#define MONS_CRAZYBAT		357
+#define MONS_ANUBIS			357
 #define MONS_HOLOGRAM		358
-#define MONS_CRABSHELL		359
+#define MONS_CRABSHELL		359 //implement
 #define MONS_PATROLZOID		360
 #define MONS_METALPUMPKIN	361
 #define MONS_KABOOMKIN		362
@@ -428,36 +428,54 @@
 #define MONS_PYGMYFIRE  	386
 #define MONS_ATOMICZOMB  	387
 #define MONS_DEATHBURNER	388
-#define MONS_MECHACOUNT		389
+#define MONS_LUNAMECHA		389
 #define MONS_YOUNGLOONY		390 //playable loonyland loony
-#define MONS_PATCH7			391
+#define MONS_PATCH7			391 //flying pumpkin patch
 #define MONS_GOURD			392
-#define MONS_ESHKAH			393
+#define MONS_ESHKAH			393 //bonus boss
 #define MONS_ROCKGUARD		394
 #define MONS_STKSNOW		395
-#define MONS_STKFISH  		396
+#define MONS_STKFISH  		396 //implement
 #define MONS_YERFBOSS  		397
-#define MONS_IMITATER  		398
+#define MONS_IMITATER  		398 //secret final boss
 #define MONS_SPHINX2  		399
 #define MONS_THING2  		400
 #define MONS_YETIX  		401
 //heres some stuff for the eldritch
-#define MONS_ELDRITCHTENT 	402
-#define MONS_ELDRITCHTENTTIP 403
+#define MONS_ELDARM1 		402
+#define MONS_ELDARM2		403
 #define MONS_THING2TENT 	404
 #define MONS_THING2TENTTIP	405
+//back to new enemies
+#define MONS_KONGOR2  		406
+#define MONS_VAMPJR			407
+#define MONS_CENTIBBODY 	408
+#define MONS_CENTIBHEAD 	409
+#define MONS_FREEZER	 	410
+#define MONS_MULTISHROOM	411
+#define MONS_MUMBLE3		412
 
+#define MONS_PUSHERH		413
+#define MONS_PUSHERV		414
+#define MONS_HEALER		  	415 // medic shroom
+#define MONS_BUDDYPUMPKIN	416 // buddy pumpkin
+#define MONS_MINECARTEVIL	417 // evil minecart
+#define MONS_BONERIDER		418 // bonehead riding cart
+#define MONS_PYGMYRIDER		419 // pygmy riding cart
+#define MONS_CHESTRIDER		420 // treasure c
+#define MONS_SUPRBOMBIE		421
 
-#define NUM_MONSTERS  406    // Can grow as needed
+#define NUM_MONSTERS  422    // Can grow as needed
 #define NUM_PROFILE_MONSTERS 211    // Do not change without redoing the profile format
 
 // fake monster codes
 #define MONS_GOODGUY	(-1)	// any goodguy
 #define MONS_BADGUY		(-2)	// any badguy
 #define MONS_ANYBODY	(-3)	// anybody
-#define MONS_NONPLAYER	(-4)	// anybody but the player
-#define MONS_TAGGED		(-5)	// the tagged monster
 #define MONS_PLAYER		(-6)	// the player
+#define MONS_NONPLAYER	(-5)	// anybody but the player
+#define MONS_TAGGED		(-4)	// the tagged monster
+#define MONS_BOSS		(-7)	// the boss
 
 // the animations
 #define ANIM_IDLE	0
@@ -469,7 +487,7 @@
 #define ANIM_A3		6
 #define ANIM_A4		7
 #define ANIM_A5		8
-#define ANIM_A6		8
+#define ANIM_A6		9
 #define NUM_ANIMS	10
 
 #define ANIM_LENGTH	64
@@ -591,8 +609,10 @@ byte MonsterFrames(dword type,byte aiType);
 word MonsterHP(dword type);
 word MonsterPoints(dword type);
 char *MonsterName(short type);
-void MonsterDraw(int x,int y,int z,dword type,dword aiType,byte seq,byte frm,byte facing,char bright,byte ouch,byte poison,byte frozen,byte weak,byte strong,byte ignited,byte special,sprite_set_t* set);
+void MonsterDraw(int x,int y,int z,dword type,dword aiType,byte seq,byte frm,byte facing,char bright,byte ouch,byte poison,byte frozen,byte weak,byte strong,byte ignited,byte confuse,byte special,sprite_set_t* set);
 void InstaRenderMonster(int x,int y,dword type,char bright,MGLDraw *mgl);
+int InstaRenderMonsterAnimated(int x,int y,dword type,char bright,MGLDraw *mgl);
+void InstaRenderMonsterAnimated2(int x,int y,dword type,char bright,int tm,MGLDraw *mgl);
 int InstaRenderScannedMonster(int x,int y,dword type,char bright,MGLDraw *mgl);
 sprite_t *GetMonsterSprite(dword type,byte seq,byte frm,byte facing);
 int RangeToTarget(Guy *me,Guy *goodguy);
@@ -865,11 +885,11 @@ void AI_MiniFrankenjulie(Guy *me,Map *map,world_t *world,Guy *goodguy);
 void AI_MechaBonkula(Guy *me,Map *map,world_t *world,Guy *goodguy);
 
 //other
-void AI_Jumpkin(Guy *me,Map *map,world_t *world,Guy *goodguy);
 void AI_CloneArmor(Guy *me,Map *map,world_t *world,Guy *goodguy);
 void AI_NightTerror(Guy *me,Map *map,world_t *world,Guy *goodguy);
 void AI_PygmyBoomer(Guy *me,Map *map,world_t *world,Guy *goodguy);
 void AI_ScreamQueen(Guy *me,Map *map,world_t *world,Guy *goodguy);
+void AI_Firedancer(Guy *me,Map *map,world_t *world,Guy *goodguy);
 void AI_GrueJr(Guy *me,Map *map,world_t *world,Guy *goodguy);
 void AI_PatrolZoid(Guy *me,Map *map,world_t *world,Guy *goodguy);
 void AI_Decoy(Guy *me,Map *map,world_t *world,Guy *goodguy);
@@ -888,18 +908,27 @@ void AI_MarshmallowMan(Guy *me,Map *map,world_t *world,Guy *goodguy);
 void AI_RollerKiller(Guy *me,Map *map,world_t *world,Guy *goodguy);
 void AI_FlyingPatch(Guy *me,Map *map,world_t *world,Guy *goodguy);
 void AI_WinterGourd(Guy *me,Map *map,world_t *world,Guy *goodguy);
+void AI_MultiShroom(Guy *me,Map *map,world_t *world,Guy *goodguy);
 void AI_StickSnowman(Guy *me,Map *map,world_t *world,Guy *goodguy);
 void AI_StickFish(Guy *me,Map *map,world_t *world,Guy *goodguy);
 void AI_Yerfboss(Guy *me,Map *map,world_t *world,Guy *goodguy);
-void AI_MechaCountess(Guy *me,Map *map,world_t *world,Guy *goodguy);
+void AI_MechaLuna(Guy *me,Map *map,world_t *world,Guy *goodguy);
 void AI_ChefLiem(Guy *me,Map *map,world_t *world,Guy *goodguy);
 void AI_CountEshkah(Guy *me,Map *map,world_t *world,Guy *goodguy);
 void AI_Shapeshifter(Guy *me,Map *map,world_t *world,Guy *goodguy);
+void AI_SuperMutantZombie(Guy *me,Map *map,world_t *world,Guy *goodguy);
+void AI_SuperBombie(Guy *me,Map *map,world_t *world,Guy *goodguy);
 
 //The upgraded
 void AI_Sphinx2(Guy *me,Map *map,world_t *world,Guy *goodguy);
 void AI_Thing2(Guy *me,Map *map,world_t *world,Guy *goodguy);
 void AI_Yeti3(Guy *me,Map *map,world_t *world,Guy *goodguy);
 void AI_SDZL2(Guy *me,Map *map,world_t *world,Guy *goodguy);
+void AI_Kongor2(Guy *me,Map *map,world_t *world,Guy *goodguy);
+
+//more new stuff
+void AI_Pusher(Guy *me,Map *map,world_t *world,Guy *goodguy);
+void AI_MinecartBad(Guy *me,Map *map,world_t *world,Guy *goodguy);
+void AI_Deadeye(Guy *me,Map *map,world_t *world,Guy *goodguy);
 
 #endif

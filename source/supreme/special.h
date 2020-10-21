@@ -43,7 +43,13 @@
 #define TRG_BULLETRECT  32  // true if there are any of bullet X in rect
 #define TRG_TIMER 		33  // true if timer equals X
 #define TRG_HURT 		34  // true if monster of type N is HURT! OUCH
-#define MAX_TRIGGER		35
+#define TRG_XTRAMODE 	35  // true if player is playing on supreme/hyper mode
+#define TRG_CONDITION 	36  // true if monster of type N at X,Y has condition M
+#define TRG_RAGED		37  // true if player has RAGED!
+#define TRG_SHOTBULLET	38  // true if shoot item/wall at X,Y but with a specific bullet.
+#define TRG_MONSAGE		39  // true if monster of type N at X,Y is M seconds old
+#define TRG_STANDTILE	40  // true if creature is standing on tile
+#define MAX_TRIGGER		41
 
 // effects
 #define EFF_NONE		0
@@ -84,8 +90,15 @@
 #define EFF_VARBAR		35	// edit the varbar below the rage bar
 #define EFF_MAKEBULLET	36	// summon a bullet at a location
 #define EFF_CHANGEBULLET	37	// change bullet of type N at X,Y (or any X,Y) to type Z, N can be any or specific, Z must be specific
-#define EFF_CHANGETIMER	38	// change timer by N
-#define EFF_MAX			39
+#define EFF_CHANGETIMER	38	// add timer by N OR set timer to N.
+#define EFF_CAMPOINT	39	// focus camera on point x,y
+#define EFF_CAMINST		40	// focus camera on monster of type N at X,Y
+#define EFF_DYNAMICCOL	41	// change color of dynamic water
+#define EFF_DYNAMICSCRN	42	// change image of dynamic water
+#define EFF_CHARTRANS	43	// transform player into monster of type N with M/M HP
+#define EFF_TAGBOSS		44	// set the target as boss
+#define EFF_GOTOMAP2	45	// just go to map N, at coords X,Y
+#define EFF_MAX			46
 
 // trigger flags
 #define TF_NOT		1	// NOT this one
@@ -113,7 +126,8 @@
 #define EVT_CHANGE		4	// a monster changed
 #define EVT_SPECIAL		5	// a special occurred
 #define EVT_GET			6	// an item was picked up
-#define MAX_EVENTTYPES	7
+#define EVT_STAND		7	// an item was picked up
+#define MAX_EVENTTYPES	8
 
 typedef struct trigger_t
 {
@@ -149,10 +163,12 @@ typedef struct sEvent_t
 	byte type;
 	int  value;	// guy #, bullet #, var #, item #
 	int  x,y;
-	byte guyType;
+	int guyType;
 	byte guyFriendly;
 	Guy *victim;
 } sEvent_t;
+
+struct world_t;
 
 void InitSpecials(special_t *list);
 void GetSpecialsFromMap(special_t *list);
@@ -193,5 +209,6 @@ void RenderSpecialXes(Map *map);
 void AdjustSpecialCoords(special_t *me,int dx,int dy);
 void AdjustSpecialEffectCoords(special_t *me,int dx,int dy);
 Guy *TaggedMonster(void);
+Guy *BossMonster(void);
 
 #endif

@@ -757,7 +757,7 @@ item_t baseItems[]={
 		30,
 		IF_PICKUP,
 		IT_PICKUP|IT_WEAPON,
-		ITR_GET,IE_WEAPON,WPN_ROCKETS,"Bionic Arm!",SND_WEAPON},
+		ITR_GET,IE_WEAPON,WPN_ROCKETS,"Rocket Launcher!",SND_WEAPON},
 	{"Super Soaker",0,-3,153,0,0,0,
 		30,
 		IF_PICKUP,
@@ -773,16 +773,16 @@ item_t baseItems[]={
 		IF_PICKUP,
 		IT_PICKUP|IT_WEAPON,
 		ITR_GET,IE_WEAPON,WPN_PUMPKIN,"Cucurbinator!",SND_WEAPON},
-	{"Death Ray",0,-3,154,0,0,0,
-		0,
-		IF_PICKUP,
-		IT_PICKUP|IT_WEAPON,
-		ITR_GET,IE_WEAPON,WPN_DEATHRAY,"Death Ray!",SND_WEAPON},
-	{"Spore Cannon",0,-3,155,0,0,0,
+	{"Doublegunner",0,-3,154,0,0,0,
 		30,
 		IF_PICKUP,
 		IT_PICKUP|IT_WEAPON,
-		ITR_GET,IE_WEAPON,WPN_SPOREGUN,"Spore Cannon!",SND_WEAPON},
+		ITR_GET,IE_WEAPON,WPN_DEATHRAY,"Doublegunner!",SND_WEAPON},
+	{"Whoopie Cushion",0,-3,155,0,0,0,
+		30,
+		IF_PICKUP,
+		IT_PICKUP|IT_WEAPON,
+		ITR_GET,IE_WEAPON,WPN_WHOOPIE,"Whoopie Cushion!",SND_WEAPON},
 	{"Abyssinator",0,-3,156,0,0,0,
 		0,
 		IF_PICKUP,
@@ -1333,7 +1333,7 @@ byte TriggerItem(Guy *me,mapTile_t *m,int x,int y)
 				PlayerHeal((byte)items[m->item].effectAmt);
 			}
 			else
-				goodguy->GetShot(0,0,-items[m->item].effectAmt,curMap,&curWorld);
+				goodguy->GetShot(0,goodguy,0,0,-items[m->item].effectAmt,curMap,&curWorld);
 			return 1;
 			break;
 		case IE_WEAPON:
@@ -1364,11 +1364,9 @@ byte TriggerItem(Guy *me,mapTile_t *m,int x,int y)
 					return 0;	// leave it on the ground
 				else
 				{
-					if(!editing && !player.cheated && verified)
+					if(!editing && !player.cheated)
 					{
 						profile.progress.keysFound+=3-player.keys[0];
-						if(profile.progress.keysFound>=100)
-							CompleteGoal(73);
 					}
 					player.keys[0]=3;
 					return 1;	// go ahead and pick it up if it's a 'multi-key' that would
@@ -1387,11 +1385,9 @@ byte TriggerItem(Guy *me,mapTile_t *m,int x,int y)
 			}
 			else
 			{
-				if(!editing && !player.cheated && verified)
+				if(!editing && !player.cheated)
 				{
 					profile.progress.keysFound+=items[m->item].effectAmt;
-					if(profile.progress.keysFound>=100)
-							CompleteGoal(73);
 				}
 				player.keys[0]+=items[m->item].effectAmt;
 			}
@@ -1404,11 +1400,9 @@ byte TriggerItem(Guy *me,mapTile_t *m,int x,int y)
 					return 0;
 				else
 				{
-					if(!editing && !player.cheated && verified)
+					if(!editing && !player.cheated)
 					{
 						profile.progress.keysFound++;
-						if(profile.progress.keysFound>=100)
-							CompleteGoal(73);
 					}
 					player.keys[1]=1;
 					return 1;
@@ -1432,11 +1426,9 @@ byte TriggerItem(Guy *me,mapTile_t *m,int x,int y)
 					return 0;
 				else
 				{
-					if(!editing && !player.cheated && verified)
+					if(!editing && !player.cheated)
 					{
 						profile.progress.keysFound++;
-						if(profile.progress.keysFound>=100)
-							CompleteGoal(73);
 					}
 					player.keys[2]=1;
 					return 1;
@@ -1460,11 +1452,9 @@ byte TriggerItem(Guy *me,mapTile_t *m,int x,int y)
 					return 0;
 				else
 				{
-					if(!editing && !player.cheated && verified)
+					if(!editing && !player.cheated)
 					{
 						profile.progress.keysFound++;
-						if(profile.progress.keysFound>=100)
-							CompleteGoal(73);
 					}
 					player.keys[3]=1;
 					return 1;
@@ -1488,11 +1478,9 @@ byte TriggerItem(Guy *me,mapTile_t *m,int x,int y)
 					return 0;
 				else
 				{
-					if(!editing && !player.cheated && verified)
+					if(!editing && !player.cheated)
 					{
 						profile.progress.keysFound++;
-						if(profile.progress.keysFound>=100)
-							CompleteGoal(73);
 					}
 					player.keys[4]=1;
 					return 1;
@@ -1516,11 +1504,9 @@ byte TriggerItem(Guy *me,mapTile_t *m,int x,int y)
 					return 0;
 				else
 				{
-					if(!editing && !player.cheated && verified)
+					if(!editing && !player.cheated)
 					{
 						profile.progress.keysFound++;
-						if(profile.progress.keysFound>=100)
-							CompleteGoal(73);
 					}
 					player.keys[5]=1;
 					return 1;
@@ -1540,17 +1526,15 @@ byte TriggerItem(Guy *me,mapTile_t *m,int x,int y)
 		case IE_LOONYKEY:
 			if(items[m->item].effectAmt>0)
 			{
-				if(!editing && (player.worldProg->keychains&KC_LOONY)==0 && verified)
+				if(!editing && (player.worldProg->keychains&KC_LOONY)==0)
 				{
 					profile.progress.loonyKeys++;
-					if(profile.progress.loonyKeys>=10)
-						CompleteGoal(72);
 				}
 				player.worldProg->keychains|=KC_LOONY;
 			}
 			else
 			{
-				if(!editing && (player.worldProg->keychains&KC_LOONY) && verified)
+				if(!editing && (player.worldProg->keychains&KC_LOONY))
 				{
 					profile.progress.loonyKeys--;
 					if(profile.progress.loonyKeysUsed>profile.progress.loonyKeys)
@@ -1635,11 +1619,11 @@ byte TriggerItem(Guy *me,mapTile_t *m,int x,int y)
 					player.keys[items[m->item].effectAmt]--;
 				m->item=ITM_NONE;
 				ScoreEvent(SE_DOOR,1);
-				if(!editing && !player.cheated && verified)
+				if(!editing && !player.cheated)
 				{
 					profile.progress.doorsOpened++;
 					if(profile.progress.doorsOpened>=100)
-						CompleteGoal(74);
+						CompleteGoal(18);
 				}
 				return 1;
 			}
@@ -1651,7 +1635,7 @@ byte TriggerItem(Guy *me,mapTile_t *m,int x,int y)
 			else
 			{
 				for(i=0;i<items[m->item].effectAmt;i++)
-					FireBullet(goodguy->x,goodguy->y,Random(8),BLT_ORBITER,1);
+					FireBullet(0,goodguy->x,goodguy->y,Random(8),BLT_ORBITER,1);
 			}
 			return 1;
 			break;
@@ -1661,7 +1645,7 @@ byte TriggerItem(Guy *me,mapTile_t *m,int x,int y)
 			else
 			{
 				for(i=0;i<items[m->item].effectAmt;i++)
-					FireBullet(goodguy->x,goodguy->y,Random(8),BLT_ORBITER2,1);
+					FireBullet(0,goodguy->x,goodguy->y,Random(8),BLT_ORBITER2,1);
 			}
 			return 1;
 			break;
@@ -1671,7 +1655,7 @@ byte TriggerItem(Guy *me,mapTile_t *m,int x,int y)
 			else
 			{
 				for(i=0;i<items[m->item].effectAmt;i++)
-					FireBullet(goodguy->x,goodguy->y,Random(8),BLT_ORBITER3,1);
+					FireBullet(0,goodguy->x,goodguy->y,Random(8),BLT_ORBITER3,1);
 			}
 			return 1;
 			break;
@@ -1681,7 +1665,7 @@ byte TriggerItem(Guy *me,mapTile_t *m,int x,int y)
 			else
 			{
 				for(i=0;i<items[m->item].effectAmt;i++)
-					FireBullet(goodguy->x,goodguy->y,Random(8),BLT_ORBITER4,1);
+					FireBullet(0,goodguy->x,goodguy->y,Random(8),BLT_ORBITER4,1);
 			}
 			return 1;
 			break;
@@ -1916,10 +1900,40 @@ byte BulletHitItem(byte bulType,mapTile_t *m,int x,int y)
 	{
 		if(TriggerItem(NULL,m,x,y))
 		{
-			if(!editing && !player.cheated && verified)
+			if(!editing && !player.cheated)
 				profile.progress.grassChopped++;
-			if(profile.progress.grassChopped>=100)
-				CompleteGoal(89);
+			if(profile.progress.grassChopped>=150)
+				CompleteGoal(36);
+
+			MakeCustomSound(items[type].sound,(x*TILE_WIDTH+TILE_WIDTH/2)*FIXAMT,(y*TILE_HEIGHT+TILE_HEIGHT/2)*FIXAMT,SND_CUTOFF,1000);
+			if(items[type].msg[0])
+				NewMessage(items[type].msg,75,0);
+		}
+	}
+	if((bulType==BLT_FLAME||bulType==BLT_FLAME2||bulType==BLT_FLAME3||bulType==BLT_FLAME4||bulType==BLT_FLAME5||
+	bulType==BLT_SITFLAME||bulType==BLT_BADSITFLAME||bulType==BLT_FLAMEWALL) && (items[type].trigger&ITR_BURNT))
+	{
+		if(TriggerItem(NULL,m,x,y))
+		{
+			if(!editing && !player.cheated)
+				profile.progress.hayBurned++;
+			if(profile.progress.hayBurned>=250)
+				CompleteGoal(35);
+
+			MakeCustomSound(items[type].sound,(x*TILE_WIDTH+TILE_WIDTH/2)*FIXAMT,(y*TILE_HEIGHT+TILE_HEIGHT/2)*FIXAMT,SND_CUTOFF,1000);
+			if(items[type].msg[0])
+				NewMessage(items[type].msg,75,0);
+		}
+	}
+	if((bulType==BLT_FREEZE||bulType==BLT_FREEZE2||bulType==BLT_ICESHARD) &&
+	(items[type].trigger&ITR_FROZEN))
+	{
+		if(TriggerItem(NULL,m,x,y))
+		{
+			if(!editing && !player.cheated)
+				profile.progress.hayBurned++;
+			if(profile.progress.hayBurned>=250)
+				CompleteGoal(35);
 
 			MakeCustomSound(items[type].sound,(x*TILE_WIDTH+TILE_WIDTH/2)*FIXAMT,(y*TILE_HEIGHT+TILE_HEIGHT/2)*FIXAMT,SND_CUTOFF,1000);
 			if(items[type].msg[0])

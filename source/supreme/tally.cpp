@@ -78,6 +78,8 @@ void InitTally(MGLDraw *mgl)
 		diffBonus=1.20f;
 	else
 		diffBonus=1.40f;
+	if (profile.hyperMode)
+		diffBonus+=diffBonus;
 
 	mgl->LastKeyPressed();
 
@@ -118,7 +120,7 @@ void InitTally(MGLDraw *mgl)
 
 void ExitTally(void)
 {
-	if(!editing && verified)
+	if(!editing)
 		profile.progress.totalCoins=totalCoins+profile.progress.coinsSpent;
 	free(backgd);
 	if(!player.cheated)

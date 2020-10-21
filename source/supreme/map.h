@@ -6,7 +6,7 @@
 #include "special.h"
 #include "legacyload.h"
 
-#define MAX_LIGHT 16
+#define MAX_LIGHT 31
 #define MIN_LIGHT -32
 
 // the maximum # of monsters you can put on the map
@@ -41,9 +41,11 @@
 #define MAP_WAVY		(1<<10)
 #define MAP_OXYGEN		(1<<11)
 #define MAP_TIMER		(1<<12)
-#define MAP_SHOWV0		(1<<13)
+#define MAP_DYWTR		(1<<13)
+#define MAP_DYLVA		(1<<14)
+#define MAP_SHOWV0		(1<<15)
 
-#define NUM_LVL_FLAGS	14
+#define NUM_LVL_FLAGS	16
 
 // map updating modes
 #define UPDATE_GAME		0

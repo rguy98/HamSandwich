@@ -14,8 +14,12 @@
 #include "shop.h"
 
 // Originally 14
-#define TRGPICKER_HEIGHT 12
-#define EFFPICKER_HEIGHT 12
+#define TRG_H 14
+#define EFF_H 14
+#define TRG_W 128
+#define EFF_W 128
+#define TRG_L 24
+#define EFF_L 24
 
 #define SMODE_NORMAL	0
 #define SMODE_USES		1
@@ -86,7 +90,7 @@ static char trigName[][32]={
 	"Have Item",
 	"Shoot Item/Wall",
 	"Monsters Alive",
-	"Kill Monster",
+	"Monster Killed",
 	"Floor Is Tile",
 	"Passed Levels",
 	"Passed Level",
@@ -114,7 +118,13 @@ static char trigName[][32]={
 	"Var Equation",
 	"Bullet In Rect",
 	"Check Timer",
-	"Check Monster Hurt",
+	"Monster Hurt",
+	"Game Mode",
+	"Monster Status",
+	"Rage Activated",
+	"Blt @ Item/Wall",
+	"Monster Age",
+	"Stand On Tile",
 };
 
 static char effName[][32]={
@@ -128,7 +138,7 @@ static char effName[][32]={
 	"Change Tiles",
 	"Summon Monster",
 	"Light/Dark",
-	"Show Pic/Movie",
+	"Show File",
 	"Change Items",
 	"Copy Map",
 	"Kill Monsters",
@@ -156,7 +166,14 @@ static char effName[][32]={
 	"Variable Bar",
 	"Summon Bullet",
 	"Change Bullet",
-	"Change Timer"
+	"Change Timer",
+	"Camera @ Point",
+	"Camera @ Monstr",
+	"DynWater Color",
+	"DynWater BMP",
+	"Transfrm Player",
+	"Mark As Boss",
+	"Goto Lvl. (NoFX)",
 };
 
 static char lvlFlagName[][16]={
@@ -172,6 +189,9 @@ static char lvlFlagName[][16]={
 	"Stealth",
 	"Wavy",
 	"Oxygen Meter",
+	"Dynamic Water",
+	"Dynamic Lava",
+	"Var 0 Bar",
 };
 
 static char wpnName[][16]={
@@ -203,9 +223,16 @@ static char wpnName[][16]={
 	"Megaphone",
 	"Cucurbinator",
 	"Death Ray",
-	"Spore Gun",
+	"Whoopie Cushion",
 	"Abyssinator",
-	"Medic Kit"};
+	"Medic Kit",
+	"Magic Wand",
+	"Burninator",
+	"B's Fav. Gun",
+	"AK-Blaster",
+	"Snow Blower",
+	"Confuse Ray",
+	"Grenadier"};
 
 static char bulletName[][32]={
 	"Anything",
@@ -299,11 +326,23 @@ static char bulletName[][32]={
 	"Black Hole",
 	"Alien Egg",
 	"Flying Pie",
-	"Red Bullet (Wave)",
+	"Red Bullet (ZigZag)",
 	"Red Bullet (CW)",
 	"Red Bullet (CCW)",
 	"Red Bullet (CW2)",
-	"Red Bullet (CCW2)"
+	"Red Bullet (CCW2)",
+	"Homing Cherry Bomb",
+	"Flame Wall",
+	"Claw Shot",
+	"Ice Shard",
+	"Hot Pants",
+	"Witch Wand",
+	"Confusion Shot",
+	"Health Spore",
+	"BIG Rock",
+	"Red Shockwave",
+	"Freeze Snowball",
+	"Evil LunaChick",
 };
 #define MAX_BULLETS MAX_BULTYPES
 
@@ -387,11 +426,11 @@ static void ChooseTriggerClick(int id)
 	mode=SMODE_PICKTRIG;
 	curTrig=(trgStart + id/100)-1;
 	prevType=spcl.trigger[curTrig].type;
-	selectY=(curTrig*38+30)-(TRGPICKER_HEIGHT*MAX_TRIGGER)/2;
+	selectY=(curTrig*38+30)-(TRG_H*TRG_L)/2;
 	if(selectY<0)
 		selectY=0;
-	if(selectY+TRGPICKER_HEIGHT*MAX_TRIGGER>475)
-		selectY=475-TRGPICKER_HEIGHT*MAX_TRIGGER;
+	if(selectY+TRG_H*MAX_TRIGGER>475)
+		selectY=475-TRG_H*TRG_L;
 }
 
 static void ChooseEffectClick(int id)
@@ -408,11 +447,11 @@ static void ChooseEffectClick(int id)
 	curEff=effStart + (id-ID_EFF0)/100;
 	prevType=spcl.effect[curEff].type;
 
-	selectY=(curEff*38+264)-(EFFPICKER_HEIGHT*EFF_MAX)/2;
+	selectY=(curEff*38+264)-(EFF_H*EFF_L)/2;
 	if(selectY<0)
 		selectY=0;
-	if(selectY+EFFPICKER_HEIGHT*EFF_MAX>475)
-		selectY=475-EFFPICKER_HEIGHT*EFF_MAX;
+	if(selectY+EFF_H*EFF_MAX>475)
+		selectY=475-EFF_H*EFF_L;
 }
 
 static void MonsterClick(int id)
@@ -453,6 +492,9 @@ static void MonsterClick(int id)
 					spcl.trigger[curTrig].value=MONS_TAGGED;
 					break;
 				case MONS_TAGGED:
+					spcl.trigger[curTrig].value=MONS_BOSS;
+					break;
+				case MONS_BOSS:
 					spcl.trigger[curTrig].value=MONS_PLAYER;
 					break;
 				case MONS_PLAYER:
@@ -481,6 +523,9 @@ static void MonsterClick(int id)
 					spcl.effect[curEff].value=MONS_TAGGED;
 					break;
 				case MONS_TAGGED:
+					spcl.effect[curEff].value=MONS_BOSS;
+					break;
+				case MONS_BOSS:
 					spcl.effect[curEff].value=MONS_PLAYER;
 					break;
 				case MONS_PLAYER:
@@ -1300,6 +1345,13 @@ static void PicNameClick(int id)
 	mode=SMODE_PICKBMP;
 	InitFileDialog("user/*.*",FM_LOAD|FM_EXIT|FM_NOWAVS,"");
 }
+static void PicNameClick2(int id)
+{
+	curEff=effStart + (id-ID_EFF0)/100;
+
+	mode=SMODE_PICKBMP;
+	InitFileDialog("user/*.*",FM_LOAD|FM_EXIT|FM_PICSONLY,"");
+}
 
 static void SongClick(int id)
 {
@@ -1311,7 +1363,6 @@ static void SongClick(int id)
 	}
 	else
 	{
-
 		mode=SMODE_PICKSONG;
 		InitFileDialog("music/*.ogg",FM_LOAD|FM_EXIT|FM_PLAYSONGS,spcl.effect[curEff].text);
 	}
@@ -1327,8 +1378,39 @@ static void DiffyClick(int id)
 	ClearButtons(id,id);
 
 	spcl.trigger[t].value++;
-	if(spcl.trigger[t].value>2)
+	if(spcl.trigger[t].value>4)
 		spcl.trigger[t].value=0;
+
+	SetupTriggerButtons(t-trgStart,(t-trgStart)*38+30);
+}
+static void ModeClick(int id)
+{
+	byte t;
+
+	MakeNormalSound(SND_MENUCLICK);
+
+	t=trgStart + id/100-1;
+	ClearButtons(id,id);
+
+	spcl.trigger[t].value++;
+	if(spcl.trigger[t].value2>2)
+		spcl.trigger[t].value2=0;
+
+	SetupTriggerButtons(t-trgStart,(t-trgStart)*38+30);
+}
+
+static void CondClick(int id)
+{
+	byte t;
+
+	MakeNormalSound(SND_MENUCLICK);
+
+	t=trgStart + id/100-1;
+	ClearButtons(id,id);
+
+	spcl.trigger[t].value++;
+	if(spcl.trigger[t].value2>5)
+		spcl.trigger[t].value2=0;
 
 	SetupTriggerButtons(t-trgStart,(t-trgStart)*38+30);
 }
@@ -1612,6 +1694,7 @@ static void SetupTriggerButtons(int t,int y)
 			else
 				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+7+100*t,0,404,y+17,80,14,"Exactly",LessMoreClick);
 			break;
+		case TRG_STANDTILE:
 		case TRG_STEPTILE:
 			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+0+100*t,0,40,y+17,1,1,"If",NULL);
 			MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,55,y+17,140,14,MonsterName(trigger.value),MonsterClick);
@@ -1830,7 +1913,7 @@ static void SetupTriggerButtons(int t,int y)
 			else
 				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+4+100*t,0,294+24,y+17,80,14,"Exactly",LessMoreClick);
 			break;
-		case TRG_HURT:
+		case TRG_HURT: //Hurt
 			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+0+100*t,0,40,y+17,1,1,"If",NULL);
 			MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,60,y+17,140,14,MonsterName(trigger.value),MonsterClick);
 			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+2+100*t,0,204,y+17,1,1,"at",NULL);
@@ -1840,6 +1923,68 @@ static void SetupTriggerButtons(int t,int y)
 				sprintf(s,"%d, %d",trigger.x,trigger.y);
 			MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+3+100*t,0,230,y+17,70,14,s,XY3Click);
 			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+4+100*t,0,304,y+17,1,1,"is hurt",NULL);
+			break;
+		case TRG_XTRAMODE: //hyper/supreme mode
+			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+0+100*t,0,40,y+17,1,1,"If gamemode",NULL);
+			if(trigger.value==0)
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,150,y+17,80,14,"Hyper",ModeClick);
+			else if(trigger.value==1)
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,150,y+17,80,14,"Supreme",ModeClick);
+			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+0+100*t,0,240,y+17,1,1,"is activated",NULL);
+			break;
+		case TRG_CONDITION:
+			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+0+100*t,0,40,y+17,1,1,"If",NULL);
+			MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,60,y+17,140,14,MonsterName(trigger.value),MonsterClick);
+			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+2+100*t,0,204,y+17,1,1,"at",NULL);
+			if(trigger.x==255)
+				sprintf(s,"Anywhere");
+			else
+				sprintf(s,"%d, %d",trigger.x,trigger.y);
+			MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+3+100*t,0,230,y+17,70,14,s,XY3Click);
+			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+4+100*t,0,304,y+17,1,1,"is",NULL);
+			if(trigger.value2==0)
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,316,y+17,80,14,"Poisoned",CondClick);
+			else if(trigger.value2==1)
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,316,y+17,80,14,"Frozen",CondClick);
+			else if(trigger.value2==2)
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,316,y+17,80,14,"Ignited",CondClick);
+			else if(trigger.value2==3)
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,316,y+17,80,14,"Weakened",CondClick);
+			else if(trigger.value2==4)
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,316,y+17,80,14,"Strength'd",CondClick);
+			else
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,316,y+17,80,14,"Confused",CondClick);
+			break;
+		case TRG_RAGED:
+			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+0+100*t,0,40,y+17,1,1,"If the player is raging",NULL);
+			break;
+		case TRG_SHOTBULLET:
+			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+0+100*t,0,40,y+17,1,1,"If item/wall at",NULL);
+			sprintf(s,"%d, %d",trigger.x,trigger.y);
+			MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,150,y+17,70,14,s,XYClick);
+			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+2+100*t,0,224,y+17,1,1,"is hit by",NULL);
+			MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,316,y+17,140,14,bulletName[trigger.value],Bullet1Click);
+			break;
+		case TRG_MONSAGE:
+			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+0+100*t,0,40,y+17,1,1,"If",NULL);
+			MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+1+100*t,0,60,y+17,140,14,MonsterName(trigger.value),MonsterClick);
+			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+2+100*t,0,204,y+17,1,1,"at",NULL);
+			if(trigger.x==255)
+				sprintf(s,"Anywhere");
+			else
+				sprintf(s,"%d, %d",trigger.x,trigger.y);
+			MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+3+100*t,0,230,y+17,70,14,s,XY3Click);
+			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+4+100*t,0,304,y+17,1,1,"is",NULL);
+			sprintf(s,"%0.2f",(float)trigger.value2/30.0f);
+			MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+5+100*t,0,330,y+17,40,14,s,Float3Click);
+			MakeButton(BTN_STATIC,ID_TRIG0+OFS_CUSTOM+6+100*t,0,374,y+17,1,1,"seconds",NULL);
+
+			if(trigger.flags&TF_LESS)
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+7+100*t,0,462,y+17,80,14,"Or Less",LessMoreClick);
+			else if(trigger.flags&TF_MORE)
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+7+100*t,0,462,y+17,80,14,"Or More",LessMoreClick);
+			else
+				MakeButton(BTN_NORMAL,ID_TRIG0+OFS_CUSTOM+7+100*t,0,462,y+17,80,14,"Exactly",LessMoreClick);
 			break;
 	}
 }
@@ -1892,6 +2037,7 @@ static void SetupEffectButtons(int t,int y)
 			MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+3+100*t,0,422,y+17,70,14,s,XY2Click);
 			break;
 		case EFF_GOTOMAP:
+		case EFF_GOTOMAP2:
 			MakeButton(BTN_STATIC,ID_EFF0+OFS_CUSTOM+0+100*t,0,40,y+17,1,1,"Go to",NULL);
 			sprintf(s,"%s",EditorGetWorld()->map[effect.value]->name);
 			MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+1+100*t,0,100,y+17,200,14,s,LevelNameClick);
@@ -2228,6 +2374,16 @@ static void SetupEffectButtons(int t,int y)
 			else
 				sprintf(s,"%d, %d",effect.x,effect.y);
 			MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+3+100*t,0,268,y+17,70,14,s,XY3Click);
+		case EFF_TAGBOSS:
+			MakeButton(BTN_STATIC,ID_EFF0+OFS_CUSTOM+0+100*t,0,40,y+17,1,1,"Mark",NULL);
+			MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+1+100*t,0,104,y+17,140,14,MonsterName(effect.value),MonsterClick);
+			MakeButton(BTN_STATIC,ID_EFF0+OFS_CUSTOM+2+100*t,0,248,y+17,1,1,"at",NULL);
+			if(effect.x==255)
+				strcpy(s,"Anywhere");
+			else
+				sprintf(s,"%d, %d",effect.x,effect.y);
+			MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+3+100*t,0,268,y+17,70,14,s,XY3Click);
+			MakeButton(BTN_STATIC,ID_EFF0+OFS_CUSTOM+0+100*t,0,343,y+17,1,1,"as boss.",NULL);
 			break;
 		case EFF_MONSITEM:
 			MakeButton(BTN_STATIC,ID_EFF0+OFS_CUSTOM+0+100*t,0,50,y+17,1,1,"Give",NULL);
@@ -2449,6 +2605,55 @@ static void SetupEffectButtons(int t,int y)
 			sprintf(s,"%d",effect.value);
 			MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+5+100*t,0,80,y+17,40,14,s,NumberClick);
 			MakeButton(BTN_STATIC,ID_EFF0+OFS_CUSTOM+0+100*t,0,128,y+17,1,1,"second(s) to the timer",NULL);
+			break;
+		case EFF_CAMPOINT:
+			MakeButton(BTN_STATIC,ID_EFF0+OFS_CUSTOM+0+100*t,0,40,y+17,60,14,"Focus camera on",NULL);
+				sprintf(s,"%d, %d",effect.x,effect.y);
+			MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+3+100*t,0,258,y+17,70,14,s,XY3Click);
+			break;
+		case EFF_CAMINST:
+			MakeButton(BTN_STATIC,ID_EFF0+OFS_CUSTOM+0+100*t,0,40,y+17,60,14,"Focus camera on",NULL);;
+			MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+1+100*t,0,94,y+17,140,14,MonsterName(effect.value),MonsterClick);
+			MakeButton(BTN_STATIC,ID_EFF0+OFS_CUSTOM+2+100*t,0,238,y+17,1,1,"at",NULL);
+			if(effect.x==255)
+				strcpy(s,"Anywhere");
+			else
+				sprintf(s,"%d, %d",effect.x,effect.y);
+			MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+3+100*t,0,258,y+17,70,14,s,XY3Click);
+			break;
+		case EFF_CHARTRANS:
+			MakeButton(BTN_STATIC,ID_EFF0+OFS_CUSTOM+0+100*t,0,40,y+17,1,1,"Transform player into",NULL);
+			MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+1+100*t,0,194,y+17,140,14,MonsterName(effect.value),MonsterClick);
+			MakeButton(BTN_STATIC,ID_EFF0+OFS_CUSTOM+4+100*t,0,340,y+17,1,1,"with",NULL);
+			sprintf(s,"%d",effect.value2);
+			MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+5+100*t,0,370,y+17,40,14,s,Number2Click);
+			MakeButton(BTN_STATIC,ID_EFF0+OFS_CUSTOM+4+100*t,0,418,y+17,1,1,"HP",NULL);
+			if(effect.flags&EF_NOFX)
+				MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+6+100*t,0,520,y+17,65,14,"No FX",NoFXClick);
+			else
+				MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+6+100*t,0,520,y+17,65,14,"Play FX",NoFXClick);
+			break;
+		case EFF_DYNAMICCOL:
+			MakeButton(BTN_STATIC,ID_EFF0+OFS_CUSTOM+0+100*t,0,40,y+17,1,1,"Change color of dynamic",NULL);
+			if(effect.flags&EF_NOFX)
+				MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+6+100*t,0,226,y+17,65,14,"lava",NoFXClick);
+			else
+				MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+6+100*t,0,226,y+17,65,14,"water",NoFXClick);
+			MakeButton(BTN_STATIC,ID_EFF0+OFS_CUSTOM+0+100*t,0,300,y+17,1,1,"to color ",NULL);
+			s[1]='\0';
+			s[0]=effect.value2%256;
+			MakeButton(BTN_COLOR,ID_EFF0+OFS_CUSTOM+5+100*t,0,364,y+17,14,14,s,ColorClick1);
+			break;
+		case EFF_DYNAMICSCRN:
+			MakeButton(BTN_STATIC,ID_EFF0+OFS_CUSTOM+0+100*t,0,40,y+17,1,1,"Use image",NULL);
+			MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+1+100*t,0,114,y+17,250,14,effect.text,PicNameClick2);
+			MakeButton(BTN_STATIC,ID_EFF0+OFS_CUSTOM+2+100*t,0,369,y+17,1,1,"for",NULL);
+
+			if(effect.flags&EF_NOFX)
+				MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+8+100*t,0,395,y+17,65,14,"lava",NoFXClick);
+			else
+				MakeButton(BTN_NORMAL,ID_EFF0+OFS_CUSTOM+8+100*t,0,395,y+17,65,14,"water",NoFXClick);
+			break;
 	}
 }
 
@@ -2597,17 +2802,17 @@ void SpecialEdit_Update(int mouseX,int mouseY,MGLDraw *mgl)
 		case SMODE_PICKTRIG:
 			if(mgl->MouseDown())
 			{
-				if((mouseY-selectY)/TRGPICKER_HEIGHT>=MAX_TRIGGER)
-					spcl.trigger[curTrig].type=TRG_NONE;
+				if(((mouseY-selectY)/TRG_H + floor((mouseX-40)/TRG_W)*TRG_L)<MAX_TRIGGER)
+					spcl.trigger[curTrig].type=(mouseY-selectY)/TRG_H + floor((mouseX-40)/TRG_W)*TRG_L;
 				else
-					spcl.trigger[curTrig].type=(mouseY-selectY)/TRGPICKER_HEIGHT;
+					spcl.trigger[curTrig].type=TRG_NONE;
 			}
 			else
 			{
-				if((mouseY-selectY)/TRGPICKER_HEIGHT>=MAX_TRIGGER)
-					spcl.trigger[curTrig].type=TRG_NONE;
+				if(((mouseY-selectY)/TRG_H + floor((mouseX-40)/TRG_W)*TRG_L)<MAX_TRIGGER)
+					spcl.trigger[curTrig].type=(mouseY-selectY)/TRG_H + floor((mouseX-40)/TRG_W)*TRG_L;
 				else
-					spcl.trigger[curTrig].type=(mouseY-selectY)/TRGPICKER_HEIGHT;
+					spcl.trigger[curTrig].type=TRG_NONE;
 				mode=SMODE_NORMAL;
 				if(prevType!=spcl.trigger[curTrig].type)
 				{
@@ -2628,17 +2833,17 @@ void SpecialEdit_Update(int mouseX,int mouseY,MGLDraw *mgl)
 		case SMODE_PICKEFF:
 			if(mgl->MouseDown())
 			{
-				if((mouseY-selectY)/EFFPICKER_HEIGHT>=EFF_MAX || (mouseY-selectY)/EFFPICKER_HEIGHT<0)
-					spcl.effect[curEff].type=EFF_NONE;
+				if(((mouseY-selectY)/EFF_H + floor((mouseX-40)/EFF_W)*EFF_L)<EFF_MAX)
+					spcl.effect[curEff].type=(mouseY-selectY)/EFF_H + floor((mouseX-40)/EFF_W)*EFF_L;
 				else
-					spcl.effect[curEff].type=(mouseY-selectY)/EFFPICKER_HEIGHT;
+					spcl.effect[curEff].type=EFF_NONE;
 			}
 			else
 			{
-				if((mouseY-selectY)/EFFPICKER_HEIGHT>=EFF_MAX || (mouseY-selectY)/EFFPICKER_HEIGHT<0)
-					spcl.effect[curEff].type=EFF_NONE;
+				if(((mouseY-selectY)/EFF_H + floor((mouseX-40)/EFF_W)*EFF_L)<EFF_MAX)
+					spcl.effect[curEff].type=(mouseY-selectY)/EFF_H + floor((mouseX-40)/EFF_W)*EFF_L;
 				else
-					spcl.effect[curEff].type=(mouseY-selectY)/EFFPICKER_HEIGHT;
+					spcl.effect[curEff].type=EFF_NONE;
 				mode=SMODE_NORMAL;
 				if(prevType!=spcl.effect[curEff].type)
 					DefaultEffect(&spcl.effect[curEff],spcl.x,spcl.y,(byte)(spcl.trigger[curEff].type==TRG_EQUATION || spcl.trigger[curEff].type==TRG_EQUVAR));
@@ -2768,7 +2973,7 @@ void SpecialEdit_Key(char k)
 void SpecialEdit_Render(int mouseX,int mouseY,MGLDraw *mgl)
 {
 	char s[16];
-	int i;
+	int i,j;
 
 	mgl->ClearScreen();
 
@@ -2832,23 +3037,31 @@ void SpecialEdit_Render(int mouseX,int mouseY,MGLDraw *mgl)
 			RenderTextDialog(mouseX,mouseY,mgl);
 			break;
 		case SMODE_PICKTRIG:
-			DrawFillBox(40,selectY,200,selectY+MAX_TRIGGER*TRGPICKER_HEIGHT+2,0);
-			DrawBox(40,selectY,200,selectY+MAX_TRIGGER*TRGPICKER_HEIGHT+2,31);
-			for(i=0;i<MAX_TRIGGER;i++)
+			DrawFillBox(40,selectY,40+floor(MAX_TRIGGER/TRG_L)*TRG_W+TRG_W,selectY+TRG_L*TRG_H+2,0);
+			DrawBox(40,selectY,40+floor(MAX_TRIGGER/TRG_L)*TRG_W+TRG_W,selectY+TRG_L*TRG_H+2,31);
+			for(j=0;j<floor(MAX_TRIGGER/TRG_L)+1;j++)
 			{
-				if(spcl.trigger[curTrig].type==i)
-					DrawFillBox(41,selectY+1+i*TRGPICKER_HEIGHT,199,selectY+1+i*TRGPICKER_HEIGHT+TRGPICKER_HEIGHT,32*1+8);
-				Print(42,selectY+2+i*TRGPICKER_HEIGHT,trigName[i],0,1);
+				for(i=0;i<TRG_L;i++)
+				{
+					if(spcl.trigger[curTrig].type==j*TRG_L+i)
+						DrawFillBox(40+TRG_W*j+1,selectY+1+i*TRG_H,40+TRG_W*(j+1)-1,selectY+1+i*TRG_H+TRG_H,32*1+8);
+					if(j*TRG_L+i < MAX_TRIGGER)
+					Print(40+TRG_W*j+2,selectY+2+i*TRG_H,trigName[j*TRG_L+i],0,1);
+				}
 			}
 			break;
 		case SMODE_PICKEFF:
-			DrawFillBox(40,selectY,200,selectY+EFF_MAX*EFFPICKER_HEIGHT+2,0);
-			DrawBox(40,selectY,200,selectY+EFF_MAX*EFFPICKER_HEIGHT+2,31);
-			for(i=0;i<EFF_MAX;i++)
+			DrawFillBox(40,selectY,40+floor(EFF_MAX/EFF_L)*EFF_W*2,selectY+EFF_L*EFF_H+2,0);
+			DrawBox(40,selectY,40+floor(EFF_MAX/EFF_L)*EFF_W*2,selectY+EFF_L*EFF_H+2,31);
+			for(j=0;j<floor(EFF_MAX/EFF_L)+1;j++)
 			{
-				if(spcl.effect[curEff].type==i)
-					DrawFillBox(41,selectY+1+i*EFFPICKER_HEIGHT,199,selectY+1+i*EFFPICKER_HEIGHT+EFFPICKER_HEIGHT,32*1+8);
-				Print(42,selectY+2+i*EFFPICKER_HEIGHT,effName[i],0,1);
+				for(i=0;i<EFF_L;i++)
+				{
+					if(spcl.effect[curEff].type==j*EFF_L+i)
+						DrawFillBox(40+EFF_W*j+1,selectY+1+i*EFF_H,40+EFF_W*(j+1)-1,selectY+1+i*EFF_H+EFF_H,32*1+8);
+					if(j*EFF_L+i < EFF_MAX)
+					Print(40+EFF_W*j+2,selectY+2+i*EFF_H,effName[j*EFF_L+i],0,1);
+				}
 			}
 			break;
 		case SMODE_HELP:

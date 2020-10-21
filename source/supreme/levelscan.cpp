@@ -20,6 +20,10 @@ static char lvlFlagName[][16]={
 	"Underwater",
 	"Underlava",
 	"Stealth",
+	"Dumb Side",
+	"Oxygen Meter",
+	"Dynamic Water",
+	"Dynamic Lava",
 };
 
 static char wpnName[][32]={
@@ -51,9 +55,16 @@ static char wpnName[][32]={
 	"Megaphone",
 	"Cucurbinator",
 	"Death Ray",
-	"Spore Gun",
+	"Whoopie Cushion",
 	"Abyssinator",
-	"Medic Kit"};
+	"Medic Kit",
+	"Magic Wand",
+	"Burninator",
+	"B's Fav. Gun",
+	"AK-Blaster",
+	"Snow Blower",
+	"Confuse Ray",
+	"Grenadier"};
 
 static char bulletName[][32]={
 	"None",
@@ -147,11 +158,23 @@ static char bulletName[][32]={
 	"Black Hole",
 	"Alien Egg",
 	"Flying Pie",
-	"Red Bullet (Wave)",
+	"Red Bullet (ZigZag)",
 	"Red Bullet (CW)",
 	"Red Bullet (CCW)",
 	"Red Bullet (CW2)",
-	"Red Bullet (CCW2)"
+	"Red Bullet (CCW2)",
+	"Homing Cherry Bomb",
+	"Flame Wall",
+	"Claw Shot",
+	"Ice Shard",
+	"Hot Pants",
+	"Witch Wand",
+	"Confusion Shot",
+	"Health Spore",
+	"BIG Rock",
+	"Red Shockwave",
+	"Freeze Snowball",
+	"Evil LunaChick",
 };
 
 void PrintFX(word flags)
@@ -392,6 +415,7 @@ void Scan_Effect(world_t *world,Map *map,int num,effect_t *me)
 			fprintf(scanF,"Win level and go to \"%s\" at (%03d,%03d)\n",world->map[me->value]->name,me->x,me->y);
 			break;
 		case EFF_GOTOMAP:
+		case EFF_GOTOMAP2:
 			fprintf(scanF,"Go to level \"%s\" at (%03d,%03d)\n",world->map[me->value]->name,me->x,me->y);
 			break;
 		case EFF_TELEPORT:
@@ -559,6 +583,9 @@ void Scan_Effect(world_t *world,Map *map,int num,effect_t *me)
 			break;
 		case EFF_TAGMONS:
 			fprintf(scanF,"Tag %s at (%03d,%03d)\n",MonsterName(me->value),me->x,me->y);
+			break;
+		case EFF_TAGBOSS:
+			fprintf(scanF,"Mark as boss: %s at (%03d,%03d)\n",MonsterName(me->value),me->x,me->y);
 			break;
 		case EFF_MONSITEM:
 			fprintf(scanF,"Give %s at (%03d,%03d) the item ",MonsterName(me->value),me->x,me->y);

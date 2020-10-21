@@ -1455,109 +1455,109 @@ char monsNotes[NUM_MONSTERS][1024]={
 	"DANGER: Do not use unless you know what you are doing! "
 	"This is the dummy monster for the playable Kid Mystic.",
 	//eye guy
-	"Retro Sez: He's got a lot of eyes, that's for certain. A little-known fact about these guys is that they can also ",
+	"He's got a lot of eyes, that's for certain. A little-known fact about these guys is that they can also ",
 	"be found in Eddie Galaxy, as can a few other enemies. However, his original debut was in Kid Mystic. In SWC 8.1, "
 	"the yellow wave Eye Guys shoot has a chance at dealing the 'weakness' status effect (which makes you take extra damage!) "
 	"I think it's a good way at introducing a new concept while spicing up an old enemy."
 	//oculoid
-	"Retro Sez: When I tested out the Oculoid enemy, I found that they stick to eachother after a while. Hopefully they "
+	"When I tested out the Oculoid enemy, I found that they stick to eachother after a while. Hopefully they "
 	"don't do that for you, because that's really annoying. I don't understand how these guys can float in mid air, but "
 	"then again this game has very little logic to it. The eye-based enemies have these really abstract yet cool designs.",
 	//the rook
-	"Retro Sez: One of my favorite enemies. The idea of a giant tower with dopey cartoonish eyes is definitely amusing. I'd "
+	"One of my favorite enemies. The idea of a giant tower with dopey cartoonish eyes is definitely amusing. I'd "
 	"argue it's better than the Super Zombie since it has more versatility and doesn't unconditionally drop brains on death. "
 	"That grenade lobbing attack can also be pretty scary too. They're called 'The Rook' since 'Tower Guardian' just seemed "
 	"a little lacking in pizazz.",
 	//the lookey-loo
-	"Retro Sez: Before SWC 8.0, you could recreate The Lookey-Loo to some degree by replacing Matilda's Skull with the correct .jsp; "
+	"Before SWC 8.0, you could recreate The Lookey-Loo to some degree by replacing Matilda's Skull with the correct .jsp; "
 	"however, it just wasn't the same. It's nice to actually have this boss in Supreme without any gimmicks or smoke and mirrors. "
 	"As I know how non-threatening The Lookey-Loo's attack pool is, I've made it so they start spewing bullets after losing health. "
 	"That should make them harder, right?",
 	//pinkeye
-	"Retro Sez: These guys are the only vulnerable monster that can never truly die; if you kill them, they'll just come back seconds "
+	"These guys are the only vulnerable monster that can never truly die; if you kill them, they'll just come back seconds "
 	"later. You can only kill them via special triggers. They're meant to accompany the Lookey-Loo as a way to give it extra firepower. "
 	"It definitely works, I'd say!",
 	//microfish
-	"Retro Sez: The smallest enemy. It's near impossible to hit a Microfish, let alone notice it - it's just two pixels! "
+	"The smallest enemy. It's near impossible to hit a Microfish, let alone notice it - it's just two pixels! "
 	"Make sure the player can actually see them, otherwise don't give them items necessary for completing the level.",
 	//grumpy golem
-	"Retro Sez: Unlike in Kid Mystic, Grumpy Golems don't take damage on their own, making them more formidable to enemies and and useful "
+	"Unlike in Kid Mystic, Grumpy Golems don't take damage on their own, making them more formidable to enemies and and useful "
 	"to the player. Their ground pound attack is pretty strong; it can deal a lot of damage to a lot of enemies, thus it's important not to "
 	"overuse them. ",
 	//bobby khan
-	"Retro Sez: The final boss for Kid Mystic has arrived! He's like the Super Duper Zombie, but with a more dangerous "
+	"The final boss for Kid Mystic has arrived! He's like the Super Duper Zombie, but with a more dangerous "
 	"range of attacks. That sword of his covers a lot of distance. Don't let him use his shield either, or he'll turn "
 	"your projectiles into dangerous floating grenade shots! As long as you keep your distance and use the same strats "
 	"for the SDZ, however, he's not impossible.",
 	//crazy bush
-	"Retro Sez: This was the first enemy I tried implementing into Dr. Lunatic. It's a fun, simple enemy that stands out "
+	"This was the first enemy I tried implementing into Dr. Lunatic. It's a fun, simple enemy that stands out "
 	"well! I love how it just runs towards you, and how it can be led to pushing buttons and what-not. Definitely useful "
 	"for puzzles or a simple chase.",
 	//octon
-	"Retro Sez: Dr. Lunatic got Aquazoids, and Kid Mystic got them alongside Octons. They're a bit snazzier than zoids, "
+	"Dr. Lunatic got Aquazoids, and Kid Mystic got them alongside Octons. They're a bit snazzier than zoids, "
 	"having more sound effects, more opportunities to fire bullets, and the ability to regain health while underwater. "
 	"Their only downside is the lack of variance, seeing that there's only one Octon and many types of zoids.",
 	//blockhead
-	"Retro Sez: Not much to say on these guys. They're blockheads because they're shaped like blocks... funny, right? "
+	"Not much to say on these guys. They're blockheads because they're shaped like blocks... funny, right? "
 	"I'd say the Blockhead is a more low-tech and rustic MiniBot, though they merely try to overwhelm you in small numbers. "
 	"Their alternative name (according to the files!) is 'Incabot', as in the 'Incan Empire'. Pretty neat!",
 	//blockhead kiln
-	"(bby) Retro Sez: How's a blockhead made? Not with a factory, but with a kiln! As kilns are used to fire pottery, the "
+	"(bby) How's a blockhead made? Not with a factory, but with a kiln! As kilns are used to fire pottery, the "
 	"name of this 'monster' implies that yes, Blockheads are made of clay. Though considering the appearance of the Blockhead, "
 	"this revelation isn't too shocking. Also, they make this really cool clanging noise.",
 	//megablockhead h
-	"Retro Sez: Before Patrol Mumbles, there were Megablockheads. Unlike their successors, Megablockheads cannot die normally and "
+	"Before Patrol Mumbles, there were Megablockheads. Unlike their successors, Megablockheads cannot die normally and "
 	"fire a VERY deadly laser. Luckily, their field of view allows you a split second to turn the other way before their "
 	"death ray obliterates you. They can also see through walls, because they're just that strong. Blocko knows how to make "
 	"some really strong soldiers, after all.",
 	//megablockhead v
-	"Retro Sez: These Megablockheads go up and down instead of left and right. Oh, and did you know these are named 'Incagold' "
+	"These Megablockheads go up and down instead of left and right. Oh, and did you know these are named 'Incagold' "
 	"in the files? It's possible they could be made out of some sort of gold, though canon Kid Mystic lore is unfortunately "
 	"scarce.",
 	//log
-	"Retro Sez: This was the hardest of the Kid Mystic 'monsters' to port, as I had to make it so the game defines it as a "
+	"This was the hardest of the Kid Mystic 'monsters' to port, as I had to make it so the game defines it as a "
 	"vehicle akin to the raft. Speaking of the raft, this is a raft that continuously goes downwards. They don't crash manually, "
 	"allowing level creators to dictate where they self-destruct. However, they are coded to drop you off once there's a "
 	"non-aquatic tile in front of it; after this, they become unridable until there's available space to ride.",
 	//blocko
-	"Retro Sez: I almost didn't code Blocko in because he kept crashing my game while playtesting - luckily, this was resolved "
+	"I almost didn't code Blocko in because he kept crashing my game while playtesting - luckily, this was resolved "
 	"within the same day. He's a rather simple boss, moving back and forth while repeating the same three attacks. Not so "
 	"great if that's all he can muster, honestly.",
 	//blocko the tongue
-	"Retro Sez: This is Blocko the Great's tongue. Do NOT use it as a standalone monster, "
+	"This is Blocko the Great's tongue. Do NOT use it as a standalone monster, "
 	"or else it WILL crash the game upon starting the level. I don't know why you'd "
 	"even want to use it when the Loonybot 5000 core is much better.",
 	//peeping bomb 1
-	"Retro Sez: Hands down my favorite Kid Mystic enemy. They're so aesthetically and mechanically weird! It slowly spins around, chasing "
+	"Hands down my favorite Kid Mystic enemy. They're so aesthetically and mechanically weird! It slowly spins around, chasing "
 	"the player if it gets in its line of view - the stealthiest enemy possible in a time before the stealth level feature existed. Even "
 	"now, however, they have purpose; they really get you to time your movement in a way Patrol Mumbles don't. ",
 	//peeping bomb 2
-	"Retro Sez: This is a Peeping Bomb that rotates in the opposite direction, more or less. Use them in tandem with "
+	"This is a Peeping Bomb that rotates in the opposite direction, more or less. Use them in tandem with "
 	"their clockwise counterparts to maximize difficulty!",
 	//trapazoid
-	"Retro Sez: Despite the name may lead you to believe, there's nothing four-sided about them. They're just a cool, "
+	"Despite the name may lead you to believe, there's nothing four-sided about them. They're just a cool, "
 	"sneaky version of everyone's favorite serpent.",
 	//trapazoid strong
-	"Retro Sez: Originally, this was going to be an invulnerable form of the Trapezoid before I realized that I only needed "
+	"Originally, this was going to be an invulnerable form of the Trapezoid before I realized that I only needed "
 	"one monster slot. Thus, I thought it'd be nice to have a stronger version of the Trapazoid - for the more daring "
 	"level builders. ",
 	//whackazoid
-	"Retro Sez: They're Trapazoids solely meant for whacking... 'tis quite a terrible existence they lead. In Kid Mystic, "
+	"They're Trapazoids solely meant for whacking... 'tis quite a terrible existence they lead. In Kid Mystic, "
 	"Whackazoids only appear in one secret-ish level, if I recall correctly. They have limited use as an enemy, but they're "
 	"great for Whack-a-Mole type puzzles!",
 	//slimy slug
-	"Retro Sez: Watch where you step! Slimy Slugs leave slime wherever they go. Cyan is an unusual color choice for a slug, "
+	"Watch where you step! Slimy Slugs leave slime wherever they go. Cyan is an unusual color choice for a slug, "
 	"though it's effective from a game design perspective; you'll never have difficulty telling it (or its slime) apart "
 	"from the cavern floors.",
 	//sniper snail
-	"Retro Sez: Easy to defeat as long as you don't get too close. They're invincible when hidden by their shell, therefore "
+	"Easy to defeat as long as you don't get too close. They're invincible when hidden by their shell, therefore "
 	"they can only be attacked from afar. ",
 	//smashball
-	"Retro Sez: Smashballs are pretty fun to use! It's basically Pong, but with a ball that explodes if it touches water or "
+	"Smashballs are pretty fun to use! It's basically Pong, but with a ball that explodes if it touches water or "
 	"lava. In Kid Mystic, they outright killed you when this happened; now, you can recreate the effect with special effects "
 	"if you so desire. Just remember that you can only bounce these Smashballs upwards.",
 	//optimum octon
-	"Retro Sez: 'Optimum' means best, and boy does he live up to his name. Place him in a watery arena where the player can't "
+	"'Optimum' means best, and boy does he live up to his name. Place him in a watery arena where the player can't "
 	"escape those eight tentacles and he's a force to be reckoned with, as far as first-world bosses go. Attack the tentacles "
 	"one at a time before taking on the Optimum Octon, else you'll likely be overwhelmed.",
 	//octentacle left
@@ -1567,424 +1567,40 @@ char monsNotes[NUM_MONSTERS][1024]={
 	"DANGER: Do not use unless you know what you are doing! "
 	"This is the right tentacle used by the Optimum Octon.",
 	//rammy gruff
-	"Retro Sez: Rammy Gruff, as his name suggests, likes to ram into the player. Invincible except for a period of time "
+	"Rammy Gruff, as his name suggests, likes to ram into the player. Invincible except for a period of time "
 	"after hitting you, another monster, or an obstacle. Originally, Rammy (and Surefoot, aka Hoppy) filled up two monster "
 	"slots each due to the more limited capabilities of the Kid Mystic engine in comparison to the SWC engine. I was able "
 	"to adjust the code so that they now only take up one monster slot.",
 	//hoppy gruff
-	"Retro Sez: Originally called Surefoot Gruff! He likes to hop into the air (where he is invincible) and land with a "
+	"Originally called Surefoot Gruff! He likes to hop into the air (where he is invincible) and land with a "
 	"shockwave. Easier to avoid than the other brothers, yet can be pretty if you don't keep an eye on him. Altogether, "
-	"the Three Gruffs have 1000 HP - the same as Sven & Bjorn's combined HP.",
+	"the Three Gruffs have 1000 HP - the same as Sven & Bjorn's combined.",
 	//gruffy gruff
-	"Retro Sez: Originally called Disgruntled Gruff, but renamed because I like the name 'Gruffy' better! That's also what "
+	"Originally called Disgruntled Gruff, but renamed because I like the name 'Gruffy' better! That's also what "
 	"he's called in the files. Being the hardest of the Gruffs, Gruffy deals the most damage with his moving projectiles. "
 	"However, he's always vulnerable, thus it isn't too hard to take him out first. Hoppy and Rammy are a lot easier without "
 	"all those nasty yellow blobs floating around!",
 	//happy stick shroom
-	"Retro Sez: The Happy Stick enemies in Kid Mystic only showed up after finding all the collectibles in a chapter. Like the "
+	"The Happy Stick enemies in Kid Mystic only showed up after finding all the collectibles in a chapter. Like the "
 	"majority of the Happy Stick family, they love to spam bullets! The Happy Stick Shroom's spores cover a lot of ground, "
 	"so keep that in mind when using one in place of a regular Shroom.",
 	//happy stick spider
-	"Retro Sez: The second of the Happy Stick monsters found in Kid Mystic.",
+	"The second of the Happy Stick monsters found in Kid Mystic. I'd say these are the deadliest due to the"
+	"barrage of acid it spits.",
 	//happy stick corpse
-	"Retro Sez: The third of the Happy Stick monsters found in Kid Mystic. These guys are the coolest looking of the four, "
+	"The third of the Happy Stick monsters found in Kid Mystic. These guys are the coolest looking of the four, "
 	"in my opinion.",
 	//happy stick bat
-	"Retro Sez: The fourth and final of the Happy Stick monsters found in Kid Mystic.",
+	"The fourth and final of the Happy Stick monsters found in Kid Mystic.",
 	//happy stick dancer
-	"Retro Sez: Fun fact! Happy Stick Dancers appeared in Kid Mystic right after completing Madcap Mode, a mode where "
-	"enemies are significantly harder to defeat - think SWC's Lunatic Mode on five cups of coffee! Definitely a great "
-	"reward, as their moves were really cool. I spiced up their dancing by adding in some hops, because why not?",
+	"Fun fact! Happy Stick Dancers appeared in Kid Mystic right after completing Madcap Mode, a mode where "
+	"enemies are significantly harder to defeat - think of the old Lunatic Mode, but on five cups of coffee! Definitely a great "
+	"reward, as their moves were really cool. I spiced up their dancing by adding in some hops.",
 	
 	//sleepless hollow monsters
 	//creepy crawly
-	"Retro Sez: Basically a stronger version of the Spitter. Really helps add variety where needed! They shoot three acid "
+	"Basically a stronger version of the Spitter. Really helps add variety where needed! They shoot three acid "
 	"shots instead of one and crawl a little faster. It's a small alteration that goes a long way.",
-	//froggy
-	"Retro Sez: Before appearing in Sleepless Hollow, frogs were first found in Loonyland as \"Ribbits\". They only deal "
-	"close-range damage with their tongue and are one of the easiest enemies. However, they're pretty cute and add to the "
-	"environment, I'd say.",
-	//flying pumpkin
-	"Retro Sez: It's a pumpkin that flies and shoots flames. They were meant to be placed in the Tomb of Flames, so I guess "
-	"that's why they're red and hot.",
-	//dumble
-	"Retro Sez: Since the Dumble was merely a replacement for the Thingie, I tweaked their AI to make them a harder version "
-	"rather than a mere recolor. I'd say it works pretty well! Just remember to stand still, because their bullets only go "
-	"to the side. This only becomes a threat in the presence of non-Dumble enemies, as literally every other enemy that "
-	"shoots bullets is smart enough to fire straight forward.",
-	//glass jaw
-	"Retro Sez: Another recolor turned into a new enemy! Glass Jaws actually make glass particles when broken, similar to "
-	"Stan Glass. In addition, they're one of the few enemies that can freeze Bouapha.",
-	//toadie
-	"Retro Sez: If a Froggy isn't enough firepower for your level, try Toadies! They're like Froggies but with the addition "
-	"of bullets. The aesthetic variety helps a bit as well.",
-	//firebug
-	"Retro Sez: Another fire-themed derivative enemy! Not that I don't like them, of course. In Supreme V8, they now spit out "
-	"fire instead of regular bullets. Be careful when adding in enemies that spit fire (such as these guyg), as fire now deals "
-	"burn damage! Why was burn damage added? For a hint of realism, of course! Fire doesn't just go away on its own.",
-	//firebat
-	"Retro Sez: Fun Fact! Prior to Supreme V8, the maximum ID for enemies was 255, as Supreme used a byte system to identify "
-	"enemies. As Firebat's ID is 255, it would've been the last enemy addable. Thank goodness SpaceManiac found out how to "
-	"lengthen that limit, or else I would've added way fewer enemies to the game! Firebats are kind of bland of an enemy remix, "
-	"but they do their job well. They appeared in the Tomb of Flames in Sleepless Hollow, which featured many fire-themed enemies.",
-	//happy stick tree
-	"Retro Sez: The laziest of the Happy Stick enemies. They originally appeared in a bonus "
-	"area found in Sleepless Hollow, only shooting a stream of bullets at the player. They "
-	"pose zero threat when you're not in their line of fire; as they are trees, they cannot "
-	"chase you down! (Though some trees do that...)",
-	//funnybone
-	"Retro Sez: To make the Funnybone work, all checks involving picking up items, "
-	"opening doors, and pushing blocks had to be edited to include the Funnybone AI - just "
-	"like in Sleepless Hollow. They mimic the player's movements and can perform the same "
-	"tasks, allowing for some interesting puzzles! Unlike in Sleepless Hollow, they do not "
-	"die after a period of time and can be used as long as possible.",
-	//headless horseradish
-	"Retro Sez: It's the Headless Horseradish, the final boss of Sleepless Hollow! Unlike "
-	"before, he doesn't have an obscenely high amount of health because you're actually "
-	"meant to kill him. Watch out for those Simulated Heads, because they blow up pretty "
-	"easily. Try using them to cut down Dead Trees (if they're around!)",
-	//big head todd
-	"Retro Sez: The first of the Big Head bosses. Believe it or not, his name is actually "
-	"a reference to Big Head Todd & The Monsters moreso than The Simpsons. His graphics "
-	"are shared with Richie Lich from Spooky Castle/Dr. Lunatic/Kid Mystic and the Iron Skull.",
-	//big head rod
-	"Retro Sez: The second of the Big Head bosses. His name (and Maude's) are references "
-	"to the Flanders Family! Big Head Rod has his own AI, as he chooses to mindlessly crash " "into walls and make a trail of fire rather than just shooting projectiles and chasing "
-	"Bouapha.",
-	//big head maude
-	"Retro Sez: The third and final of the Big Head bosses. Did you know that the bodies for "
-	"this trio are actually just Loonyland Boneheads? They work better than Dr. Lunatic's "
-	"Boneheads when it comes to acting as a body.",
-	//big head bod
-	"DANGER: Do not use unless you know what you are doing! "
-	"This is the body used by the Big Head bosses.",
-	//sir spookley hauntmore
-	"Retro Sez:",
-	//sir spookley hauntmore (invincible)
-	"Retro Sez:",
-	//spark
-	"Retro Sez: Sparks like to hug walls and turn on lights. They work very well with any "
-	"puzzle involving pushing/toggling walls, providing a decent challenge for the player.",
-	//sparky
-	"SpaceManiac Sez: A less-speedy, more candle-bearing version of Speedy Gonzales. Based on "
-	"the wolves from Supreme and \"Sparky\" being a fairly common dog's name.",
-	//megaburner
-	"Retro Sez: Like a Burner, but more mega! Don't put too many in the level; the amount of "
-	"flames one spews out takes up a lot of bullet space. Typically, Only 512 bullets can " "appear on-screen at a time. This is alterable in config.txt, if I recall correctly.",
-	//iron skull
-	"Retro Sez: Instead of merely being a stronger Richie Lich, the Iron Skull now has his "
-	"own attacks! He has higher defense, but doesn't spew Megabeams. Less iron than he was "
-	"in Sleepless Hollow, but less gimmick-y!",
-	//lightswitch
-	"SpaceManiac Sez: The final of the Lightswitch enemies, the Lightswitch itself is "
-	"rendered awake by any good bullet hitting it.",
-	//unbreakable glass
-	"Retro Sez: A Stan Glass that never breaks out of his frame... Can be used to barricade "
-	"areas, I guess. Lasers will make short work of him.",
-	//mad cow
-	"Retro Sez: One of the few actually somewhat original enemies that came out of Sleepless "
-	"Hollow, though they did originate from Scarecrow: Heart of Straw. They're just like "
-	"Triceroids, albeit with a more cow-like aesthetic. Their moos are pretty cute! When "
-	"Mad Cows bump into hay, they will eat it - keep that in mind!",
-	//very mad cow
-	"Retro Sez: Oh no!! You've made him very angry!! Give them hay and they become Annoyed "
-	"Cows, allowing you to finish them off. Otherwise, they're very hard to defeat. In fact, "
-	"they're kind of a fire hazard!",
-	//lady von spatula
-	"Retro Sez: As she takes the spot of Countess in Sleepless Hollow, she looks identical "
-	"to the vampire matriarch. However, she has an ace up her sleeve: a bunch of royal "
-	"guards she uses to protect herself! Piercing items (e.g. Toaster, BIG Axe, Megaphone) "
-	"work best when facing the Lady.",
-	//royal guard
-	"DANGER: Do not use unless you know what you are doing! "
-	"These guys are the bodyguards to Von Spatula, and are positioned in a "
-	"loop around the Countess by a special function. Placing them manually is "
-	"a bad idea.",
-	//laser right
-	"SpaceManiac Sez: Actually called Turret in the code, the laser is one of Sleepless "
-	"Hollow's defining foes. Impenetrable except to its own beam, getting past "
-	"a laser invariably requires clever use if mirrors and/or the Lightreaver. "
-	"This specific one points down.",
-	//laser down
-	"SpaceManiac Sez: This is a [south-facing] laser. Lasers are actually one of my favorite obstacles "
-	"since they're new to Sleepless Hollow, having not previously appeared in "
-	"any Hamumu game.",
-	//laser left
-	"SpaceManiac Sez: Lasers are unique but their graphics aren't - they're actually composed "
-	"several AK-8087 bullets with adjusted glowiness, since Sleepless Hollow "
-	"doesn't make any changes to the bullet or item spritesheets.",
-	//laser up
-	"Retro Sez: Originally, Lasers were aqua-colored. I changed the color of Lasers and"
-	"their projectiles to red in Supreme V8, as red screams 'DEADLY' - which the lasers "
-	"definitely are. They can obliterate 99% of enemies in 2 seconds. Even enemies with "
-	"9999 health could theoretically be killed by a Laser in under 30 seconds.",
-	//reflection
-	"Retro Sez: Reflections can only walk, unlike Funnybones. On the other hand, they are "
-	"invincible to all attacks, giving them an edge in certain situations. They can only "
-	"mimic Bouapha's appearance, though using 'Change Monster' and 'Change Monster AI' via "
-	"specials can help with this...",
-	//the darkness
-	"SpaceManiac Sez: These guys are highly unique to Sleepless Hollow in their mechanics. "
-	"Internally they're take on the size and graphics of Bouapha himself "
-	"but render only as a black inflection on the terrain, which required "
-	"a few changes to the lighting system to work right.",
-	//scaredy bat
-	"SpaceManiac Sez: Since good old Buddy Bunnies didn't fit the Sleepless Theme, but Jamul "
-	"loves his allied creature escort missions, these guys were invented. A "
-	"bit atypically, they run away instead of towards you, useful for puzzles "
-	"where you want to require careful positioning.",
-	//blaster
-	"Retro Sez:",
-	//speedy hermandez
-	"Retro Sez:",
-	//the grue
-	"Retro Sez:",
-	//marsh marrow
-	"Retro Sez:",
-	//toad hole
-	"(bby) Retro Sez: Pumpkin Patches, but for Toadies.",
-	//beetle nest
-	"(bby) Retro Sez: These patches, beside being garishly yellow, create Beetles! Should've "
-	"been a yellow submarine instead, though that might've not fit in the Tomb of Din...",
-	//simulated head
-	"SpaceManiac Sez: The Horseradish releases these guys to pester you. They do burn down "
-	"the trees in the way of where the head is kept, so at least that's "
-	"helpful.",
-	//redbone
-	"Retro Sez:",
-	//gangrene
-	"Retro Sez:",
-	//numbskull
-	"Retro Sez:",
-	//bombie
-	"Retro Sez:",
-	//zombie lord
-	"Retro Sez:",
-	//villager male
-	"Retro Sez:",
-	//villager female
-	"Retro Sez:",
-	//croaker
-	"Retro Sez:",
-	//rag man
-	"Retro Sez:",
-	//pharaoah faucet
-	"Retro Sez:",
-	//grand pharaoh
-	"Retro Sez:",
-	//terror tree
-	"Retro Sez:",
-	//swamp stump
-	"Retro Sez:",
-	//dingbat
-	"Retro Sez:",
-	//gargoyle
-	"Retro Sez:",
-	//vamp bat
-	"Retro Sez:",
-	//dire wolf
-	"Retro Sez:",
-	//larry
-	"Retro Sez:",
-	//swampdog
-	"Retro Sez:",
-	//bog beast
-	"Retro Sez:",
-	//shambling thing
-	"Retro Sez:",
-	//shade
-	"Retro Sez:",
-	//banshee
-	"Retro Sez:",
-	//draculite
-	"Retro Sez:",
-	//vamp lord
-	"Retro Sez:",
-	//frankenjulie
-	"Retro Sez:",
-	//polterguy
-	"Retro Sez:",
-	//gusty
-	"Retro Sez:",
-	//stoney
-	"Retro Sez:",
-	//drippy
-	"Retro Sez:",
-	//toasty
-	"Retro Sez:",
-	//count bonkula
-	"Retro Sez:",
-	//evilizer
-	"Retro Sez:",
-	//steam pump
-	"Retro Sez:",
-	//agent skully
-	"Retro Sez:",
-	//summony the elder
-	"Retro Sez:",
-	//harry
-	"Retro Sez:",
-	//frogurt
-	"Retro Sez:",
-	//torture tree
-	"Retro Sez:",
-	//gasbat
-	"Retro Sez:",
-	//marsh mutt
-	"Retro Sez:",
-	//king toot
-	"Retro Sez:",
-	//ghastly stench
-	"Retro Sez:",
-	//bombie lord
-	"Retro Sez:",
-	//mutant pumpkin
-	"Retro Sez:",
-	//mini frankenjulie
-	"Retro Sez:",
-	//mecha bonkula
-	"Retro Sez:",
-	//arctic wolf
-	"Retro Sez:",
-	//grabby bat
-	"Retro Sez:",
-	//hot dog
-	"Retro Sez:",
-	//happy stick witch
-	"Retro Sez:",
-	//wolfman
-	"Retro Sez:",
-	//wild wizard
-	"Retro Sez:",
-	//jumpkin
-	"Retro Sez:",
-	//night terror
-	"Retro Sez:",
-	//revenge armor
-	"Retro Sez:",
-	//ice scream
-	"Retro Sez:",
-	//grue jr.
-	"Retro Sez:",
-	//pygmy boomeranger
-	"Retro Sez:",
-	//death cap
-	"Retro Sez:",
-	//terror brain
-	"Retro Sez:",
-	//terror stalk
-	"Retro Sez:",
-	//noodlenode
-	"Retro Sez:",
-	//sandman
-	"Retro Sez:",
-	//nasty tree
-	"Retro Sez:",
-	//deadeye
-	"Retro Sez:",
-	//peabrain
-	"Retro Sez:",
-	//anubis
-	"Retro Sez:",
-	//odd hologram
-	"Retro Sez:",
-	//crabshell
-	"Retro Sez:",
-	//patrol zoid
-	"Retro Sez:",
-	//galvigourd
-	"Retro Sez:",
-	//kaboomkin
-	"Retro Sez:",
-	//chef liem
-	"Retro Sez:",
-	//kelvizoid
-	"Retro Sez:",
-	//missizoid
-	"Retro Sez:",
-	//frozombie
-	"Retro Sez:",
-	//super mutant zombie
-	"Retro Sez:",
-	//hotfoot
-	"Retro Sez:",
-	//xeno empress
-	"Retro Sez:",
-	//xeno empress core (the main part)
-	"Retro Sez:",
-	//xeno empress tail
-	"Retro Sez:",
-	//lunachick (boss)
-	"Retro Sez:",
-	//flying zombie
-	"Retro Sez:",
-	//gingersnap
-	"Retro Sez:",
-	//atomic seal
-	"Retro Sez:",
-	//wet blanket
-	"Retro Sez:",
-	//minitilda
-	"Retro Sez:",
-	//minitilda body
-	"Retro Sez:",
-	//minitilda claw 1
-	"Retro Sez:",
-	//minitilda claw 2
-	"Retro Sez:",
-	//minitilda tail
-	"Retro Sez:",
-	//marshmallow man
-	"Retro Sez:",
-	//toasted marsh
-	"Retro Sez:",
-	//charge coil
-	"Retro Sez:",
-	//pygmy firedancer
-	"Retro Sez:",
-	//atomic zombie
-	"Retro Sez: For those who think the Super Duper Zombie is a cakewalk, here's a challenge for you!! "
-	"The Atomic Zombie is a super duper version of the original final boss, amplifying the difficulty "
-	"of the his attacks while throwing in some new ones. Walking behind this behemoth is no longer an option, "
-	"as these changes account for players who might try to cheese. He and MechaCountess (originally Countess-X) "
-	"were the first 'remixed bosses' I came up with, by the way.",
-	//deadly burner
-	"Retro Sez: With the inclusion of '360-degree flames', I wanted to add a Burner variant that showcased the "
-	"deadliness of this bullet variant. I'd say it works! It takes up more bullet slots (out of 512).",
-	//mechacountess
-	"Retro Sez:",
-	//young loony
-	"Retro Sez:",
-	//flying pumpkin patch
-	"Retro Sez:",
-	//winter gourd
-	"Retro Sez:",
-	//count eshkah
-	"Retro Sez:",
-	//deathstone
-	"Retro Sez:",
-	//happy stick snowman
-	"Retro Sez:",
-	//happy stick fish
-	"Retro Sez:",
-	//yerfdog boss
-	"Retro Sez:",
-	//the delirious
-	"Retro Sez:",
-	//the eldritch
-	"Retro Sez:",
-	//the crimson
-	"Retro Sez:",
-	//hans the unknown
-	"Retro Sez:",
-	//tentacle
-	"Retro Sez:",
-	//tentacle
-	"Retro Sez:",
-	//tentacle
-	"Retro Sez:",
-	//tentacle
-	"Retro Sez:",
 };
 
 char *MonsterNotes(dword type)

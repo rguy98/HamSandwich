@@ -158,8 +158,8 @@
 #define ITM_WATERGUN	143
 #define ITM_MEGAPHONE	144
 #define ITM_PUMPKING	145
-#define ITM_DEATHRAY	146
-#define ITM_SPOREGUN	147
+#define ITM_DOUBLEGUN	146
+#define ITM_WHOOPIE		147
 #define ITM_BLACKHOLE	148
 #define ITM_MEDICKIT	149
 
@@ -200,16 +200,18 @@
 #define IT_CUSTOM	(1<<16)	// the custom theme, "My Theme"
 
 // triggers
-#define ITR_NONE	0	// can't be triggered
-#define ITR_GET		1	// triggered on pickup
-#define ITR_SHOOT	2	// triggers when shot (must be shootable)
+#define ITR_NONE	0		// can't be triggered
+#define ITR_GET		1		// triggered on pickup
+#define ITR_SHOOT	2		// triggers when shot (must be shootable)
 #define ITR_PLAYERBUMP	4	// triggers when stepped on/bumped into by player
-#define ITR_ENEMYBUMP 8	// triggers when bumped by an enemy
+#define ITR_ENEMYBUMP 8		// triggers when bumped by an enemy
 #define ITR_FRIENDBUMP 16	// step/bump by friendly monster
-#define ITR_CHOP	32	// triggers when hit by machete or other chopper
-#define ITR_MINECART 64	// triggers when crashed into by a minecart
-#define ITR_ALWAYS	128	// triggers repeatedly, as fast as tiles animate
-#define ITR_BOMBED 256	// triggers when explodinated
+#define ITR_CHOP	32		// triggers when hit by machete or other chopper
+#define ITR_MINECART 64		// triggers when crashed into by a minecart
+#define ITR_ALWAYS	128		// triggers repeatedly, as fast as tiles animate
+#define ITR_BOMBED 256		// triggers when explodinated
+#define ITR_BURNT 512		// triggers when burnt by fire!
+#define ITR_FROZEN 1024		// triggers when burnt by fire!
 
 // effects
 // what occurs when you pick up the item if it's a pickup,
@@ -266,7 +268,9 @@
 #define PU_IGNITED	12	// ignited
 #define PU_WEAKNESS	13	// weakness
 #define PU_STRENGTH	14	// strength
-#define MAX_POWERUP 15
+#define PU_WATERWALK 15	// water walk
+#define PU_CONFUSION 16	// confusion
+#define MAX_POWERUP 17
 
 typedef struct item_t
 {
@@ -279,7 +283,7 @@ typedef struct item_t
 	word flags;		// what special flags it has
 	dword theme;		// flags for which themes it goes in
 	word trigger;	// what triggers it
-	byte effect;	// what it does when triggered
+	word effect;	// what it does when triggered
 	int effectAmt;	// a modifier for the effect
 	char msg[64];	// message when effect occurs
 	word sound;		// sound when effect occurs

@@ -5,6 +5,7 @@
 #include "jamultypes.h"
 #include <stdio.h>
 
+//s
 #define SND_NONE		0
 #define SND_MENUCLICK	51
 #define SND_MENUSELECT  1
@@ -519,32 +520,39 @@
 #define SND_COWMOO		427
 #define SND_COWOUCH		428
 #define SND_COWDIE		429
-//other
-#define SND_FRANKOUCH2 68
-#define SND_CHEER 430
-#define SND_DEATHRAY 431
-#define SND_INFERNAL 432
-#define SND_SEKRIT 433
-#define SND_BEAM2 434
-//hologram dr. lunatic
-#define SND_HOLOLAUGH 435
-#define SND_HOLOSHOOT 436
-#define SND_HOLODIE 437
-#define SND_HOLOOUCH 438
+// other
+#define SND_FRANKOUCH2 	68
+#define SND_CHEER 		430
+#define SND_DEATHRAY 	431
+#define SND_INFERNAL 	432
+#define SND_SEKRIT 		433
+#define SND_BEAM2 		434
+// hologram dr. lunatic
+#define SND_HOLOLAUGH 	435
+#define SND_HOLOSHOOT 	436
+#define SND_HOLODIE 	437
+#define SND_HOLOOUCH 	438
 #define SND_LOONYBRAINS	439
-//new sphinxter noises
+// new sphinxter noises
 #define SND_SPHINXOUCH	440
 #define SND_SPHINXDIE	441
-//yerfdog boss!
-#define SND_YERFOUCH		442
+// yerfdog boss!
+#define SND_YERFOUCH	442
 #define SND_YERFLEAVE	443
+//classic
+#define SND_PUMPKDIE	444
+#define SND_PUMPKOUCH	445
+// zombie
+#define SND_SZOMBIEOUCH	446
+#define SND_SZOMBIEDIE	447
+#define SND_SZOMBIELEAP	512
 
-#define NUM_ORIG_SOUNDS	444
-
-#define MAX_SOUNDS		512		// absolute maximum?
+#define NUM_ORIG_SOUNDS	448
+#define MAX_SOUNDS		512		// absolute maximum? @448, add sounds after 512 (513+)
 #define MAX_CUSTOM_SOUNDS 64
-
 #define CUSTOM_SND_START (MAX_SOUNDS-MAX_CUSTOM_SOUNDS)
+
+
 
 //--------------------------------
 
