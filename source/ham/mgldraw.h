@@ -28,6 +28,8 @@ struct RGB {
 };
 typedef RGB PALETTE[256];
 
+class SoftJoystick;
+
 class MGLDraw
 {
 public:
@@ -39,6 +41,9 @@ public:
 	// Get a pointer to the screen memory.
 	byte *GetScreen();
 	void ClearScreen();
+
+	// Resize the SCREEN BUFFER - does not resize the window.
+	void ResizeBuffer(int w, int h);
 
 	// Perform any necessary per-frame handling. Returns false if quit.
 	bool Process();
@@ -123,6 +128,9 @@ protected:
 	SDL_Renderer *renderer;
 	SDL_Texture *texture;
 	RGB *buffer;
+
+	friend class SoftJoystick;
+	SoftJoystick *softJoystick;
 };
 
 void FatalError(const char *msg);

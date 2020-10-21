@@ -3,6 +3,7 @@
 #include "jamulsound.h"
 #include "hammusic.h"
 #include "log.h"
+#include "softjoystick.h"
 #include <random>
 #include <algorithm>
 
@@ -18,10 +19,17 @@
 	#endif  // _WIN32
 #endif
 
+#ifdef __EMSCRIPTEN__
+	#include <emscripten.h>
+#endif  // _EMSCRIPTEN__
+
+// provided by games
 void SoundSystemExists();
+void SetGameIdle(bool idle);
+
+// in control.cpp
 void ControlKeyDown(byte scancode);
 void ControlKeyUp(byte scancode);
-void SetGameIdle(bool idle);
 
 static const RGB BLACK = {0, 0, 0, 0};
 
@@ -48,6 +56,16 @@ MGLDraw::MGLDraw(const char *name, int xRes, int yRes, bool windowed)
 {
 	_globalMGLDraw = this;
 
+#ifdef __EMSCRIPTEN__
+	// These don't actually do anything under Emscripten, and they log a debug
+	// message "Calling stub instead of sigaction()", so turn them off.
+	SDL_SetHint(SDL_HINT_NO_SIGNAL_HANDLERS, "1");
+
+	// Emscripten builds don't meaningfully receive argv, so they should not
+	// start fullscreen by default.
+	this->windowed = windowed = true;
+#endif  // __EMSCRIPTEN__
+
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK)) {
 		LogError("SDL_Init(VIDEO|JOYSTICK): %s", SDL_GetError());
 		FatalError("Failed to initialize SDL");
@@ -60,7 +78,7 @@ MGLDraw::MGLDraw(const char *name, int xRes, int yRes, bool windowed)
 	SDL_FlushEvents(SDL_FIRSTEVENT, SDL_LASTEVENT);
 #endif
 
-	if(JamulSoundInit(512))
+	if(JamulSoundInit(1024))
 		SoundSystemExists();
 
 	Uint32 flags = windowed ? 0 : SDL_WINDOW_FULLSCREEN_DESKTOP;
@@ -140,6 +158,12 @@ MGLDraw::MGLDraw(const char *name, int xRes, int yRes, bool windowed)
 	buffer = new RGB[xRes * yRes];
 	thePal = pal;
 	SeedRNG();
+
+#ifdef __ANDROID__
+	softJoystick = new SoftJoystick(this);
+#else
+	softJoystick = nullptr;
+#endif
 }
 
 MGLDraw::~MGLDraw(void)
@@ -150,6 +174,7 @@ MGLDraw::~MGLDraw(void)
 	JamulSoundExit();
 	delete[] buffer;
 	delete[] scrn;
+	delete softJoystick;
 }
 
 int MGLDraw::GetWidth()
@@ -221,25 +246,58 @@ inline void MGLDraw::StartFlip(void)
 {
 }
 
+void MGLDraw::ResizeBuffer(int w, int h)
+{
+	SDL_DestroyTexture(texture);
+	delete[] buffer;
+	delete[] scrn;
+
+	xRes = pitch = w;
+	yRes = h;
+
+	texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, xRes, yRes);
+	if (!texture) {
+		LogError("SDL_CreateTexture: %s", SDL_GetError());
+		FatalError("Failed to create texture");
+		return;
+	}
+	scrn = new byte[xRes * yRes];
+	buffer = new RGB[xRes * yRes];
+}
+
+static void TranslateKey(SDL_Keysym* sym)
+{
+	if (sym->scancode == SDL_SCANCODE_AC_BACK)
+	{
+		sym->scancode = SDL_SCANCODE_ESCAPE;
+		sym->sym = SDLK_ESCAPE;
+	}
+}
+
 void MGLDraw::FinishFlip(void)
 {
-	SDL_UpdateTexture(texture, NULL, buffer, pitch * sizeof(RGB));
-
-	SDL_RenderClear(renderer);
-	int scale = std::max(1, std::min(winWidth / xRes, winHeight / yRes));
+	float scale = std::max(1.0f, std::min((float)winWidth / xRes, (float)winHeight / yRes));
 	SDL_Rect dest = {
-		(winWidth - xRes * scale) / 2,
-		(winHeight - yRes * scale) / 2,
-		xRes * scale,
-		yRes * scale,
+		(int)((winWidth - xRes * scale) / 2),
+		(int)((winHeight - yRes * scale) / 2),
+		(int)(xRes * scale),
+		(int)(yRes * scale),
 	};
+
+	SDL_UpdateTexture(texture, NULL, buffer, pitch * sizeof(RGB));
+	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, texture, NULL, &dest);
+	if (softJoystick) {
+		softJoystick->update(this, scale);
+		softJoystick->render(renderer);
+	}
 	SDL_RenderPresent(renderer);
 	UpdateMusic();
 
 	SDL_Event e;
 	while(SDL_PollEvent(&e)) {
 		if (e.type == SDL_KEYDOWN) {
+			TranslateKey(&e.key.keysym);
 			ControlKeyDown(e.key.keysym.scancode);
 			lastRawCode = e.key.keysym.scancode;
 			if (!(e.key.keysym.sym & ~0xff))
@@ -247,6 +305,7 @@ void MGLDraw::FinishFlip(void)
 				lastKeyPressed = e.key.keysym.sym;
 			}
 
+#ifndef __EMSCRIPTEN__
 			if (e.key.keysym.scancode == SDL_SCANCODE_F11)
 			{
 				windowed = !windowed;
@@ -256,12 +315,14 @@ void MGLDraw::FinishFlip(void)
 					SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 				}
 			}
+#endif  // __EMSCRIPTEN__
 		} else if (e.type == SDL_TEXTINPUT) {
 			if (strlen(e.text.text) == 1)
 			{
 				lastKeyPressed = e.text.text[0];
 			}
 		} else if (e.type == SDL_KEYUP) {
+			TranslateKey(&e.key.keysym);
 			ControlKeyUp(e.key.keysym.scancode);
 		} else if (e.type == SDL_MOUSEMOTION) {
 			mouse_x = (e.motion.x - dest.x) / scale;
@@ -276,6 +337,8 @@ void MGLDraw::FinishFlip(void)
 				mouse_b |= flag;
 			else
 				mouse_b &= ~flag;
+		} else if (e.type == SDL_MOUSEWHEEL) {
+			mouse_z += e.wheel.y;
 		} else if (e.type == SDL_QUIT) {
 			readyToQuit = 1;
 		} else if (e.type == SDL_WINDOWEVENT) {
@@ -289,6 +352,9 @@ void MGLDraw::FinishFlip(void)
 				winWidth = e.window.data1;
 				winHeight = e.window.data2;
 			}
+		}
+		if (softJoystick) {
+			softJoystick->handle_event(this, e);
 		}
 	}
 }
